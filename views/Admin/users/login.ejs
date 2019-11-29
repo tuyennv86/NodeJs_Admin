@@ -1,0 +1,51 @@
+<div class="sufee-login d-flex align-content-center flex-wrap">
+        <div class="container">
+            <div class="login-content">
+                <% include ../../partials/backend/messages %> 
+                <!-- <div class="login-logo">
+                    <a href="index.html">
+                        <img class="align-content" src="/images/logo.png" alt="fdgf">
+                    </a>
+                </div> -->
+                <div class="login-form">
+                    <form method="POST" action="/admin" class='form-validate' id="lg">
+                        <div class="row form-group">
+                            <div class="col col-md-3"><label for="email" class=" form-control-label">Nhập Email</label></div>
+                            <div class="col-12 col-md-9"><input type="email"  placeholder="Nhập Email" id="email" name="email" data-rule-required="true" data-rule-email="true" class="form-control"></div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col col-md-3"><label for="fileImg" class=" form-control-label">Mật khẩu</label></div>
+                            <div class="col-12 col-md-9"><input type="password" class="form-control" placeholder="Nhập mật khẩu" id="password" name="password" data-rule-required="true" data-rule-minlength="6"></div>
+                        </div>
+                        <!-- <div class="form-group">
+                            <label>Nhập Email</label>
+                            <input type="email" class="form-control" placeholder="Nhập Email" id="email" name="email" data-rule-required="true" data-rule-email="true">
+                        </div>
+                            <div class="form-group">
+                                <label>Mật khẩu</label>
+                                <input type="password" class="form-control" placeholder="Nhập mật khẩu" id="password" name="password" data-rule-required="true" data-rule-minlength="6">
+                        </div> -->
+                                <!-- <div class="checkbox">
+                                    <label>
+                                <input type="checkbox"> Remember Me
+                            </label>
+                                    <label class="pull-right">
+                                <a href="#">Forgotten Password?</a>
+                            </label>
+
+                                </div> -->
+                                <button type="submit" class="btn btn-success btn-flat m-b-30 m-t-30">Đăng nhập</button>
+                                <!-- <div class="social-login-content">
+                                    <div class="social-button">
+                                        <button type="button" class="btn social facebook btn-flat btn-addon mb-3"><i class="ti-facebook"></i>Sign in with facebook</button>
+                                        <button type="button" class="btn social twitter btn-flat btn-addon mt-2"><i class="ti-twitter"></i>Sign in with twitter</button>
+                                    </div>
+                                </div>
+                                <div class="register-link m-t-15 text-center">
+                                    <p>Don't have account ? <a href="#"> Sign Up Here</a></p>
+                                </div> -->
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>

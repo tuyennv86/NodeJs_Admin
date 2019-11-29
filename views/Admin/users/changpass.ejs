@@ -1,0 +1,64 @@
+<% include ../../partials/backend/aside %> 
+<div id="right-panel" class="right-panel">
+<% include ../../partials/backend/header %>
+
+    <div class="breadcrumbs">
+        <div class="col-sm-4">
+            <div class="page-header float-left">
+                <div class="page-title">
+                    <h1>Đổi mật khẩu</h1>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-8">
+            <div class="page-header float-right">
+                <div class="page-title">
+                    <ol class="breadcrumb text-right">
+                        <li><a href="index">Trang chủ</a></li>                        
+                        <li class="active">Đổi mật khẩu</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+
+     <div class="content mt-3">
+            <div class="animated fadeIn">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <strong class="card-title">Đổi mật khẩu</strong>
+                            </div>
+                            <div class="card-body">
+                                <div class="container">
+                                    <div class="login-form">
+                                            <% include ../../partials/backend/messages %> 
+                                            <form method="POST" action="/admin/changpass" class='form-validate' id="cp">
+                                                <div class="form-group">
+                                                    <label>Mật khẩu cũ</label>
+                                                    <input type="password" class="form-control" name="oldPass" id="oldPass" placeholder="Nhập mật khẩu cũ" data-rule-required="true" value="<%= typeof oldPass != 'undefined' ? oldPass : '' %>">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>Mật khẩu</label>
+                                                    <input type="password" class="form-control" name="newPass" id="newPass" placeholder="Nhập mật khẩu mới" data-rule-required="true" data-rule-minlength="6" value="<%= typeof newPass != 'undefined' ? newPass : '' %>">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>Nhập lại mật khẩu</label>
+                                                    <input type="password" class="form-control" name="newPass2" id="newPass2" placeholder="Nhập lại mật khẩu mới" data-rule-required="true"  data-rule-minlength="6" data-rule-equalTo="#newPass" value="<%= typeof newPass2 != 'undefined' ? newPass2 : '' %>">
+                                                </div>
+                                                <button type="submit" class="btn btn-primary btn-flat m-b-30 m-t-30">Cập nhật</button>
+                                                           
+                                            </form>
+                                    </div>
+                                </div>
+                            </div>
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div><!-- .animated -->
+        </div><!-- .content -->
+
+</div>

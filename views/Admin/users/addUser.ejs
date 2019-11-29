@@ -1,0 +1,82 @@
+<% include ../../partials/backend/aside %> 
+<div id="right-panel" class="right-panel">
+<% include ../../partials/backend/header %>
+
+<div class="breadcrumbs">
+    <div class="col-sm-4">
+        <div class="page-header float-left">
+            <div class="page-title">
+                <h1>Thêm acount</h1>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-8">
+        <div class="page-header float-right">
+            <div class="page-title">
+                <ol class="breadcrumb text-right">
+                    <li><a href="index">Trang chủ</a></li>                  
+                    <li class="active">Thêm mới acount</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="content mt-3">
+    <div class="animated fadeIn">
+         <div class="card">
+                    <div class="card-header">
+                <strong>Thêm mới acount</strong> 
+            </div>
+            <div class="card-body card-block">
+            <% include ../../partials/backend/messages %>                       
+                <form action="/admin/user/add" method="post" enctype="multipart/form-data" class="form-horizontal form-validate" id="ud">                    
+                    <div class="row form-group">
+                        <div class="col col-md-3"><label class=" form-control-label">Email :</label></div>
+                        <div class="col-12 col-md-9"><input type="text" id="email" name="email" placeholder="Nhập email" class="form-control" value="<%= typeof email != 'undefined' ? email : '' %>" data-rule-required="true" data-rule-email="true"></div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col col-md-3"><label for="name" class=" form-control-label">Họ tên:</label></div>
+                        <div class="col-12 col-md-9"><input type="text" id="name" name="name" placeholder="Nhập họ tên" class="form-control" value="<%= typeof name != 'undefined' ? name : '' %>" data-rule-required="true"></div>
+                    </div>                   
+                    <div class="row form-group">
+                        <div class="col col-md-3"><label for="password" class=" form-control-label">Mật khẩu</label></div>
+                        <div class="col-12 col-md-9"><input type="password" id="password" name="password" placeholder="Mật khẩu tối thiểu 6 ký tự" class="form-control" value="<%= typeof password != 'undefined' ? password : '' %>" data-rule-required="true" data-rule-minlength="6"></div>
+                    </div>  
+                     <div class="row form-group">
+                        <div class="col col-md-3"><label for="password2" class=" form-control-label">Nhập lại mật khẩu</label></div>
+                        <div class="col-12 col-md-9"><input type="password" id="password2" name="password2" placeholder="Mật khẩu tối thiểu 6 ký tự" class="form-control" value="<%= typeof password2 != 'undefined' ? password2 : '' %>" data-rule-required="true" data-rule-minlength="6" data-rule-equalTo="#password"></div>
+                    </div>                    
+                    <div class="row form-group">
+                            <div class="col col-md-3"><label for="fileImg" class=" form-control-label">Chọn ảnh</label></div>
+                            <div class="col-12 col-md-9"><input type="file" id="fileImg" name="fileImg" class="form-control-file"></div>
+                        </div>
+                    <div class="row form-group">
+                        <div class="col col-md-3"> &nbsp; </div>
+                            <div class="col col-md-9">
+                                <div class="form-check">
+                                    <div class="checkbox">
+                                        <label for="chkActive" class="form-check-label ">
+                                            <input type="checkbox" id="chkActive" name="chkActive" class="form-check-input"> Active
+                                        </label>
+                                    </div>
+                                    <div class="checkbox">
+                                        <label for="chkAdmin" class="form-check-label ">
+                                            <input type="checkbox" id="chkAdmin" name="chkAdmin" class="form-check-input"> Admin
+                                        </label>
+                                    </div>                                   
+                                </div>
+                            </div>
+                        </div>
+                         <div class="row form-group">
+                        <div class="col col-md-3">&nbsp;</div>
+                        <div class="col-12 col-md-9"><button type="submit" class="btn btn-primary btn-sm"><i class="fa fa-plus-square-o"></i> Thêm mới</button>
+                        <a href="/admin/user/list/1" class="btn btn-danger btn-sm"><i class="fa fa-reply"></i> Quay lại</a> </div>
+                    </div> 
+                </form>
+            </div>            
+        </div>
+    </div>
+</div>
+
+</div>

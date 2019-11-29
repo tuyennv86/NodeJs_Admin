@@ -1,0 +1,91 @@
+<% include ../../partials/backend/aside %> 
+<div id="right-panel" class="right-panel">
+<% include ../../partials/backend/header %>
+
+<div class="breadcrumbs">
+    <div class="col-sm-4">
+        <div class="page-header float-left">
+            <div class="page-title">
+                <h1>Sửa acount</h1>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-8">
+        <div class="page-header float-right">
+            <div class="page-title">
+                <ol class="breadcrumb text-right">
+                    <li><a href="index">Trang chủ</a></li>                  
+                    <li class="active">Sửa acount</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="content mt-3">
+    <div class="animated fadeIn">
+         <div class="card">
+                    <div class="card-header">
+                <strong>Cập nhật user :</strong> <%= data.name %>
+            </div>
+            <div class="card-body card-block">
+                <form action="/admin/user/edit/<%= data._id%>" method="post" enctype="multipart/form-data" class="form-horizontal form-validate" id="ud">
+                    <input type="hidden" id="hidurl" name="hidurl" value="<%= url %>">
+                    <div class="row form-group">
+                        <div class="col col-md-3"><label class=" form-control-label">Email :</label></div>
+                        <div class="col-12 col-md-9">
+                            <p class="form-control-static"> <%= data.email %> </p>
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col col-md-3"><label for="name" class=" form-control-label">Họ tên:</label></div>
+                        <div class="col-12 col-md-9"><input type="text" id="name" name="name" placeholder="Nhập họ tên" class="form-control" value="<%= data.name %>" data-rule-required="true"></div>
+                    </div>                   
+                    <div class="row form-group">
+                        <div class="col col-md-3"><label for="password" class=" form-control-label">Password</label></div>
+                        <div class="col-12 col-md-9"><input type="password" id="password" name="password" placeholder="Mật khẩu tối thiểu 6 ký tự" class="form-control" data-rule-minlength="6"></div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col col-md-3"><label for="disabled-input" class=" form-control-label">Ảnh</label></div>
+                        <div class="col-12 col-md-9">
+                        <% if(data.ImageUrl != ''){%>
+                            <img src="/uploads/<%= data.ImageUrl %>" class="align-self-center rounded-circle mr-3" style="width:120px; height:120px;">
+                            <input type="hidden" id="imageUrl" name="imageUrl" value="<%= data.ImageUrl %>">
+                        <% } else{%>
+                            <input type="hidden" id="imageUrl" name="imageUrl" value="">
+                            <%}%>
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                            <div class="col col-md-3"><label for="fileImg" class=" form-control-label">Chọn ảnh</label></div>
+                            <div class="col-12 col-md-9"><input type="file" id="fileImg" name="fileImg" class="form-control-file"></div>
+                        </div>
+                    <div class="row form-group">
+                        <div class="col col-md-3"> &nbsp; </div>
+                            <div class="col col-md-9">
+                                <div class="form-check">
+                                    <div class="checkbox">
+                                        <label for="chkActive" class="form-check-label ">
+                                            <input type="checkbox" id="chkActive" name="chkActive"  class="form-check-input" <% if(data.active) {%> checked <%}%> >Active
+                                        </label>
+                                    </div>
+                                    <div class="checkbox">
+                                        <label for="chkAdmin" class="form-check-label ">
+                                            <input type="checkbox" id="chkAdmin" name="chkAdmin" class="form-check-input"<%if(data.admin){%> checked <%}%> > Admin
+                                        </label>
+                                    </div>                                   
+                                </div>
+                            </div>
+                        </div>
+                         <div class="row form-group">
+                        <div class="col col-md-3">&nbsp;</div>
+                        <div class="col-12 col-md-9"><button type="submit" class="btn btn-primary btn-sm"><i class="fa fa-refresh"></i> Cập nhật</button>
+                        <a href="/admin/<%= url %>" class="btn btn-danger btn-sm"><i class="fa fa-reply"></i> Quay lại</a> </div>
+                    </div> 
+                </form>
+            </div>            
+        </div>
+    </div>
+</div>
+
+</div>

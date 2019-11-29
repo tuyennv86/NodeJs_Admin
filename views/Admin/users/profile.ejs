@@ -1,0 +1,72 @@
+<% include ../../partials/backend/aside %> 
+<div id="right-panel" class="right-panel">
+<% include ../../partials/backend/header %>
+
+<div class="breadcrumbs">
+    <div class="col-sm-4">
+        <div class="page-header float-left">
+            <div class="page-title">
+                <h1>Quản lý tài khoản</h1>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-8">
+        <div class="page-header float-right">
+            <div class="page-title">
+                <ol class="breadcrumb text-right">
+                    <li><a href="index">Trang chủ</a></li>                  
+                    <li class="active">Quản lý tài khoản</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="content mt-3">
+    <div class="animated fadeIn">
+         <div class="card">
+                    <div class="card-header">
+                        <i class="mr-2 fa fa-align-justify"></i>
+                        <strong class="card-title">Tài khoản của bạn</strong>
+                    </div>
+                    <div class="card-body">
+
+                       <div class="container">    
+                            <div class="row">
+                            <div class="panel panel-default">                            
+                            <div class="panel-body">
+                            <div class="col-md-4 col-xs-12 col-sm-6 col-lg-4">
+                            <% if(users.ImageUrl != ''){ %> 
+                            <img src="/uploads/<%= users.ImageUrl %>" id="profile-image1" class="rounded-circle img-responsive" alt="<%= users.name %>"> 
+                            <%} else {%>
+                            <img src="/images/noimg.jpg" class="rounded-circle img-responsive" alt="<%= users.name %>"> 
+                            <%}%>
+                        
+                            </div>
+                            <div class="col-md-8 col-xs-12 col-sm-6 col-lg-8" >
+                                <div class="container" >
+                                    <h2><%= users.name %></h2><br>
+                                    <h3> <% if(users.active) { %>   <span class="ti-unlock"></span><span class="icon-name">Hoạt động</span><%} else {%><b> <span class="ti-lock"></span><span class="icon-name">Khóa</span> </b> <%}%></h3>
+                                </div>
+                                <hr>
+                                <div class="col-sm-12 col-xs-12 tital " >Email : <%= users.email %></div><br>
+                                <hr>
+                                <div class="col-sm-12 col-xs-12 tital " >Ngày tạo : <%= moment(users.date).format( 'MM/DD/YYYY, h:mm:ss a') %></div><br>  <hr>
+                                <div class="col-sm-12 col-xs-12 tital " >
+                                <form action="/admin/profile" method="post" enctype="multipart/form-data" class='form-validate' id="ui">  
+                                <div class="form-group">  
+                                    <input type="file" name="avatar" id="avatar" data-rule-required="true">
+                                    <input type="submit" value="Cập nhật ảnh" name="submit"></div>
+                                </form></div>
+                            </div>
+                       </div>
+            </div>
+            </div>
+
+                    </div>
+                </div>
+        </div>
+    </div><!-- .animated -->
+</div>
+
+</div>

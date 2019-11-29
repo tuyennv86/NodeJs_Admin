@@ -1,0 +1,35 @@
+ <div class="sufee-login d-flex align-content-center flex-wrap">
+        <div class="container">
+            <div class="login-content">
+                <div class="login-logo">
+                    <!-- <a href="index.html">
+                        <img class="align-content" src="images/logo.png" alt="">
+                    </a> -->
+                     <% include ../../partials/backend/messages %> 
+                </div>
+                <div class="login-form">
+                    <form action="/admin/dang-ky" method="POST" class='form-validate' id="rg">
+                    <div class="form-group">
+                    <label for="name">Họ tên</label>
+                    <input type="name" id="name" name="name" class="form-control" placeholder="Nhập họ tên" data-rule-required="true" value="<%= typeof name != 'undefined' ? name : '' %>" />
+                    </div>
+                    <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" class="form-control" placeholder="Nhập Email" data-rule-required="true" data-rule-email="true" value="<%= typeof email != 'undefined' ? email : '' %>"/>
+                    </div>
+                    <div class="form-group">
+                    <label for="password">Mật khẩu</label>
+                    <input type="password" id="password" name="password" class="form-control" placeholder="Nhập mật khẩu" data-rule-required="true" data-rule-minlength="6" value="<%= typeof password != 'undefined' ? password : '' %>"/>
+                    </div>
+                    <div class="form-group">
+                    <label for="password2">Nhập lại mật khẩu</label>
+                    <input type="password" id="password2" name="password2" class="form-control" placeholder="Nhập lại mật khẩu" data-rule-required="true" data-rule-minlength="6" data-rule-equalTo="#password" value="<%= typeof password2 != 'undefined' ? password2 : '' %>"/>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-block">
+                    Đăng ký
+                    </button>
+                </form>
+                </div>
+            </div>
+        </div>
+    </div>
