@@ -24,7 +24,7 @@
 
 <div class="content mt-3">
     <div class="animated fadeIn">
-            <form action="/admin/user/list/<%= current %>" method="POST" class="form-horizontal">
+            <form action="/admin/user/list/<%= current %>" method="POST" class="form-horizontal" onSubmit="if(!confirm('Bạn có muốn xóa không?')){return false;}">
          <div class="card">
                     <div class="card-header">
                         <div class="col col-md-6">

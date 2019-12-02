@@ -183,12 +183,11 @@ module.exports.listUsers = (req, res, next) =>{
 module.exports.postListUsers = (req, res, next) =>{
   const listId = req.body.checkItem;
   const page = req.params.page;
-  let messages = new Array();
+ 
   listId.forEach(function(item){
     
     User.findByIdAndDelete(item).exec(function(err, data){
-      if (err) throw err; 
-      console.log(data); 
+      if (err) return next(err);
       if(data.ImageUrl != ''){
         try {      
           fs.unlink('./public/uploads/'+data.ImageUrl, function (err) {
@@ -196,16 +195,14 @@ module.exports.postListUsers = (req, res, next) =>{
             console.log('File deleted!');
           });  
         } catch (error) {
-          console.log(error);
+          return next(error);
         }
       }     
-      messages.push(data.email);       
+      
     });
+  });  
 
-  });
-  console.log(messages);
-  
-  req.flash('success_msg', 'Bạn đã xóa các user :'+ messages +' thành công!');  
+  req.flash('success_msg', 'Bạn đã xóa các user vừa chọn thành công!');  
   res.redirect('/admin/user/list/'+page);
 
 };
@@ -297,9 +294,9 @@ module.exports.deleteUser = (req, res, next) =>{
 
   const id = req.params.id;
   const url = req.query.url;
-
-  User.findById(id).exec(function(err, data){
-    if(err) return next(err);
+ 
+  User.findByIdAndDelete(id).exec(function(err, data){
+    if (err) throw err; 
     if(data.ImageUrl != ''){
       try {
         fs.unlink('./public/uploads/'+data.ImageUrl, function (err) {
@@ -310,11 +307,7 @@ module.exports.deleteUser = (req, res, next) =>{
         console.log(error);        
       }
     }
-  });
-
-  User.findByIdAndDelete(id).exec(function(err, data){
-    if (err) throw err; 
-    req.flash('success_msg', 'Bạn đã xóa :'+ data.name +' thành công!');
+    req.flash('success_msg', 'Bạn đã xóa :'+ data.email +' thành công!');
     res.redirect('/admin/'+url);
   });
 
