@@ -9,10 +9,7 @@ const CategorySchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  parent: [{
-      type: Schema.Types.ObjectId,
-      ref: 'Category'
-    }],
+
   typeCategory: {
     type: Number,
     default:1,
@@ -21,17 +18,25 @@ const CategorySchema = new mongoose.Schema({
   imageUrl: {
     type: String,
     default : ''
+  },  
+  active :{
+    type: Boolean,
+    default : true
   },
   createDate: {
     type: Date,
     default: Date.now
   },
-  active :{
-    type: Boolean,
-    default : true
+  editDate: {
+    type: Date,
+    default: Date.now
+  },
+  createBy: {
+    type: String
+  },
+  editBy:{
+    type: String
   }
 });
 
-const Category = mongoose.model('Category', CategorySchema);
-
-module.exports = Category;
+module.exports = mongoose.model('Category', CategorySchema);

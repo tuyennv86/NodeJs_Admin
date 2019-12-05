@@ -1,12 +1,9 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const router = express.Router();
+const { isLoggedIn, notLoggedIn } = require('../../configs/auth');
+const categoryContronller = require('../../controllers/categoryController');
 
 /* GET home page. */
-router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
-});
+router.get('/', isLoggedIn, categoryContronller.index);
 
-// router.get('/login', function(req, res, next) {
-//   res.render('login', { title: 'Login CSM Admin' });
-// });
 module.exports = router;

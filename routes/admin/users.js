@@ -1,7 +1,5 @@
 const express = require('express');
 const router = express.Router();
-
-// Load User model
 const userCopntroller = require('../../controllers/userController');
 const { isLoggedIn, notLoggedIn } = require('../../configs/auth');
 
@@ -10,12 +8,6 @@ router.get('/index', isLoggedIn, userCopntroller.index);
 //login
 router.get('/', notLoggedIn, userCopntroller.login)
 .post('/', notLoggedIn, userCopntroller.postLogin);
-
-// router.get('/dang-ky', notLoggedIn, userCopntroller.register);
-
-// // Register
-// router.post('/dang-ky', notLoggedIn, userCopntroller.postRegister);
-
 // Logout
 router.get('/logout', userCopntroller.logout);
 
