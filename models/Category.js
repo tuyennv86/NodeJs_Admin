@@ -1,4 +1,6 @@
 const mongoose = require('mongoose');
+const moment = require('moment');
+const Schema = mongoose.Schema;
 
 const CategorySchema = new mongoose.Schema({
   categoryName: {
@@ -9,7 +11,13 @@ const CategorySchema = new mongoose.Schema({
     type: String,
     required: true
   },
-
+  parent: {
+    type: Schema.Types.ObjectId, ref: "Category"
+  },
+  categoryType:{
+    type:Schema.Types.ObjectId, ref: "CategoryType", 
+    required:true
+  },
   typeCategory: {
     type: Number,
     default:1,
@@ -37,6 +45,16 @@ const CategorySchema = new mongoose.Schema({
   editBy:{
     type: String
   }
+});
+
+CategorySchema.virtual('createDate_dd_mm_yyyy')
+.get(function () {
+  return moment(this.createDate).format('MM/DD/YYYY, h:mm:ss a');
+});
+
+CategorySchema.virtual('editDate_dd_mm_yyyy')
+.get(function () {
+  return moment(this.editDate).format('DD/MM/YYYY, h:mm:ss a');
 });
 
 module.exports = mongoose.model('Category', CategorySchema);

@@ -5,5 +5,6 @@ const categoryContronller = require('../../controllers/categoryController');
 
 /* GET home page. */
 router.get('/', isLoggedIn, categoryContronller.index);
+router.get('/:page', isLoggedIn, categoryContronller.index);
 
 module.exports = router;

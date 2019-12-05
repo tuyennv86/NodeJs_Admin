@@ -1,6 +1,5 @@
 const bcrypt = require('bcryptjs');
 const passport = require('passport');
-const moment = require('moment');
 const fs = require('fs');
 // Load User model
 const User = require('../models/User');
@@ -31,7 +30,7 @@ module.exports = {
   },
 
   profile : (req, res, next) =>{
-      res.render('Admin/users/profile', { title: 'Thông tin user', moment : moment});
+      res.render('Admin/users/profile', { title: 'Thông tin user'});
   },
 
   postProfile : (req, res, next) =>{
@@ -124,8 +123,7 @@ module.exports = {
           data: listUsers,
           current: page,
           pages: Math.ceil(count/perPage),
-          linkUrl: 'user/list',
-          moment : moment
+          linkUrl: 'user/list'
         });
       });
     });

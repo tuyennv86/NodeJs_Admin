@@ -74,7 +74,7 @@
                                     <td> <% if (item.admin) { %>
                                     <span class="badge badge-success"><span class="ti-check-box"></span>&nbsp; Admin</span>                                     
                                     <% } else{%><span class="badge badge-danger"><span class="ti-na"></span>&nbsp; Mod</span><%} %></td>
-                                    <td><%= moment(item.date).format( 'MM/DD/YYYY, h:mm:ss a') %>
+                                    <td><%= item.date_dd_mm_yyyy %>
                                     </td>
                                     <td>
                                         <div class="float-right">
