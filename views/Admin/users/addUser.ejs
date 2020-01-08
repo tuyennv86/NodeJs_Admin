@@ -33,23 +33,23 @@
                 <form action="/admin/user/add" method="post" enctype="multipart/form-data" class="form-horizontal form-validate" id="ud">                    
                     <div class="row form-group">
                         <div class="col col-md-3"><label class=" form-control-label">Email :</label></div>
-                        <div class="col-12 col-md-9"><input type="text" id="email" name="email" placeholder="Nhập email" class="form-control" value="<%= typeof email != 'undefined' ? email : '' %>" data-rule-required="true" data-rule-email="true"></div>
+                        <div class="col-12 col-md-9 mserro"><input type="text" id="email" name="email" placeholder="Nhập email" class="form-control" value="<%= typeof email != 'undefined' ? email : '' %>" data-rule-required="true" data-rule-email="true"></div>
                     </div>
                     <div class="row form-group">
                         <div class="col col-md-3"><label for="name" class=" form-control-label">Họ tên:</label></div>
-                        <div class="col-12 col-md-9"><input type="text" id="name" name="name" placeholder="Nhập họ tên" class="form-control" value="<%= typeof name != 'undefined' ? name : '' %>" data-rule-required="true"></div>
+                        <div class="col-12 col-md-9 mserro"><input type="text" id="name" name="name" placeholder="Nhập họ tên" class="form-control" value="<%= typeof name != 'undefined' ? name : '' %>" data-rule-required="true"></div>
                     </div>                   
                     <div class="row form-group">
                         <div class="col col-md-3"><label for="password" class=" form-control-label">Mật khẩu</label></div>
-                        <div class="col-12 col-md-9"><input type="password" id="password" name="password" placeholder="Mật khẩu tối thiểu 6 ký tự" class="form-control" value="<%= typeof password != 'undefined' ? password : '' %>" data-rule-required="true" data-rule-minlength="6"></div>
+                        <div class="col-12 col-md-9 mserro"><input type="password" id="password" name="password" placeholder="Mật khẩu tối thiểu 6 ký tự" class="form-control" value="<%= typeof password != 'undefined' ? password : '' %>" data-rule-required="true" data-rule-minlength="6"></div>
                     </div>  
                      <div class="row form-group">
                         <div class="col col-md-3"><label for="password2" class=" form-control-label">Nhập lại mật khẩu</label></div>
-                        <div class="col-12 col-md-9"><input type="password" id="password2" name="password2" placeholder="Mật khẩu tối thiểu 6 ký tự" class="form-control" value="<%= typeof password2 != 'undefined' ? password2 : '' %>" data-rule-required="true" data-rule-minlength="6" data-rule-equalTo="#password"></div>
+                        <div class="col-12 col-md-9 mserro"><input type="password" id="password2" name="password2" placeholder="Mật khẩu tối thiểu 6 ký tự" class="form-control" value="<%= typeof password2 != 'undefined' ? password2 : '' %>" data-rule-required="true" data-rule-minlength="6" data-rule-equalTo="#password"></div>
                     </div>                    
                     <div class="row form-group">
                             <div class="col col-md-3"><label for="fileImg" class=" form-control-label">Chọn ảnh</label></div>
-                            <div class="col-12 col-md-9"><input type="file" id="fileImg" name="fileImg" class="form-control-file"></div>
+                            <div class="col-12 col-md-9 mserro"><input type="file" id="fileImg" name="fileImg" class="form-control-file"></div>
                         </div>
                     <div class="row form-group">
                         <div class="col col-md-3"> &nbsp; </div>

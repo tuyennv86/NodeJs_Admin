@@ -16,6 +16,10 @@ const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/admin/users');
 const categorysRouter = require('./routes/admin/categorys');
 
+const categoryApi = require('./api/categoryApi');
+
+const categoryType = require('./models/CategoryType');
+
 const app = express();
 // Passport Config
 require('./configs/passport')(passport);
@@ -37,7 +41,7 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 
 // Express session
@@ -53,12 +57,32 @@ app.use(passport.session());
 // Connect flash
 app.use(flash());
 // Global variables
+
+app.use((req, res, next) => {     
+  res.header('Access-Control-Allow-Origin', '*'); 
+  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');     
+  next();     
+  app.options('*', (req, res) => {
+    res.header('Access-Control-Allow-Methods', 'GET, PATCH, PUT, POST, DELETE, OPTIONS');         
+    res.send();     
+  }); 
+});
+
+app.use(function (req, res, next) {
+  categoryType.find({}, function (err, categoriesType) {
+       if(err) return next(err);
+       res.locals.categoriesTypeLocal = categoriesType;
+       next();
+    });
+});
+
+
 app.use(function (req, res, next) {
   res.locals.success_msg = req.flash('success_msg');
   res.locals.error_msg = req.flash('error_msg');
   res.locals.error = req.flash('error');
   res.locals.users = req.user;
-  res.locals.title = req.title;
+  res.locals.title = req.title;  
   next();
 });
 
@@ -67,6 +91,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/admin', usersRouter);
 app.use('/admin/category',categorysRouter);
+app.use('/api/category', categoryApi);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

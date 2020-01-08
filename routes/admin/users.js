@@ -17,6 +17,7 @@ router.get('/profile', isLoggedIn, userCopntroller.profile)
 router.get('/changpass', isLoggedIn, userCopntroller.changpass)
 .post('/changpass', isLoggedIn, userCopntroller.postChangpass);
 
+router.get('/user/list', isLoggedIn, userCopntroller.listUsers)
 router.get('/user/list/:page', isLoggedIn, userCopntroller.listUsers)
 .post('/user/list/:page', isLoggedIn, userCopntroller.postListUsers);
 

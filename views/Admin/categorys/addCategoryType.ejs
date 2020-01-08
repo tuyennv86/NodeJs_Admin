@@ -1,0 +1,53 @@
+<% include ../../partials/backend/aside %> 
+<div id="right-panel" class="right-panel">
+<% include ../../partials/backend/header %>
+
+<div class="breadcrumbs">
+    <div class="col-sm-4">
+        <div class="page-header float-left">
+            <div class="page-title">
+                <h1>Thêm loại danh mục</h1>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-8">
+        <div class="page-header float-right">
+            <div class="page-title">
+                <ol class="breadcrumb text-right">
+                    <li><a href="index">Trang chủ</a></li>                  
+                    <li class="active">Thêm mới loại danh mục</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="content mt-3">
+    <div class="animated fadeIn">
+         <div class="card">
+            <div class="card-header">
+                <strong>Thêm mới loại danh mục</strong> 
+            </div>
+            <div class="card-body card-block">
+            <% include ../../partials/backend/messages %>                       
+                <form action="/admin/category/addcategorytype" method="POST" class="form-horizontal form-validate" id="ct">                    
+                    <div class="row form-group">
+                        <div class="col col-md-3"><label class=" form-control-label">Chủng loại :</label></div>
+                        <div class="col-12 col-md-9 mserro"><input type="text" id="typeName" name="typeName" placeholder="Nhập tên chủng loại" class="form-control" value="<%= typeof typeName != 'undefined' ? typeName : '' %>" data-rule-required="true"></div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col col-md-3"><label class=" form-control-label">Kiểu loại:</label></div>
+                        <div class="col-12 col-md-9 mserro"><input type="text" id="typeInt" name="typeInt" placeholder="Nhập chủng loại" class="form-control" value="<%= typeof typeInt != 'undefined' ? typeInt : '' %>" data-rule-required="true" data-rule-number="true"></div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col col-md-3">&nbsp;</div>
+                        <div class="col-12 col-md-9"><button type="submit" class="btn btn-primary btn-sm"><i class="fa fa-plus-square-o"></i> Thêm mới</button>
+                        <a href="/admin/category/categorytype" class="btn btn-danger btn-sm"><i class="fa fa-reply"></i> Quay lại</a> </div>
+                    </div> 
+                </form>
+            </div>            
+        </div>
+    </div>
+</div>
+
+</div>

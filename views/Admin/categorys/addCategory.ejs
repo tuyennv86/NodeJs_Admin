@@ -1,0 +1,151 @@
+<% include ../../partials/backend/aside %> 
+<div id="right-panel" class="right-panel">
+<% include ../../partials/backend/header %>
+
+<div class="breadcrumbs">
+    <div class="col-sm-4">
+        <div class="page-header float-left">
+            <div class="page-title">
+                <h1>Thêm mới danh mục</h1>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-8">
+        <div class="page-header float-right">
+            <div class="page-title">
+                <ol class="breadcrumb text-right">
+                    <li><a href="index">Trang chủ</a></li>                  
+                    <li class="active">Thêm mới danh mục</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="content mt-3">
+    <div class="animated fadeIn">
+         <div class="card">
+                    <div class="card-header">
+                <strong>Thêm mới danh mục</strong> 
+            </div>
+            <div class="card-body card-block">
+            <% include ../../partials/backend/messages %>                       
+                <form action="/admin/category/add" method="post" enctype="multipart/form-data" class="form-horizontal form-validate" id="ud">                    
+                    <div class="row form-group">
+                        <div class="col col-md-3"><label for="categoryType" class="form-control-label">Chọn chủng loại :</label></div>
+                        <div class="col-12 col-md-9 mserro">
+                        <select name="categoryType" id="categoryType" class="form-control" data-rule-required="true">
+                        <% listType.forEach(item => { %>
+                         <option value="<%= item._id %>"><%= item.typeName %></option>
+                        <% }) %>                            
+                        <select>
+                        </div>
+                    </div>  
+                    <div class="row form-group">
+                        <div class="col col-md-3"><label for="parent" class="form-control-label">Chọn mục cha :</label></div>
+                        <div class="col-12 col-md-9 mserro">
+                        <select name="parent" id="parent" class="form-control">
+                            
+                           
+                        <select>
+                        </div>
+                    </div>  
+                    <div class="row form-group">
+                        <div class="col col-md-3"><label class="form-control-label">Tên danh mục :</label></div>
+                        <div class="col-12 col-md-9 mserro"><input type="text" id="categoryName" name="categoryName" placeholder="Nhập tên danh mục" class="form-control" data-rule-required="true"></div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col col-md-3"><label class=" form-control-label">Tên Alias:</label></div>
+                        <div class="col-12 col-md-9 mserro"><input type="text" id="categoryKey" name="categoryKey" placeholder="Nhập tên Alias" class="form-control"  data-rule-required="true"></div>
+                    </div>                  
+                    
+                     <div class="row form-group">
+                        <div class="col col-md-3"><label class=" form-control-label">Thứ tự</label></div>
+                        <div class="col-12 col-md-9 mserro"><input type="text" id="order" name="order" placeholder="Nhập thứ tự của danh mục" class="form-control" data-rule-required="true" data-rule-number="true"></div>
+                    </div>                    
+                    <div class="row form-group">
+                            <div class="col col-md-3"><label for="fileImg" class=" form-control-label">Chọn ảnh</label></div>
+                            <div class="col-12 col-md-9 mserro"><input type="file" id="fileImg" name="fileImg" class="form-control-file"></div>
+                        </div>
+                    <div class="row form-group">
+                        <div class="col col-md-3"> &nbsp; </div>
+                            <div class="col col-md-9">
+                                <div class="form-check">
+                                    <div class="checkbox">
+                                        <label for="chkActive" class="form-check-label ">
+                                            <input type="checkbox" id="chkActive" name="chkActive" class="form-check-input"> Active
+                                        </label>
+                                    </div>
+                                    <div class="checkbox">
+                                        <label for="chkHome" class="form-check-label ">
+                                            <input type="checkbox" id="chkHome" name="chkHome" class="form-check-input"> home
+                                        </label>
+                                    </div>                                   
+                                </div>
+                            </div>
+                        </div>
+                         <div class="row form-group">
+                        <div class="col col-md-3">&nbsp;</div>
+                        <div class="col-12 col-md-9"><button type="submit" class="btn btn-primary btn-sm"><i class="fa fa-plus-square-o"></i> Thêm mới</button>
+                        <a href="/admin/category/Index" class="btn btn-danger btn-sm"><i class="fa fa-reply"></i> Quay lại</a> </div>
+                    </div> 
+                </form>
+            </div>            
+        </div>
+    </div>
+</div>
+
+</div>
+<script>
+jQuery(document).ready(function($) {
+
+
+    $.ajax({
+        type: "GET",
+        async: true,        
+        url: "/api/category/getparent/"+$("#categoryType option:selected").val(),        
+        cache: false,
+        dataType: "json",
+        success: function (done) {
+            console.log(done);          
+            if(done.status){      
+                $('#parent').empty();
+                $('#parent').append('<option value="">Root</option>');
+                $(done.data).each(function (i, item) {                     
+                    $('#parent').append('<option value="'+item._id+'">'+item.categoryName+'</option>');
+                     i = i + 1;
+                });        
+            }
+        }
+    });
+
+    $("#categoryName").bind("keyup", function (e) {
+        var catetext = $(this).val();
+        $('#categoryKey').val(getSeoTitle(catetext));
+    });
+
+    $('#categoryType').on('change', function() {
+        $.ajax({
+            type: "GET",
+            async: true,        
+            url: "/api/category/getparent/"+$("#categoryType option:selected").val(),        
+            cache: false,
+            dataType: "json",
+            success: function (done) {
+                console.log(done);          
+                if(done.status){      
+                    $('#parent').empty();
+                    $('#parent').append('<option value="">Root</option>');
+                    $(done.data).each(function (i, item) {                     
+                        $('#parent').append('<option value="'+item._id+'">'+item.categoryName+'</option>');
+                        i = i + 1;                       
+                    });        
+                }
+            }
+        });
+
+    });
+
+});
+
+</script>

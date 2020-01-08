@@ -35,15 +35,15 @@
                                     <div class="login-form">
                                             <% include ../../partials/backend/messages %> 
                                             <form method="POST" action="/admin/changpass" class='form-validate' id="cp">
-                                                <div class="form-group">
+                                                <div class="form-group mserro">
                                                     <label>Mật khẩu cũ</label>
                                                     <input type="password" class="form-control" name="oldPass" id="oldPass" placeholder="Nhập mật khẩu cũ" data-rule-required="true" value="<%= typeof oldPass != 'undefined' ? oldPass : '' %>">
                                                 </div>
-                                                <div class="form-group">
+                                                <div class="form-group mserro">
                                                     <label>Mật khẩu</label>
                                                     <input type="password" class="form-control" name="newPass" id="newPass" placeholder="Nhập mật khẩu mới" data-rule-required="true" data-rule-minlength="6" value="<%= typeof newPass != 'undefined' ? newPass : '' %>">
                                                 </div>
-                                                <div class="form-group">
+                                                <div class="form-group mserro">
                                                     <label>Nhập lại mật khẩu</label>
                                                     <input type="password" class="form-control" name="newPass2" id="newPass2" placeholder="Nhập lại mật khẩu mới" data-rule-required="true"  data-rule-minlength="6" data-rule-equalTo="#newPass" value="<%= typeof newPass2 != 'undefined' ? newPass2 : '' %>">
                                                 </div>

@@ -39,15 +39,15 @@
                     </div>
                     <div class="row form-group">
                         <div class="col col-md-3"><label for="name" class=" form-control-label">Họ tên:</label></div>
-                        <div class="col-12 col-md-9"><input type="text" id="name" name="name" placeholder="Nhập họ tên" class="form-control" value="<%= data.name %>" data-rule-required="true"></div>
+                        <div class="col-12 col-md-9 mserro"><input type="text" id="name" name="name" placeholder="Nhập họ tên" class="form-control" value="<%= data.name %>" data-rule-required="true"></div>
                     </div>                   
                     <div class="row form-group">
                         <div class="col col-md-3"><label for="password" class=" form-control-label">Password</label></div>
-                        <div class="col-12 col-md-9"><input type="password" id="password" name="password" placeholder="Mật khẩu tối thiểu 6 ký tự" class="form-control" data-rule-minlength="6"></div>
+                        <div class="col-12 col-md-9 mserro"><input type="password" id="password" name="password" placeholder="Mật khẩu tối thiểu 6 ký tự" class="form-control" data-rule-minlength="6"></div>
                     </div>
                     <div class="row form-group">
                         <div class="col col-md-3"><label for="disabled-input" class=" form-control-label">Ảnh</label></div>
-                        <div class="col-12 col-md-9">
+                        <div class="col-12 col-md-9 mserro">
                         <% if(data.ImageUrl != ''){%>
                             <img src="/uploads/<%= data.ImageUrl %>" class="align-self-center rounded-circle mr-3" style="width:120px; height:120px;">
                             <input type="hidden" id="imageUrl" name="imageUrl" value="<%= data.ImageUrl %>">
@@ -58,7 +58,7 @@
                     </div>
                     <div class="row form-group">
                             <div class="col col-md-3"><label for="fileImg" class=" form-control-label">Chọn ảnh</label></div>
-                            <div class="col-12 col-md-9"><input type="file" id="fileImg" name="fileImg" class="form-control-file"></div>
+                            <div class="col-12 col-md-9 mserro"><input type="file" id="fileImg" name="fileImg" class="form-control-file"></div>
                         </div>
                     <div class="row form-group">
                         <div class="col col-md-3"> &nbsp; </div>

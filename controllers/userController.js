@@ -112,8 +112,8 @@ module.exports = {
 
   listUsers : (req, res, next) =>{
     //console.log(req.user);
-    var perPage = 10;
-    var page = req.params.page || 1;
+    const perPage = 10;
+    const page = req.params.page || 1;
     User.find({}).sort({date : 'descending'}).skip((perPage * page) - perPage).limit(perPage).exec(function(err, listUsers){
       if(err) return next(err);
       User.count().exec(function(err, count){
@@ -158,8 +158,8 @@ module.exports = {
   },
 
   editUser : (req, res, next) =>{
-    var id = req.params.id;
-    var url = req.query.url;
+    const id = req.params.id;
+    const url = req.query.url;
     User.findById(id).exec(function(err, data){
       if(err) return next(err);
       res.render('Admin/users/editUser',{
@@ -218,7 +218,7 @@ module.exports = {
 
             dataUser.save(function(err){
               if(err) return next(err);
-              req.flash('success_msg', 'Bạn đã cập nhật thông tin của acount '+ dataUser.email +' thành công!');
+              req.flash('success_msg', 'Bạn đã cập nhật thông tin của acount "'+ dataUser.email +'" thành công!');
               res.redirect('/admin/'+url);
             });
           });
@@ -232,7 +232,7 @@ module.exports = {
     
         dataUser.save(function(err){
           if(err) return next(err);
-          req.flash('success_msg', 'Bạn đã cập nhật thông tin của acount '+ dataUser.email +' thành công!');
+          req.flash('success_msg', 'Bạn đã cập nhật thông tin của acount "'+ dataUser.email +'" thành công!');
           res.redirect('/admin/'+url);
         });  
       }
@@ -257,7 +257,7 @@ module.exports = {
           console.log(error);        
         }
       }
-      req.flash('success_msg', 'Bạn đã xóa :'+ data.email +' thành công!');
+      req.flash('success_msg', 'Bạn đã xóa : "'+ data.email +'" thành công!');
       res.redirect('/admin/'+url);
     });
 
@@ -278,10 +278,8 @@ module.exports = {
     let imageUrl;
 
     if (!req.files || Object.keys(req.files).length === 0) {
-      imageUrl = "";
-      console.log("khong co anh ");    
-      }
-    else{     
+      imageUrl = "";        
+    }else{     
       let sampleFile = req.files.fileImg;  
       if (fs.existsSync('./public/uploads/avata/'+sampleFile.name)) {
         imageUrl = "avata/"+Date.now()+ sampleFile.name; 
@@ -313,7 +311,7 @@ module.exports = {
       } else {
         User.findOne({ email: email }).then(user => {
           if (user) {
-            errors.push({ msg: 'Email '+email+' đã được đăng ký' });
+            errors.push({ msg: 'Email "' + email + '" đã được đăng ký' });
             res.render('Admin/users/addUser', {errors, name, email, password, password2, active, admin });
           } else {   
             let newUser = new User({name, email, password, imageUrl, active, admin });                 

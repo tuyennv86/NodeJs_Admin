@@ -3,7 +3,7 @@ module.exports = {
     if (req.isAuthenticated()) {
       return next();
     }
-    req.flash('error_msg', 'Please log in to view that resource');
+    req.flash('error_msg', 'Phiên làm việc của bạn đã hết hãy đăng nhập lại');
     res.redirect('/admin');
   },
   notLoggedIn: function(req, res, next) {
