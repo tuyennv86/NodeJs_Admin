@@ -34,7 +34,7 @@
                     <div class="row form-group">
                         <div class="col col-md-3"><label for="categoryType" class="form-control-label">Chọn chủng loại :</label></div>
                         <div class="col-12 col-md-9 mserro">
-                        <select name="categoryType" id="categoryType" class="form-control" data-rule-required="true">
+                        <select name="categoryType" id="categoryType" class="standardSelect form-control" data-rule-required="true">
                         <% listType.forEach(item => { %>
                          <option value="<%= item._id %>"><%= item.typeName %></option>
                         <% }) %>                            
@@ -44,9 +44,8 @@
                     <div class="row form-group">
                         <div class="col col-md-3"><label for="parent" class="form-control-label">Chọn mục cha :</label></div>
                         <div class="col-12 col-md-9 mserro">
-                        <select name="parent" id="parent" class="form-control">
-                            
-                           
+                        <select name="parent" id="parent" class="form-control" data-placeholder="Chọn mục cha..." data-rule-required="true">
+
                         <select>
                         </div>
                     </div>  
@@ -131,15 +130,9 @@ jQuery(document).ready(function($) {
             url: "/api/category/getparent/"+$("#categoryType option:selected").val(),        
             cache: false,
             dataType: "json",
-            success: function (done) {
-                console.log(done);          
-                if(done.status){      
-                    $('#parent').empty();
-                    $('#parent').append('<option value="">Root</option>');
-                    $(done.data).each(function (i, item) {                     
-                        $('#parent').append('<option value="'+item._id+'">'+item.categoryName+'</option>');
-                        i = i + 1;                       
-                    });        
+            success: function (done) {                
+                if(done.status){ 
+                    $("#parent").html(listCate(done.data, true));      
                 }
             }
         });
@@ -148,4 +141,41 @@ jQuery(document).ready(function($) {
 
 });
 
+function listCate(list, isChild){   
+    var html;
+    if(isChild){
+         html ='<option value="">Root</option>';
+    }
+    list.forEach(function(item){
+        var space = "";
+        for(var j = 1 ;j< item.level; j++ ){
+            space = space + "--";
+            }
+        html +='<option value="'+item._id+'">'+space+item.categoryName+'</option>';
+        if(item.children.length > 0){
+           html += listCate(item.children, false);
+        }
+    })  
+    return html;
+}
+
+// function buildTree(data, isChild = false) {
+//   let html = '<ul>';   // khởi tạo biến html
+//   // chạy vòng lặp for qua tất cả data
+//   data.forEach((d) => {
+//     // Mỗi phần tử data render ra một thẻ <li>
+//     html += `<li>${d.title}</li>`;
+//     // Nếu phần tử hiện tại của data có phần tử con thì hãy gọi buildTree một lần nữa qua các thẻ children và isChild =true
+    
+//     if (d.children) {
+//       html += buildTree(d.children, true);
+//     }
+//   });
+//   // tạo thẻ đóng </ul>
+//   html += '</ul>';
+//   return html;  //trả về chuỗi html
+// }
+
 </script>
+
+

@@ -15,33 +15,14 @@
                         <a href="/admin/index"> <i class="menu-icon fa fa-dashboard"></i>Dashboard </a>
                     </li>
                     <h3 class="menu-title">Quản lý danh mục</h3><!-- /.menu-title -->     
-                    <li><a href="/admin/category/categorytype"> <i class="menu-icon fa fa-bars"></i>Kiểu danh mục </a></li>              
-                    <li><a href="/admin/category/Index"> <i class="menu-icon fa fa-tasks"></i>Toàn bộ danh mục </a></li>              
-                    <li class="menu-item-has-children dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-laptop"></i>Danh mục</a>                        
-                        <ul class="sub-menu children dropdown-menu">
-                            <% categoriesTypeLocal.forEach(item => { %>
-                             <li><i class="menu-icon fa fa-bars"></i><a href="/admin/category/TypeIndex/<%= item._id %>"><%= item.typeName %></a></li>
-                            <% }) %>                            
-                        </ul>
-                    </li>
-                    <li class="menu-item-has-children active dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-table"></i>Tables</a>
-                        <ul class="sub-menu children dropdown-menu">
-                            <li><i class="fa fa-table"></i><a href="tables-basic.html">Basic Table</a></li>
-                            <li><i class="fa fa-table"></i><a href="tables-data.html">Data Table</a></li>
-                        </ul>
-                    </li>
-                    <li class="menu-item-has-children dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-th"></i>Forms</a>
-                        <ul class="sub-menu children dropdown-menu">
-                            <li><i class="menu-icon fa fa-th"></i><a href="forms-basic.html">Basic Form</a></li>
-                            <li><i class="menu-icon fa fa-th"></i><a href="forms-advanced.html">Advanced Form</a></li>
-                        </ul>
-                    </li>
+                    <li><a href="/admin/category/categorytype"> <i class="menu-icon fa fa-bars"></i>Kiểu danh mục </a></li>                   
+                    <li><a href="/admin/category/Index"> <i class="menu-icon fa fa-tasks"></i>Tất cả danh mục</a></li>
+                    <h3 class="menu-title">Danh sách các danh mục</h3><!-- /.menu-title --> 
+                    <% categoriesTypeLocal.forEach(item => { %>
+                        <li><a href="/admin/category/TypeIndex/<%= item._id %>"> <i class="menu-icon fa fa-tasks"></i>Danh mục - <%= item.typeName %></a></li>
+                    <% }) %>   
 
                     <h3 class="menu-title">Icons</h3><!-- /.menu-title -->
-
                     <li class="menu-item-has-children dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-tasks"></i>Icons</a>
                         <ul class="sub-menu children dropdown-menu">

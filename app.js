@@ -1,4 +1,6 @@
 const createError = require('http-errors');
+const compression = require('compression');
+const helmet = require('helmet');
 const express = require('express');
 const expressLayouts = require('express-ejs-layouts');
 const path = require('path');
@@ -21,6 +23,18 @@ const categoryApi = require('./api/categoryApi');
 const categoryType = require('./models/CategoryType');
 
 const app = express();
+
+app.use(compression({ filter: shouldCompress })); // không nén headers
+function shouldCompress (req, res) {
+  if (req.headers['x-no-compression']) {
+    // don't compress responses with this request header
+    return false
+  } 
+  // fallback to standard filter function
+  return compression.filter(req, res)
+}
+app.use(helmet());// bao mật
+
 // Passport Config
 require('./configs/passport')(passport);
 
@@ -67,6 +81,7 @@ app.use((req, res, next) => {
     res.send();     
   }); 
 });
+// app.use(helmet());
 
 app.use(function (req, res, next) {
   categoryType.find({}, function (err, categoriesType) {

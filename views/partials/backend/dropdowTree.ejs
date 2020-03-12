@@ -1,0 +1,17 @@
+<% if (items.length) { %>
+<select>
+<% } %>
+
+    <% items.forEach(function(item){ %>
+    <li>
+    <% var space = "";
+     for(var j = 1 ;j< item.level; j++ ){
+            space = space + "--";
+    } %><option value="<%= item._id %>"><%= space %> <%= item.categoryName %></option>
+        <%- include('dropdowTree', {items: item.children}) %>       
+    </li>
+    <% }) %>
+
+<% if (items.length) { %>
+</select>
+<% } %>

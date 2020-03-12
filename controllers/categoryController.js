@@ -2,6 +2,7 @@ const fs = require('fs');
 const async = require('async');
 const categoryModel = require('../models/Category');
 const categoryTypeModel = require('../models/CategoryType');
+const listtotree = require('../helper/listTree');
 
 module.exports= {
     //Begin category type
@@ -21,7 +22,7 @@ module.exports= {
             });
         });
     },
-    addCategoryType : (res) =>{      
+    addCategoryType : (req, res, next) =>{      
         res.render('Admin/categorys/addCategoryType',{title: 'Thêm mới loại danh mục'});
     },
     postAddCategoryType : (req, res, next) =>{
@@ -116,24 +117,17 @@ module.exports= {
         res.redirect('/admin/category/categorytype/'+page);
     },
     // End categoryType 
+    
     index : (req, res, next) =>{  
         const searchQuery = req.query.search || '';
-        const regex = new RegExp(req.query.search, 'gi');
-        const perPage = 5;
-        const page = req.params.page || 1;
-        categoryModel.find({'categoryName': regex, level : 1}).populate('categoryType').sort({order : 'asc', createDate : 'desc'}).skip((perPage * page) - perPage).limit(perPage)        
-        .exec(function(err, listCate){        
-            if(err){ return next(err); }
-            categoryModel.countDocuments({'categoryName': regex}).exec(function(err, count){
-                if(err) return next(err);
-                res.render('Admin/categorys/index',{
-                    title: 'Danh sách các danh mục',
-                    data: listCate,
-                    current: page,
-                    searchVal: searchQuery,
-                    pages: Math.ceil(count/perPage),
-                    linkUrl: 'admin/category/index'
-                });
+        const regex = new RegExp(req.query.search, 'gi');       
+        categoryModel.find({'categoryName': regex}).populate('categoryType').sort({order : 'asc', createDate : 'desc'}).exec(function(err, listCate){        
+            if(err){ return next(err); }          
+            res.render('Admin/categorys/index',{
+                title: 'Danh sách các danh mục',
+                data:listtotree.list_to_tree(listCate),              
+                searchVal: searchQuery,              
+                linkUrl: 'admin/category/index'                                            
             });
         }); 
     },
@@ -165,25 +159,17 @@ module.exports= {
 
         const typeId = req.params.typeId;
         const searchQuery = req.query.search || '';
-        const regex = new RegExp(req.query.search, 'gi');
-        const perPage = 10;
-        const page = req.params.page || 1;
-        categoryModel.find({categoryName: regex,'categoryType': typeId}).populate('categoryType')
-        .sort({order : 'asc', createDate : 'desc'}).skip((perPage * page) - perPage).limit(perPage)
+        const regex = new RegExp(req.query.search, 'gi');          
+        categoryModel.find({categoryName: regex,'categoryType': typeId}).populate('categoryType').sort({order : 'asc', createDate : 'desc'})
         .exec(function(err, listCate){        
-            if(err) return next(err);
-                categoryModel.countDocuments({categoryName: regex, 'categoryType': typeId}).exec(function(err, count){
-                if(err) return next(err);  
-                res.render('Admin/categorys/indexType',{
-                    title: 'Danh sách các danh mục',
-                    data: listCate,
-                    current: page,
-                    typeId: typeId,
-                    searchVal: searchQuery,
-                    pages: Math.ceil(count/perPage),                   
-                    linkUrl: 'admin/category/indexType'
-                });
-            });
+            if(err) return next(err);               
+            res.render('Admin/categorys/indexType',{
+                title: 'Danh sách các danh mục',
+                data: listtotree.list_to_tree(listCate),              
+                typeId: typeId,
+                searchVal: searchQuery,                              
+                linkUrl: 'admin/category/TypeIndex/'+typeId
+            });         
         }); 
     },
     searchType: (req, res, next)=> {
@@ -197,12 +183,14 @@ module.exports= {
             categorytype: function(callback) {    
                 categoryTypeModel.find({}).exec(callback);
             },
-            listcategory: function(callback) {    
-              categoryModel.find({ }).exec(callback);
-            },
+            // listcategory: function(callback) {    
+            //   categoryModel.find({}).exec(callback);
+            // },
         }, function(err, results) {
             if (err) { return next(err); } 
-            res.render('Admin/categorys/addCategory', { title: 'Thêm mới danh mục', listType: results.categorytype, listCategory: results.listcategory } );
+            res.render('Admin/categorys/addCategory', { title: 'Thêm mới danh mục', listType: results.categorytype
+            // , listCategory: results.listcategory
+         } );
         });
     },
     postAddCcategory: (req, res, next) =>{
@@ -284,5 +272,42 @@ module.exports= {
             });     
         }
            
-    }    
+    },
+    editCategory: (req, res, next) =>{        
+        async.parallel({
+            categorytype: function(callback) {    
+                categoryTypeModel.find({}).exec(callback);
+            },
+            category: function(callback) {    
+              categoryModel.findById(req.params.id).exec(callback);
+            },
+        }, function(err, results) {
+            if (err) { return next(err); } 
+            
+            console.log(results.category);
+            
+            res.render('Admin/categorys/editCategory', { title: 'Sửa danh mục ', listType: results.categorytype, list: results.category } ); 
+        });
+    },
+    postEditCategory: (req, res, next) =>{
+
+    },
+    deletebyId :(req, res, next) =>{
+        const id = req.params.id;
+        const url = req.query.url;
+        // tim xem co Category nào không nếu không có thì cho xóa con không thì ko cho xóa 
+        categoryModel.find({'parent':id}).exec(function(err, data){
+            if(err) return next(err);
+            if(data.length > 0){
+                req.flash('error_msg','Phải xóa hết mục con trước');
+                res.redirect('/'+url);
+            }else{
+                categoryModel.findByIdAndDelete(id).exec(function(err, data){
+                    if(err) return next(err);
+                    req.flash('success_msg', 'Bạn đã xóa kiểu danh mục: "'+ data.categoryName +'" thành công!');
+                    res.redirect('/'+url);
+                });
+            }
+        });       
+    }
 };

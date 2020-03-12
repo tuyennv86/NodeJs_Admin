@@ -20,11 +20,15 @@ router.get('/Index', isLoggedIn, categoryContronller.index);
 router.get('/Index/:page', isLoggedIn, categoryContronller.index)
 .post('/Index/:page', isLoggedIn, categoryContronller.postIndex);
 
+router.get('/delete/:id', isLoggedIn, categoryContronller.deletebyId);
 
 router.get('/TypeIndex/:typeId', isLoggedIn, categoryContronller.indexType);
 router.get('/TypeIndex/:typeId/:page', isLoggedIn, categoryContronller.indexType);
 router.get('/Add', isLoggedIn, categoryContronller.addCategory)
 .post('/Add',isLoggedIn, categoryContronller.postAddCcategory);
+
+router.get('/Edit/:id',isLoggedIn, categoryContronller.editCategory)
+.post('/Edit/:id',isLoggedIn, categoryContronller.postEditCategory);
 
 router.post('/search', isLoggedIn, categoryContronller.search);
 router.post('/searchType/:typeId', isLoggedIn, categoryContronller.searchType);
