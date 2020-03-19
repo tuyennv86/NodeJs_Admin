@@ -30,14 +30,14 @@
             </div>
             <div class="card-body card-block">
             <% include ../../partials/backend/messages %>                       
-                <form action="/admin/category/add" method="post" enctype="multipart/form-data" class="form-horizontal form-validate" id="ud">                    
+                <form action="/admin/category/Edit/<%= list._id %>" method="post" enctype="multipart/form-data" class="form-horizontal form-validate" id="ud">                    
                     <div class="row form-group">
                         <div class="col col-md-3"><label for="categoryType" class="form-control-label">Chọn chủng loại :</label></div>
                         <div class="col-12 col-md-9 mserro">
                         <select name="categoryType" id="categoryType" class="standardSelect form-control" data-rule-required="true">
                         <% 
                         listType.forEach(item => { %>                                                                  
-                         <option value="<%= item._id %>" <% if (item._id == list.categoryType) { %> selected <% } %> ><%= item.typeName %></option>
+                         <option value="<%= item._id %>" <% if(item._id.equals(list.categoryType)){ %> selected="selected" <%}%> ><%= item.typeName %> %></option>
                         <% }) %>                            
                         <select>                       
                         </div>
@@ -45,9 +45,11 @@
                     <div class="row form-group">
                         <div class="col col-md-3"><label for="parent" class="form-control-label">Chọn mục cha :</label></div>
                         <div class="col-12 col-md-9 mserro">
-                        <select name="parent" id="parent" class="form-control" data-placeholder="Chọn mục cha..." data-rule-required="true">
-
+                        <select name="parent" id="parent" class="form-control" data-placeholder="Chọn mục cha...">
+                            <option value="">Root</option>
+                            <%- include('../../partials/backend/dropdowTree', {items: listRoot, id_check:list.parent}) %> 
                         <select>
+                                
                         </div>
                     </div>  
                     <div class="row form-group">
@@ -65,20 +67,30 @@
                     </div>                    
                     <div class="row form-group">
                             <div class="col col-md-3"><label for="fileImg" class=" form-control-label">Chọn ảnh</label></div>
-                            <div class="col-12 col-md-9 mserro"><input type="file" id="fileImg" name="fileImg" class="form-control-file"></div>
-                        </div>
+                            <div class="col-12 col-md-9 mserro"><input type="file" id="fileImg" name="fileImg" class="form-control-file">
+                            <input type="hidden" value="<%= list.imageUrl %>" id="hidImg" name="hidImg">
+                            </div>
+                    </div>
+                    <div class="row form-group">
+                            <div class="col col-md-3"><label for="fileImg" class=" form-control-label">Ảnh</label></div>
+                            <div class="col-12 col-md-9 mserro"> 
+                                <% if(list.imageUrl.length > 0 ){%>
+                                <img class="img-thumbnail" src="/uploads/<%= list.imageUrl %>" alt="<%= list.categoryName %>" style="max-width: 200px;" >    
+                                <%}%>
+                            </div>
+                    </div>
                     <div class="row form-group">
                         <div class="col col-md-3"> &nbsp; </div>
                             <div class="col col-md-9">
                                 <div class="form-check">
                                     <div class="checkbox">
                                         <label for="chkActive" class="form-check-label ">
-                                            <input type="checkbox" id="chkActive" name="chkActive" class="form-check-input"> Active
+                                            <input type="checkbox" id="chkActive" name="chkActive" class="form-check-input" <% if(list.active) { %> checked="checkbox" <%}%> > Active
                                         </label>
                                     </div>
                                     <div class="checkbox">
                                         <label for="chkHome" class="form-check-label ">
-                                            <input type="checkbox" id="chkHome" name="chkHome" class="form-check-input"> home
+                                            <input type="checkbox" id="chkHome" name="chkHome" class="form-check-input" <% if(list.home){ %> checked="checkbox" <%}%> > home
                                         </label>
                                     </div>                                   
                                 </div>
@@ -87,7 +99,7 @@
                          <div class="row form-group">
                         <div class="col col-md-3">&nbsp;</div>
                         <div class="col-12 col-md-9"><button type="submit" class="btn btn-primary btn-sm"><i class="fa fa-refresh"></i> Cập nhật</button>
-                        <a href="/admin/category/Index" class="btn btn-danger btn-sm"><i class="fa fa-reply"></i> Quay lại</a> </div>
+                        <a href="#" onclick="history.back()" class="btn btn-danger btn-sm"><i class="fa fa-reply"></i> Quay lại</a> </div>
                     </div> 
                 </form>
             </div>            
@@ -100,23 +112,23 @@
 jQuery(document).ready(function($) {
 
 
-    $.ajax({
-        type: "GET",
-        async: true,        
-        url: "/api/category/getparent/"+$("#categoryType option:selected").val(),        
-        cache: false,
-        dataType: "json",
-        success: function (done) {              
-            if(done.status){      
-                $('#parent').empty();
-                $('#parent').append('<option value="">Root</option>');
-                $(done.data).each(function (i, item) {                     
-                    $('#parent').append('<option value="'+item._id+'">'+item.categoryName+'</option>');
-                     i = i + 1;
-                });        
-            }
-        }
-    });
+    // $.ajax({
+    //     type: "GET",
+    //     async: true,        
+    //     url: "/api/category/getparent/"+$("#categoryType option:selected").val(),        
+    //     cache: false,
+    //     dataType: "json",
+    //     success: function (done) {              
+    //         if(done.status){      
+    //             $('#parent').empty();
+    //             $('#parent').append('<option value="">Root</option>');
+    //             $(done.data).each(function (i, item) {                     
+    //                 $('#parent').append('<option value="'+item._id+'">'+item.categoryName+'</option>');
+    //                  i = i + 1;
+    //             });        
+    //         }
+    //     }
+    // });
 
     $("#categoryName").bind("keyup", function (e) {
         var catetext = $(this).val();

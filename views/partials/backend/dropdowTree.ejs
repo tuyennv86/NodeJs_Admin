@@ -1,17 +1,12 @@
 <% if (items.length) { %>
-<select>
-<% } %>
-
-    <% items.forEach(function(item){ %>
-    <li>
+    
+    <% items.forEach(function(item){ %>    
     <% var space = "";
      for(var j = 1 ;j< item.level; j++ ){
             space = space + "--";
-    } %><option value="<%= item._id %>"><%= space %> <%= item.categoryName %></option>
-        <%- include('dropdowTree', {items: item.children}) %>       
-    </li>
+    } %><option value="<%= item._id %>" <% if(item._id.equals(id_check)){ %> selected="selected" <%}%> ><%= space %> <%= item.categoryName %></option>
+        <%- include('dropdowTree', {items: item.children, id_check }) %> 
     <% }) %>
 
-<% if (items.length) { %>
-</select>
+
 <% } %>

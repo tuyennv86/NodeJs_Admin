@@ -1,5 +1,6 @@
 const fs = require('fs');
 const async = require('async');
+const uuidv4 = require('uuid/v4');
 const categoryModel = require('../models/Category');
 const categoryTypeModel = require('../models/CategoryType');
 const listtotree = require('../helper/listTree');
@@ -68,7 +69,7 @@ module.exports= {
         categoryTypeModel.findByIdAndUpdate(req.params.id,{typeName: typeName}, function(err, categoryType){
             if(err) return next(err);
             req.flash('success_msg', 'Bạn cập nhật loại danh mục "'+ categoryType.typeName +'" thành công!');
-            console.log(url);
+            //console.log(url);
             
             res.redirect('/'+url);
         });
@@ -210,6 +211,13 @@ module.exports= {
             let sampleFile = req.files.fileImg;  
             if (fs.existsSync('./public/uploads/pictures/'+sampleFile.name)) {
               imageUrl = "pictures/"+Date.now()+ sampleFile.name; 
+              //imageUrl = "pictures/"+uuidv4()+'.jpg'; 
+            //   sharp(sampleFile.tempFileDir).resize(262, 317).toFile('./uploads/'+ '262x317-'+sampleFile.name, function(err) {
+            //     if (err) {
+            //         console.error('sharp>>>', err)
+            //     }
+            //     console.log('sharp okie')
+            //   })
             }else{  
               imageUrl = "pictures/"+sampleFile.name;    
             }
@@ -273,23 +281,74 @@ module.exports= {
         }
            
     },
-    editCategory: (req, res, next) =>{        
-        async.parallel({
-            categorytype: function(callback) {    
-                categoryTypeModel.find({}).exec(callback);
-            },
-            category: function(callback) {    
-              categoryModel.findById(req.params.id).exec(callback);
-            },
-        }, function(err, results) {
-            if (err) { return next(err); } 
-            
-            console.log(results.category);
-            
-            res.render('Admin/categorys/editCategory', { title: 'Sửa danh mục ', listType: results.categorytype, list: results.category } ); 
-        });
+    editCategory: async (req, res, next) =>{        
+        //let url = req.query
+        let listType = await  categoryTypeModel.find({});
+        let list = await categoryModel.findById(req.params.id);
+        let listRoot = await categoryModel.find({categoryType: list.categoryType});      
+        res.render('Admin/categorys/editCategory', { title: 'Sửa danh mục ', listType: listType, list: list, listRoot: listtotree.list_to_tree(listRoot) } );
+
     },
     postEditCategory: (req, res, next) =>{
+       
+        const categoryName = req.body.categoryName;
+        const categoryKey = req.body.categoryKey;      
+        const categoryType = req.body.categoryType;
+        const parent = req.body.parent;
+        const order = req.body.order;
+        let level = 1;
+        let imageUrl = "";
+        const active = req.body.chkActive ? true : false;
+        const home = req.body.chkHome ? true : false;        
+        
+        if (!req.files || Object.keys(req.files).length === 0) {
+            imageUrl = req.body.hidImg;
+        }else{     
+            let sampleFile = req.files.fileImg;  
+            if (fs.existsSync('./public/uploads/pictures/'+sampleFile.name)) {
+              imageUrl = "pictures/"+Date.now()+ sampleFile.name;
+            }else{  
+              imageUrl = "pictures/"+sampleFile.name;    
+            }
+            sampleFile.mv('./public/uploads/'+imageUrl, function(err) {
+              if (err)
+                return res.status(500).send(err);          
+            });    
+        }
+        // if(parent === ''){
+        //     parent = new mongoose.Types.ObjectId();
+        //     level = 1;
+        // }else{
+        //     categoryModel.findById(parent).exec(function(err, itemParent){
+        //         if(err) return next(err);
+        //         level = itemParent.level + 1;
+        //     });
+        // }
+        console.log(parent);
+        
+        var cateObj = new categoryModel({
+            categoryName: categoryName,
+            categoryKey: categoryKey, 
+            parent: parent, 
+            categoryType: 
+            categoryType, 
+            order: order, 
+            level: level, 
+            imageUrl: imageUrl,
+            active: active,
+            home: home, 
+            createBy: req.user.name, 
+            editBy: req.user.name
+        });
+        // categoryModel.findByIdAndUpdate(req.params.id,cateObj).exec(function(err, data){
+        //         if(err) return next(err);
+        //         req.flash('success_msg', 'Bạn đã cập nhật thành công : '+ data.categoryName);
+        //         res.redirect(req.query.url);
+        //     });
+        console.log(cateObj);
+        console.log(req.query.url +'dfsf');
+        
+        res.redirect(req.query.url);
 
     },
     deletebyId :(req, res, next) =>{
