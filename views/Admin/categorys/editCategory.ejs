@@ -34,6 +34,7 @@
                     <div class="row form-group">
                         <div class="col col-md-3"><label for="categoryType" class="form-control-label">Chọn chủng loại :</label></div>
                         <div class="col-12 col-md-9 mserro">
+                        <input type="hidden" value="<%= url %>" name="url" id="url"/>
                         <select name="categoryType" id="categoryType" class="standardSelect form-control" data-rule-required="true">
                         <% 
                         listType.forEach(item => { %>                                                                  
@@ -47,7 +48,7 @@
                         <div class="col-12 col-md-9 mserro">
                         <select name="parent" id="parent" class="form-control" data-placeholder="Chọn mục cha...">
                             <option value="">Root</option>
-                            <%- include('../../partials/backend/dropdowTree', {items: listRoot, id_check:list.parent}) %> 
+                            <%- include('../../partials/backend/dropdowTree', {items: listRoot, id_check:list.parent, this_Id:list._id}) %> 
                         <select>
                                 
                         </div>

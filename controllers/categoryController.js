@@ -282,15 +282,15 @@ module.exports= {
            
     },
     editCategory: async (req, res, next) =>{        
-        //let url = req.query
+        const url = req.query.url;
         let listType = await  categoryTypeModel.find({});
         let list = await categoryModel.findById(req.params.id);
         let listRoot = await categoryModel.find({categoryType: list.categoryType});      
-        res.render('Admin/categorys/editCategory', { title: 'Sửa danh mục ', listType: listType, list: list, listRoot: listtotree.list_to_tree(listRoot) } );
+        res.render('Admin/categorys/editCategory', { title: 'Sửa danh mục ', listType: listType, list: list, listRoot: listtotree.list_to_tree(listRoot), url: url } );
 
     },
     postEditCategory: (req, res, next) =>{
-       
+        const url = req.body.url;
         const categoryName = req.body.categoryName;
         const categoryKey = req.body.categoryKey;      
         const categoryType = req.body.categoryType;
@@ -315,16 +315,13 @@ module.exports= {
                 return res.status(500).send(err);          
             });    
         }
-        // if(parent === ''){
-        //     parent = new mongoose.Types.ObjectId();
-        //     level = 1;
-        // }else{
-        //     categoryModel.findById(parent).exec(function(err, itemParent){
-        //         if(err) return next(err);
-        //         level = itemParent.level + 1;
-        //     });
-        // }
-        console.log(parent);
+        if(parent != ''){
+            categoryModel.findById(parent).exec(function(err, itemParent){
+                if(err) return next(err);
+                level = itemParent.level + 1;
+            });
+        }
+        console.log(parent +' cha cua no');
         
         var cateObj = new categoryModel({
             categoryName: categoryName,
@@ -340,15 +337,15 @@ module.exports= {
             createBy: req.user.name, 
             editBy: req.user.name
         });
-        // categoryModel.findByIdAndUpdate(req.params.id,cateObj).exec(function(err, data){
-        //         if(err) return next(err);
-        //         req.flash('success_msg', 'Bạn đã cập nhật thành công : '+ data.categoryName);
-        //         res.redirect(req.query.url);
-        //     });
-        console.log(cateObj);
-        console.log(req.query.url +'dfsf');
+        categoryModel.findByIdAndUpdate(req.params.id,cateObj).exec(function(err, data){
+            if(err) return next(err);
+            req.flash('success_msg', 'Bạn đã cập nhật thành công : '+ data.categoryName);
+            res.redirect(req.params.url);
+        });
+        // console.log(cateObj);
+        // console.log(url +'dfsf');
         
-        res.redirect(req.query.url);
+        // res.redirect("/"+url);
 
     },
     deletebyId :(req, res, next) =>{

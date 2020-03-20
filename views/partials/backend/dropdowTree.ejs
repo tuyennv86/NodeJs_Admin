@@ -4,8 +4,8 @@
     <% var space = "";
      for(var j = 1 ;j< item.level; j++ ){
             space = space + "--";
-    } %><option value="<%= item._id %>" <% if(item._id.equals(id_check)){ %> selected="selected" <%}%> ><%= space %> <%= item.categoryName %></option>
-        <%- include('dropdowTree', {items: item.children, id_check }) %> 
+    } %><option value="<%= item._id %>" <% if(item._id.equals(id_check)){ %> selected="selected" <%}%> <% if(item._id.equals(this_Id)){ %> disabled="disabled" <%}%> ><%= space %> <%= item.categoryName %></option>
+        <%- include('dropdowTree', {items: item.children, id_check, this_Id }) %> 
     <% }) %>
 
 
