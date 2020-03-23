@@ -1,8 +1,7 @@
-<% if (items.length) { %>
-
-    <% items.forEach(function(item){ %>
-    <% var space = "";
-     for(var j = 1 ;j< item.level; j++ ){
+<% if (items.length) {
+    items.forEach(function(item){ 
+    var space = "";
+    for(var j = 1 ;j< item.level; j++ ){
             space = space + "---";
     } %>
     <tr>
@@ -27,12 +26,10 @@
     <td>
         <div class="float-right">
             <a class="btn btn-primary btn-sm" href="/admin/category/Edit/<%= item._id %>?url=<%= linkUrl %>"><i class="fa fa-wrench"></i>&nbsp; Sửa</a>
-            <a class="btn btn-danger btn-sm"><i class="fa fa-trash"></i>&nbsp; Xóa</a>
+            <a class="btn btn-danger btn-sm" href="/admin/category/delete/<%= item._id %>?url=<%= linkUrl %>" onclick="return confirm('Bạn có muốn xóa không?')"><i class="fa fa-trash"></i>&nbsp; Xóa</a>
         </div>
     </td>
 </tr>  
  <%- include('treeViewHtml', {items: item.children}) %> 
-    <% }) %>
-
-<% } %>
-
+    <% })
+    } %>

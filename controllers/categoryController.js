@@ -281,13 +281,24 @@ module.exports= {
         }
            
     },
-    editCategory: async (req, res, next) =>{        
-        const url = req.query.url;
-        let listType = await  categoryTypeModel.find({});
-        let list = await categoryModel.findById(req.params.id);
-        let listRoot = await categoryModel.find({categoryType: list.categoryType});      
-        res.render('Admin/categorys/editCategory', { title: 'Sửa danh mục ', listType: listType, list: list, listRoot: listtotree.list_to_tree(listRoot), url: url } );
+    editCategory: (req, res, next) =>{ 
+        async.parallel({
+            categoryTypes: function(callback) {
+                categoryTypeModel.find({}).exec(callback);
+            },
+            categorys: function(callback) {
+                categoryModel.findById(req.params.id).exec(callback);
+            },
+        }, function(err, results) {
+            if (err) { return next(err); }
 
+            if(results.categorys != null){
+                categoryModel.find({categoryType: results.categorys.categoryType}).exec(function(err, data){
+                    if(err) return next(err);
+                    res.render('Admin/categorys/editCategory', { title: 'Sửa danh mục ', listType:results.categoryTypes, list:results.categorys, listRoot: listtotree.list_to_tree(data), url:req.query.url  });
+                });
+            }
+        });
     },
     postEditCategory: (req, res, next) =>{
         const url = req.body.url;
@@ -315,20 +326,11 @@ module.exports= {
                 return res.status(500).send(err);          
             });    
         }
-        if(parent != ''){
-            categoryModel.findById(parent).exec(function(err, itemParent){
-                if(err) return next(err);
-                level = itemParent.level + 1;
-            });
-        }
-        console.log(parent +' cha cua no');
-        
-        var cateObj = new categoryModel({
+        let thecategory = new categoryModel({
             categoryName: categoryName,
             categoryKey: categoryKey, 
             parent: parent, 
-            categoryType: 
-            categoryType, 
+            categoryType: categoryType, 
             order: order, 
             level: level, 
             imageUrl: imageUrl,
@@ -337,16 +339,39 @@ module.exports= {
             createBy: req.user.name, 
             editBy: req.user.name
         });
-        categoryModel.findByIdAndUpdate(req.params.id,cateObj).exec(function(err, data){
-            if(err) return next(err);
-            req.flash('success_msg', 'Bạn đã cập nhật thành công : '+ data.categoryName);
-            res.redirect(req.params.url);
+                   
+        async.parallel({
+            categoryParent: function(callback) {              
+                categoryModel.findById(thecategory.parent).exec(callback);
+            }, 
+            thecate: function(callback) {
+                categoryModel.findById(req.params.id).exec(callback);
+            }
+        }, function(err, results) {
+            if (err) { return next(err); }
+            if(parent != ''){
+                results.thecate.level = results.categoryParent.level +1;
+            }else{
+                results.thecate.level = thecategory.level;
+            }
+            results.thecate.categoryName = thecategory.categoryName;
+            results.thecate.categoryKey = thecategory.categoryKey;
+            results.thecate.parent = thecategory.parent;
+            results.thecate.categoryType = thecategory.categoryType;
+            results.thecate.order = thecategory.order;
+            results.thecate.imageUrl = thecategory.imageUrl;
+            results.thecate.active = thecategory.active;
+            results.thecate.home = thecategory.home;
+            results.thecate.createBy = thecategory.createBy;
+            results.thecate.editBy = thecategory.editBy;
+            results.thecate.save();
+           
+            req.flash('success_msg', 'Bạn đã cập nhật thành công : '+ categoryName);
+            res.redirect('/'+ url);
+          
         });
-        // console.log(cateObj);
-        // console.log(url +'dfsf');
-        
-        // res.redirect("/"+url);
-
+            
+       
     },
     deletebyId :(req, res, next) =>{
         const id = req.params.id;

@@ -4,9 +4,19 @@
     <% var space = "";
      for(var j = 1 ;j< item.level; j++ ){
             space = space + "--";
-    } %><option value="<%= item._id %>" <% if(item._id.equals(id_check)){ %> selected="selected" <%}%> <% if(item._id.equals(this_Id)){ %> disabled="disabled" <%}%> ><%= space %> <%= item.categoryName %></option>
-        <%- include('dropdowTree', {items: item.children, id_check, this_Id }) %> 
-    <% }) %>
+    }
+    if(item._id.equals(this_Id)){ %>
+       
+        <option value="<%= item._id %>" <% if(item._id.equals(id_check)){ %> selected="selected" <%}%> <% if(item._id.equals(this_Id)){ %> disabled="disabled" <%}%> ><%= space %> <%= item.categoryName %></option>
+        <% if(item.children.length > 0) { %> 
+            <%- include('dropdowTree', {items: item.children, id_check, this_Id: item.children[0]._id }) %> 
+        <% } %>
 
+    <% } else{ %>
+
+        <option value="<%= item._id %>" <% if(item._id.equals(id_check)){ %> selected="selected" <%}%> <% if(item._id.equals(this_Id)){ %> disabled="disabled" <%}%> ><%= space %> <%= item.categoryName %></option>
+        <%- include('dropdowTree', {items: item.children, id_check, this_Id }) %> 
+
+    <% } }) %>
 
 <% } %>
