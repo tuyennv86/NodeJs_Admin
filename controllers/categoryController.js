@@ -364,10 +364,12 @@ module.exports= {
             results.thecate.home = thecategory.home;
             results.thecate.createBy = thecategory.createBy;
             results.thecate.editBy = thecategory.editBy;
-            results.thecate.save();
-           
-            req.flash('success_msg', 'Bạn đã cập nhật thành công : '+ categoryName);
-            res.redirect('/'+ url);
+            results.thecate.save(function(err, data){
+                if(err) return next(err);
+                req.flash('success_msg', 'Bạn đã cập nhật thành công : '+ data.categoryName);
+                res.redirect('/'+ url);
+            });         
+            
           
         });
             
