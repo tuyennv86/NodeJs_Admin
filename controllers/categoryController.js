@@ -3,7 +3,7 @@ const async = require('async');
 const uuidv4 = require('uuid/v4');
 const categoryModel = require('../models/Category');
 const categoryTypeModel = require('../models/CategoryType');
-const listtotree = require('../helper/listTree');
+const listtotree = require('../utils/listTree');
 
 module.exports= {
     //Begin category type

@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const moment = require('moment');
+// const Populate = require("../utils/autopopulate");
 const Schema = mongoose.Schema;
 
 const CategorySchema = new Schema({
@@ -16,7 +17,7 @@ const CategorySchema = new Schema({
   createDate: { type: Date, default: Date.now },
   editDate: { type: Date, default: Date.now },
   createBy: { type: String},
-  editBy:{ type: String }
+  editBy:{ type: String }  
 });
 
 CategorySchema.virtual('createDateIso').get(function () {
@@ -34,5 +35,7 @@ CategorySchema.virtual('createDate_dd_mm_yyyy').get(function () {
 CategorySchema.virtual('editDate_dd_mm_yyyy').get(function () {
   return moment(this.editDate).format('DD/MM/YYYY');
 });
+// CategorySchema.pre('findOne', Populate('parent'))
+//     .pre('find', Populate('parent'))
 
 module.exports = mongoose.model('Category', CategorySchema);

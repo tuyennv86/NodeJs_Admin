@@ -35,7 +35,7 @@
                         <div class="col col-md-3"><label for="categoryType" class="form-control-label">Chọn chủng loại :</label></div>
                         <div class="col-12 col-md-9 mserro">
                         <input type="hidden" value="<%= url %>" name="url" id="url"/>
-                        <select name="categoryType" id="categoryType" class="standardSelect form-control" data-rule-required="true">
+                        <select name="categoryType" id="categoryType" class="standardSelect form-control" data-rule-required="true" disabled>
                         <% 
                         listType.forEach(item => { %>                                                                  
                          <option value="<%= item._id %>" <% if(item._id.equals(list.categoryType)){ %> selected="selected" <%}%> ><%= item.typeName %> %></option>

@@ -107,13 +107,10 @@ jQuery(document).ready(function($) {
         dataType: "json",
         success: function (done) {
             console.log(done);          
-            if(done.status){      
-                $('#parent').empty();
-                $('#parent').append('<option value="">Root</option>');
-                $(done.data).each(function (i, item) {                     
-                    $('#parent').append('<option value="'+item._id+'">'+item.categoryName+'</option>');
-                     i = i + 1;
-                });        
+            if(done.status){
+                 if(done.status){ 
+                    $("#parent").html(listCate(done.data, true));      
+                }     
             }
         }
     });
@@ -150,10 +147,10 @@ function listCate(list, isChild){
         var space = "";
         for(var j = 1 ;j< item.level; j++ ){
             space = space + "--";
-            }
+        }        
         html +='<option value="'+item._id+'">'+space+item.categoryName+'</option>';
-        if(item.children.length > 0){
-           html += listCate(item.children, false);
+        if(item.children.length > 0 ){
+           html += listCate(item.children, false);           
         }
     })  
     return html;
