@@ -1,7 +1,7 @@
 <% if (items.length) {
-    items.forEach(function(item){ 
+    items.forEach(function(item){  
     var space = "";
-    for(var j = 1 ;j< item.level; j++ ){
+    for(var j = 1 ;j< level; j++ ){
             space = space + "---";
     } %>
     <tr>
@@ -12,8 +12,7 @@
     <% } else { %>
         <img src="/images/noimg.jpg" class="align-self-center img-thumbnail mr-3" alt="<%= item.categoryName %>" style="width:50px; height:50px;"> 
         <% } %></td>
-        <td><%= item.categoryType.typeName %></a></td>
-    <td><%= item.level %></a></td>
+        <td><%= item.categoryType.typeName %></a></td>    
     <td> <% if ( item.active) { %><span class="badge badge-success"><span class="ti-unlock"></span>&nbsp; Active</span>
         <% }else{%><span class="badge badge-danger"><span class="ti-lock"></span>&nbsp; Clock</span><%} %> </td>   
         <td> <% if ( item.home) { %><span class="badge badge-success"><span class="ti-check"></span>&nbsp; Home</span>
@@ -30,6 +29,6 @@
         </div>
     </td>
 </tr>  
- <%- include('treeViewHtml', {items: item.children}) %> 
+ <%- include('treeViewHtml', {items: item.children, level: level + 1 }) %> 
     <% })
     } %>

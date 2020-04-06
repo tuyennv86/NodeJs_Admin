@@ -5,11 +5,11 @@
     <% items.forEach(function(item){ %>
     <li>
     <% var space = "";
-     for(var j = 1 ;j< item.level; j++ ){
+     for(var j = 1 ;j< level; j++ ){
             space = space + "--";
     } %>
         <a href="<%= item._id %>"> <%= space %> <%= item.categoryName %></a>         
-        <%- include('treeView', {items: item.children}) %>       
+        <%- include('treeView', {items: item.children, level: level + 1}) %>       
     </li>
     <% }) %>
 

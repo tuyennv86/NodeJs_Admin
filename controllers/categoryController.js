@@ -4,6 +4,7 @@ const uuidv4 = require('uuid/v4');
 const categoryModel = require('../models/Category');
 const categoryTypeModel = require('../models/CategoryType');
 const listtotree = require('../utils/listTree');
+const mongoose = require('mongoose');
 
 module.exports= {
     //Begin category type
@@ -199,8 +200,7 @@ module.exports= {
         const categoryKey = req.body.categoryKey;      
         const categoryType = req.body.categoryType;
         const parent = req.body.parent;
-        const order = req.body.order;
-        let level = 1;
+        const order = req.body.order;       
         let imageUrl = "";
         const active = req.body.chkActive ? true : false;
         const home = req.body.chkHome ? true : false;        
@@ -210,14 +210,7 @@ module.exports= {
         }else{     
             let sampleFile = req.files.fileImg;  
             if (fs.existsSync('./public/uploads/pictures/'+sampleFile.name)) {
-              imageUrl = "pictures/"+Date.now()+ sampleFile.name; 
-              //imageUrl = "pictures/"+uuidv4()+'.jpg'; 
-            //   sharp(sampleFile.tempFileDir).resize(262, 317).toFile('./uploads/'+ '262x317-'+sampleFile.name, function(err) {
-            //     if (err) {
-            //         console.error('sharp>>>', err)
-            //     }
-            //     console.log('sharp okie')
-            //   })
+              imageUrl = "pictures/"+Date.now()+ sampleFile.name;              
             }else{  
               imageUrl = "pictures/"+sampleFile.name;    
             }
@@ -225,61 +218,35 @@ module.exports= {
               if (err)
                 return res.status(500).send(err);          
             });    
-        }        
-        if(parent != ''){
-            categoryTypeModel.findById(categoryType).exec(function(err, data){
+        }  
+    
+        categoryTypeModel.findById(categoryType).exec(function(err, data){
+            if(err) return next(err); 
+            const objCategory = new categoryModel({
+                categoryName: categoryName,
+                categoryKey: categoryKey,
+                categoryType: categoryType,
+                parent: parent != '' ? parent : new mongoose.Types.ObjectId,
+                typeCategory: data.typeInt,
+                order: order,                    
+                imageUrl: imageUrl,
+                active: active,
+                home: home,
+                createDate: Date.now(),
+                editDate: Date.now(),
+                createBy: req.user.name,
+                editBy: req.user.name
+            });            
+            console.log(objCategory);
+            
+            objCategory.save(function(err){
                 if(err) return next(err);
-                categoryModel.findById(parent).exec(function(err, cateparent){
-                    if(err) return next(err);
+                req.flash('success_msg', 'Bạn đã thêm mới thành công: '+ categoryName);
+                res.redirect('/admin/category/add');
+            }); 
+        
 
-                    const category = new categoryModel({
-                        categoryName: categoryName,
-                        categoryKey: categoryKey,   
-                        parent: parent,            
-                        categoryType: categoryType,
-                        typeCategory: data.typeInt,
-                        order: order,
-                        level: cateparent.level +1,
-                        imageUrl: imageUrl,
-                        active: active,
-                        home: home,
-                        createBy: req.user.name,
-                        editBy: req.user.name
-                    }); 
-
-                    category.save(function(err){
-                        if(err) return next(err);
-                        req.flash('success_msg', 'Bạn đã thêm mới thành công');
-                        res.redirect('/admin/category/add');
-                    });
-
-                });                 
-            });     
-        }else{
-            categoryTypeModel.findById(categoryType).exec(function(err, data){
-                if(err) { return next(err);}            
-                const category = new categoryModel({
-                    categoryName: categoryName,
-                    categoryKey: categoryKey,
-                    categoryType: categoryType,
-                    typeCategory: data.typeInt,
-                    order: order,
-                    level: level,
-                    imageUrl: imageUrl,
-                    active: active,
-                    home: home,
-                    createBy: req.user.name,
-                    editBy: req.user.name
-                });            
-               
-                category.save(function(err){
-                    if(err) return next(err);
-                    req.flash('success_msg', 'Bạn đã thêm mới thành công');
-                    res.redirect('/admin/category/add');
-                }); 
-            });     
-        }
-           
+        });
     },
     editCategory: (req, res, next) =>{ 
         async.parallel({
@@ -304,10 +271,9 @@ module.exports= {
         const url = req.body.url;
         const categoryName = req.body.categoryName;
         const categoryKey = req.body.categoryKey;      
-        const categoryType = req.body.categoryType;
+        //const categoryType = req.body.categoryType;
         const parent = req.body.parent;
-        const order = req.body.order;
-        let level = 1;
+        const order = req.body.order;        
         let imageUrl = "";
         const active = req.body.chkActive ? true : false;
         const home = req.body.chkHome ? true : false;        
@@ -325,55 +291,29 @@ module.exports= {
               if (err)
                 return res.status(500).send(err);          
             });    
-        }
-        let thecategory = new categoryModel({
+        }        
+
+        const objCate = categoryModel(
+        {
+            _id: req.params.id,
             categoryName: categoryName,
-            categoryKey: categoryKey, 
-            parent: parent, 
-            categoryType: categoryType, 
-            order: order, 
-            level: level, 
-            imageUrl: imageUrl,
+            categoryKey: categoryKey,
+            parent: parent,              
+            order: order,
+            imageUrl: imageUrl,  
             active: active,
-            home: home, 
-            createBy: req.user.name, 
-            editBy: req.user.name
+            home : home,               
+            editDate: Date.now(),             
+            editBy: req.user.name  
+        });       
+        console.log(objCate);
+
+       categoryModel.findByIdAndUpdate(req.params.id, objCate, {}, function (err,thecate) {
+        if (err) { return next(err); }
+            req.flash('success_msg', 'Bạn đã cập nhật thành công : '+ thecate.categoryName);
+            res.redirect('/'+ url);
         });
-                   
-        async.parallel({
-            categoryParent: function(callback) {              
-                categoryModel.findById(thecategory.parent).exec(callback);
-            }, 
-            thecate: function(callback) {
-                categoryModel.findById(req.params.id).exec(callback);
-            }
-        }, function(err, results) {
-            if (err) { return next(err); }
-            if(parent != ''){
-                results.thecate.level = results.categoryParent.level +1;
-            }else{
-                results.thecate.level = thecategory.level;
-            }
-            results.thecate.categoryName = thecategory.categoryName;
-            results.thecate.categoryKey = thecategory.categoryKey;
-            results.thecate.parent = thecategory.parent;
-            results.thecate.categoryType = thecategory.categoryType;
-            results.thecate.order = thecategory.order;
-            results.thecate.imageUrl = thecategory.imageUrl;
-            results.thecate.active = thecategory.active;
-            results.thecate.home = thecategory.home;
-            results.thecate.createBy = thecategory.createBy;
-            results.thecate.editBy = thecategory.editBy;
-            results.thecate.save(function(err, data){
-                if(err) return next(err);
-                req.flash('success_msg', 'Bạn đã cập nhật thành công : '+ data.categoryName);
-                res.redirect('/'+ url);
-            });         
-            
-          
-        });
-            
-       
+        
     },
     deletebyId :(req, res, next) =>{
         const id = req.params.id;

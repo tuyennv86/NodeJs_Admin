@@ -98,7 +98,6 @@
 <script>
 jQuery(document).ready(function($) {
 
-
     $.ajax({
         type: "GET",
         async: true,        
@@ -106,10 +105,10 @@ jQuery(document).ready(function($) {
         cache: false,
         dataType: "json",
         success: function (done) {
-            console.log(done);          
+           // console.log(done);          
             if(done.status){
                  if(done.status){ 
-                    $("#parent").html(listCate(done.data, true));      
+                    $("#parent").html(listCate(done.data, true, 1));      
                 }     
             }
         }
@@ -129,7 +128,7 @@ jQuery(document).ready(function($) {
             dataType: "json",
             success: function (done) {                
                 if(done.status){ 
-                    $("#parent").html(listCate(done.data, true));      
+                    $("#parent").html(listCate(done.data, true, 1));      
                 }
             }
         });
@@ -138,19 +137,19 @@ jQuery(document).ready(function($) {
 
 });
 
-function listCate(list, isChild){   
+function listCate(list, isChild, level){   
     var html;
     if(isChild){
          html ='<option value="">Root</option>';
     }
     list.forEach(function(item){
         var space = "";
-        for(var j = 1 ;j< item.level; j++ ){
+        for(var j = 1 ;j< level; j++ ){
             space = space + "--";
         }        
         html +='<option value="'+item._id+'">'+space+item.categoryName+'</option>';
         if(item.children.length > 0 ){
-           html += listCate(item.children, false);           
+           html += listCate(item.children, false, level + 1);           
         }
     })  
     return html;

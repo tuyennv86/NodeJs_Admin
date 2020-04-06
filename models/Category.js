@@ -10,12 +10,11 @@ const CategorySchema = new Schema({
   categoryType: { type: Schema.ObjectId, ref: 'CategoryType', required:true },
   typeCategory: { type: Number, required: true }, 
   order: { type: Number, required:true },
-  level: { type:Number, required: true },
   imageUrl: { type: String, default : '' },  
   active: { type: Boolean, default : true },
   home : { type: Boolean, default : true },
-  createDate: { type: Date, default: Date.now },
-  editDate: { type: Date, default: Date.now },
+  createDate: { type: Date },
+  editDate: { type: Date },
   createBy: { type: String},
   editBy:{ type: String }  
 });

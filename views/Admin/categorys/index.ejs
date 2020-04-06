@@ -62,8 +62,7 @@
                                         <th scope="col"><input type="checkbox" id="checkAll"></th>
                                         <th scope="col">Tên danh mục</th>
                                         <th scope="col">Ảnh</th>
-                                        <th scope="col">Thể loại</th>
-                                        <th scope="col">Level</th>
+                                        <th scope="col">Thể loại</th>                                      
                                         <th scope="col">Active</th>                                  
                                         <th scope="col">Home</th> 
                                         <th scope="col">Thứ tự</th>
@@ -75,7 +74,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>                                    
-                                <%- include('../../partials/backend/treeViewHtml', {items: data}) %>     
+                                <%- include('../../partials/backend/treeViewHtml', {items: data, level: 1}) %>     
                                 </tbody>
                             </table>
                            

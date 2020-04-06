@@ -48,7 +48,7 @@
                         <div class="col-12 col-md-9 mserro">
                         <select name="parent" id="parent" class="form-control" data-placeholder="Chọn mục cha...">
                             <option value="">Root</option>
-                            <%- include('../../partials/backend/dropdowTree', {items: listRoot, id_check:list.parent, this_Id:list._id}) %> 
+                            <%- include('../../partials/backend/dropdowTree', {items: listRoot, id_check:list.parent, this_Id:list._id, level: 1}) %> 
                         <select>
                                 
                         </div>
