@@ -1,3 +1,10 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <% include ../../partials/backend/partialLink %> 
+    <% include ../../partials/backend/partialCsript %>
+  </head>
+  <body> 
 <% include ../../partials/backend/aside %> 
 <div id="right-panel" class="right-panel">
 <% include ../../partials/backend/header %>
@@ -45,10 +52,7 @@
                                 </a>
                                 <button type="button" class="btn btn-primary btn-sm" id="bntUpdateOrder">
                                     <i class="fa fa-refresh"></i> Cập nhật thứ tự
-                                </button>  
-                                <!-- <button type="button" class="btn btn-danger btn-sm" onclick="getCheckListId()" id="bntdeleteList" disabled>
-                                        <i class="fa fa-trash-o"></i> Xóa danh mục
-                                </button>    -->
+                                </button>                                 
                                 <button type="submit" class="btn btn-danger btn-sm" id="bntdeleteList" disabled>
                                     <i class="fa fa-trash-o"></i> Xóa danh mục
                             </button>        
@@ -91,15 +95,7 @@
 
 </div>
 
-<script>
-    //  getCheckListId = function(){
-    //     var checkBoxes = $('.table tbody .checkItem');
-    //     var values;
-	// 	checkBoxes.change(function () {
-	// 		 values += checkBoxes.filter(':checked').val();
-    //     });
-    //     alert(values);
-    //  }
+<script>   
 
 jQuery(document).ready(function($) {    
 
@@ -107,8 +103,7 @@ jQuery(document).ready(function($) {
         var list = '';
         $(".table tbody input[name='txtOrder']").each(function() {                   
             list += $(this).val()+'-'+$(this).attr('id')+',';
-        });
-        //console.log(list);
+        });      
         
         $.ajax({
         type: "GET",
@@ -126,3 +121,5 @@ jQuery(document).ready(function($) {
     });
 });
 </script>
+</body>
+</html>

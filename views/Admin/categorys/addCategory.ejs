@@ -1,3 +1,10 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <% include ../../partials/backend/partialLink %> 
+    <% include ../../partials/backend/partialCsript %>
+  </head>
+  <body> 
 <% include ../../partials/backend/aside %> 
 <div id="right-panel" class="right-panel">
 <% include ../../partials/backend/header %>
@@ -155,23 +162,8 @@ function listCate(list, isChild, level){
     return html;
 }
 
-// function buildTree(data, isChild = false) {
-//   let html = '<ul>';   // khởi tạo biến html
-//   // chạy vòng lặp for qua tất cả data
-//   data.forEach((d) => {
-//     // Mỗi phần tử data render ra một thẻ <li>
-//     html += `<li>${d.title}</li>`;
-//     // Nếu phần tử hiện tại của data có phần tử con thì hãy gọi buildTree một lần nữa qua các thẻ children và isChild =true
-    
-//     if (d.children) {
-//       html += buildTree(d.children, true);
-//     }
-//   });
-//   // tạo thẻ đóng </ul>
-//   html += '</ul>';
-//   return html;  //trả về chuỗi html
-// }
-
 </script>
 
 
+</body>
+</html>

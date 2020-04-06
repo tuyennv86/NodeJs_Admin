@@ -2,7 +2,7 @@ const createError = require('http-errors');
 const compression = require('compression');
 const helmet = require('helmet');
 const express = require('express');
-const expressLayouts = require('express-ejs-layouts');
+// const expressLayouts = require('express-ejs-layouts');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
@@ -47,9 +47,9 @@ app.use(fileUpload());
 app.use(cors());
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
-app.set('layout', 'layouts/layout');
+// app.set('layout', 'layouts/layout');
 app.set('view engine', 'ejs');
-app.use(expressLayouts);
+// app.use(expressLayouts);
 
 app.use(logger('dev'));
 app.use(express.json());

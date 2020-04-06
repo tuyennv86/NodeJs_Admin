@@ -1,3 +1,10 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <% include ../../partials/backend/partialLink %> 
+    <% include ../../partials/backend/partialCsript %>
+  </head>
+  <body> 
 <% include ../../partials/backend/aside %> 
 <div id="right-panel" class="right-panel">
 <% include ../../partials/backend/header %>
@@ -111,26 +118,7 @@
 </div>
 <script>
 jQuery(document).ready(function($) {
-
-
-    // $.ajax({
-    //     type: "GET",
-    //     async: true,        
-    //     url: "/api/category/getparent/"+$("#categoryType option:selected").val(),        
-    //     cache: false,
-    //     dataType: "json",
-    //     success: function (done) {              
-    //         if(done.status){      
-    //             $('#parent').empty();
-    //             $('#parent').append('<option value="">Root</option>');
-    //             $(done.data).each(function (i, item) {                     
-    //                 $('#parent').append('<option value="'+item._id+'">'+item.categoryName+'</option>');
-    //                  i = i + 1;
-    //             });        
-    //         }
-    //     }
-    // });
-
+    
     $("#categoryName").bind("keyup", function (e) {
         var catetext = $(this).val();
         $('#categoryKey').val(getSeoTitle(catetext));
@@ -192,3 +180,5 @@ function listCate(list, isChild){
 </script>
 
 
+</body>
+</html>
