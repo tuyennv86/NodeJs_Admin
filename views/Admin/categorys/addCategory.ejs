@@ -3,6 +3,7 @@
   <head>
     <% include ../../partials/backend/partialLink %> 
     <% include ../../partials/backend/partialCsript %>
+    
   </head>
   <body> 
 <% include ../../partials/backend/aside %> 
@@ -65,6 +66,23 @@
                         <div class="col-12 col-md-9 mserro"><input type="text" id="categoryKey" name="categoryKey" placeholder="Nhập tên Alias" class="form-control"  data-rule-required="true"></div>
                     </div>                  
                     
+                    <div class="row form-group">
+                        <div class="col col-md-3"><label class=" form-control-label">Meta Tile:</label></div>
+                        <div class="col-12 col-md-9 mserro"><input type="text" id="metaTile" name="metaTile" placeholder="Nhập tên hiển thị cho Title" class="form-control"  data-rule-required="true"></div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col col-md-3"><label class=" form-control-label">Meta Keyword:</label></div>
+                        <div class="col-12 col-md-9 mserro"><input type="text" id="metakeyword" name="metakeyword" placeholder="Nhập keyword" class="form-control"  data-rule-required="true"></div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col col-md-3"><label class=" form-control-label">Meta Description:</label></div>
+                        <div class="col-12 col-md-9 mserro"><input type="text" id="metaDescription" name="metaDescription" placeholder="Nhập Description" class="form-control"  data-rule-required="true"></div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col col-md-3"><label class=" form-control-label">Cỡ trang:</label></div>
+                        <div class="col-12 col-md-9 mserro"><input type="text" id="pageNumber" name="pageNumber" placeholder="Nhập số lượng bản ghi hiển thị trên 1 trang" class="form-control"  data-rule-required="true"  data-rule-number="true"></div>
+                    </div>
+
                      <div class="row form-group">
                         <div class="col col-md-3"><label class=" form-control-label">Thứ tự</label></div>
                         <div class="col-12 col-md-9 mserro"><input type="text" id="order" name="order" placeholder="Nhập thứ tự của danh mục" class="form-control" data-rule-required="true" data-rule-number="true"></div>
@@ -72,7 +90,17 @@
                     <div class="row form-group">
                             <div class="col col-md-3"><label for="fileImg" class=" form-control-label">Chọn ảnh</label></div>
                             <div class="col-12 col-md-9 mserro"><input type="file" id="fileImg" name="fileImg" class="form-control-file"></div>
-                        </div>
+                    </div>
+
+                    <div class="row form-group">
+                        <div class="col col-md-3"><label class=" form-control-label">Mô tả ngắn:</label></div>
+                        <div class="col-12 col-md-9 mserro"><textarea id="preview" name="preview"  placeholder="Nhập mô tả ngắn" class="form-control" rows="3"></textarea></div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col col-md-3"><label class=" form-control-label">Chi tiết:</label></div>
+                        <div class="col-12 col-md-9 mserro"><textarea id="detail" name="detail" placeholder="Nhập chi tiết" class="form-control"   rows="4"></textarea></div>
+                    </div>                   
+
                     <div class="row form-group">
                         <div class="col col-md-3"> &nbsp; </div>
                             <div class="col col-md-9">
@@ -95,6 +123,7 @@
                         <div class="col-12 col-md-9"><button type="submit" class="btn btn-primary btn-sm"><i class="fa fa-plus-square-o"></i> Thêm mới</button>
                         <a href="/admin/category/Index" class="btn btn-danger btn-sm"><i class="fa fa-reply"></i> Quay lại</a> </div>
                     </div> 
+                    
                 </form>
             </div>            
         </div>
@@ -124,6 +153,7 @@ jQuery(document).ready(function($) {
     $("#categoryName").bind("keyup", function (e) {
         var catetext = $(this).val();
         $('#categoryKey').val(getSeoTitle(catetext));
+        $('#metaTile').val(catetext);
     });
 
     $('#categoryType').on('change', function() {

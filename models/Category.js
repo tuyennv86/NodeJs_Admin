@@ -5,7 +5,13 @@ const Schema = mongoose.Schema;
 
 const CategorySchema = new Schema({
   categoryName: { type: String, required: true },
-  categoryKey: { type: String, required: true },
+  categoryKey: { type: String, required: true },  
+  metaTile: {type: String, default:'' },
+  metaKeyword: {type:String}, default:'',
+  metaDescription: {type: String, default:''},
+  pageNumber:{type: Number, default: 10},
+  preview:{type: String, default:''},
+  detail: {type:String, default:''},
   parent: { type: Schema.ObjectId, ref :"Category", default: new mongoose.Types.ObjectId() },
   categoryType: { type: Schema.ObjectId, ref: 'CategoryType', required:true },
   typeCategory: { type: Number, required: true }, 
@@ -18,6 +24,8 @@ const CategorySchema = new Schema({
   createBy: { type: String},
   editBy:{ type: String }  
 });
+
+// CategorySchema.pre('find', Populate('parent'));
 
 CategorySchema.virtual('createDateIso').get(function () {
   return moment(this.createDate).format('MM/DD/YYYY, h:mm:ss a');

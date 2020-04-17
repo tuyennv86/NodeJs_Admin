@@ -197,7 +197,13 @@ module.exports= {
     },
     postAddCcategory: (req, res, next) =>{
         const categoryName = req.body.categoryName;
-        const categoryKey = req.body.categoryKey;      
+        const categoryKey = req.body.categoryKey;  
+        const metaTile = req.body.metaTile;
+        const metaKeyword = req.body.metakeyword;
+        const metaDescription = req.body.metaDescription;
+        const pageNumber = req.body.pageNumber;
+        const preview = req.body.preview;
+        const detail = req.body.detail;
         const categoryType = req.body.categoryType;
         const parent = req.body.parent;
         const order = req.body.order;       
@@ -226,6 +232,12 @@ module.exports= {
                 categoryName: categoryName,
                 categoryKey: categoryKey,
                 categoryType: categoryType,
+                metaTile: metaTile,
+                metaKeyword: metaKeyword,
+                metaDescription: metaDescription,
+                pageNumber: pageNumber,
+                preview: preview,
+                detail: detail,
                 parent: parent != '' ? parent : new mongoose.Types.ObjectId,
                 typeCategory: data.typeInt,
                 order: order,                    
@@ -272,6 +284,12 @@ module.exports= {
         const categoryName = req.body.categoryName;
         const categoryKey = req.body.categoryKey;      
         //const categoryType = req.body.categoryType;
+        const metaTile = req.body.metaTile;
+        const metaKeyword = req.body.metakeyword;
+        const metaDescription = req.body.metaDescription;
+        const pageNumber = req.body.pageNumber;
+        const preview = req.body.preview;
+        const detail = req.body.detail;
         const parent = req.body.parent;
         const order = req.body.order;        
         let imageUrl = "";
@@ -298,6 +316,12 @@ module.exports= {
             _id: req.params.id,
             categoryName: categoryName,
             categoryKey: categoryKey,
+            metaTile: metaTile,
+            metaKeyword: metaKeyword,
+            metaDescription: metaDescription,
+            pageNumber: pageNumber,
+            preview: preview,
+            detail: detail,
             parent: parent,              
             order: order,
             imageUrl: imageUrl,  

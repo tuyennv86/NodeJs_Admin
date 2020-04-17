@@ -1,6 +1,7 @@
 const createError = require('http-errors');
 const compression = require('compression');
 const helmet = require('helmet');
+const xss = require('xss-clean');
 const express = require('express');
 // const expressLayouts = require('express-ejs-layouts');
 const path = require('path');
@@ -34,7 +35,7 @@ function shouldCompress (req, res) {
   return compression.filter(req, res)
 }
 app.use(helmet());// bao mật
-
+app.use(xss());// bảo mật xss
 // Passport Config
 require('./configs/passport')(passport);
 

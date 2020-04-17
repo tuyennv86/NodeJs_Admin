@@ -68,7 +68,22 @@
                         <div class="col col-md-3"><label class=" form-control-label">Tên Alias:</label></div>
                         <div class="col-12 col-md-9 mserro"><input type="text" id="categoryKey" name="categoryKey" value="<%= list.categoryKey %>" placeholder="Nhập tên Alias" class="form-control"  data-rule-required="true"></div>
                     </div>                  
-                    
+                    <div class="row form-group">
+                        <div class="col col-md-3"><label class=" form-control-label">Meta Tile:</label></div>
+                        <div class="col-12 col-md-9 mserro"><input type="text" id="metaTile" name="metaTile" value="<%= list.metaTile %>" placeholder="Nhập tên hiển thị cho Title" class="form-control"  data-rule-required="true"></div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col col-md-3"><label class=" form-control-label">Meta Keyword:</label></div>
+                        <div class="col-12 col-md-9 mserro"><input type="text" id="metakeyword" name="metakeyword" value="<%= list.metaKeyword %>" placeholder="Nhập keyword" class="form-control" data-rule-required="true"></div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col col-md-3"><label class=" form-control-label">Meta Description:</label></div>
+                        <div class="col-12 col-md-9 mserro"><input type="text" id="metaDescription" name="metaDescription" value="<%= list.metaDescription %>" placeholder="Nhập Description" class="form-control"  data-rule-required="true"></div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col col-md-3"><label class=" form-control-label">Cỡ trang:</label></div>
+                        <div class="col-12 col-md-9 mserro"><input type="text" id="pageNumber" name="pageNumber" value="<%= list.pageNumber %>" placeholder="Nhập số lượng bản ghi hiển thị trên 1 trang" class="form-control"  data-rule-required="true"  data-rule-number="true"></div>
+                    </div>
                      <div class="row form-group">
                         <div class="col col-md-3"><label class=" form-control-label">Thứ tự</label></div>
                         <div class="col-12 col-md-9 mserro"><input type="text" id="order" name="order" value="<%= list.order %>" placeholder="Nhập thứ tự của danh mục" class="form-control" data-rule-required="true" data-rule-number="true"></div>
@@ -87,6 +102,14 @@
                                 <%}%>
                             </div>
                     </div>
+                    <div class="row form-group">
+                        <div class="col col-md-3"><label class=" form-control-label">Mô tả ngắn:</label></div>
+                        <div class="col-12 col-md-9 mserro"><textarea id="preview" name="preview" value="<%= list.preview %>"  placeholder="Nhập mô tả ngắn" class="form-control" rows="3"></textarea></div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col col-md-3"><label class=" form-control-label">Chi tiết:</label></div>
+                        <div class="col-12 col-md-9 mserro"><textarea id="detail" name="detail" value="<%= list.detail %>" placeholder="Nhập chi tiết" class="form-control"  rows="4"></textarea></div>
+                    </div>  
                     <div class="row form-group">
                         <div class="col col-md-3"> &nbsp; </div>
                             <div class="col col-md-9">
@@ -122,7 +145,8 @@ jQuery(document).ready(function($) {
     $("#categoryName").bind("keyup", function (e) {
         var catetext = $(this).val();
         $('#categoryKey').val(getSeoTitle(catetext));
-    });
+        $('#metaTile').val(catetext);
+    });  
 
     $('#categoryType').on('change', function() {
         $.ajax({
