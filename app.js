@@ -15,9 +15,11 @@ const session = require('express-session');
 const fileUpload = require('express-fileupload');
 const cors = require('cors');
 const settings = require('./configs/keys');
+
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/admin/users');
 const categorysRouter = require('./routes/admin/categorys');
+const productsRouter = require('./routes/admin/products');
 
 const categoryApi = require('./api/categoryApi');
 
@@ -106,8 +108,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/admin', usersRouter);
-app.use('/admin/category',categorysRouter);
+app.use('/admin/category', categorysRouter);
 app.use('/api/category', categoryApi);
+app.use('/admin/product', productsRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

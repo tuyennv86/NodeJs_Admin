@@ -24,19 +24,19 @@ const ProductSchema = new Schema({
     editBy:{ type: String }  
   });
   
-  CategorySchema.virtual('createDateIso').get(function () {
+  ProductSchema.virtual('createDateIso').get(function () {
     return moment(this.createDate).format('MM/DD/YYYY, h:mm:ss a');
   });
   
-  CategorySchema.virtual('editDateIso').get(function () {
+  ProductSchema.virtual('editDateIso').get(function () {
     return moment(this.editDate).format('DD/MM/YYYY, h:mm:ss a');
   });
   
-  CategorySchema.virtual('createDate_dd_mm_yyyy').get(function () {
+  ProductSchema.virtual('createDate_dd_mm_yyyy').get(function () {
     return moment(this.createDate).format('MM/DD/YYYY');
   });
   
-  CategorySchema.virtual('editDate_dd_mm_yyyy').get(function () {
+  ProductSchema.virtual('editDate_dd_mm_yyyy').get(function () {
     return moment(this.editDate).format('DD/MM/YYYY');
   });
  

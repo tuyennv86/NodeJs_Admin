@@ -50,6 +50,9 @@
                                 <a href="/admin/category/add/" class="btn btn-success btn-sm" style="color: #fff;">
                                     <i class="fa fa-plus"></i> Thêm mới
                                 </a>
+                                <button type="button" class="btn btn-info btn-sm" id="bntUpdatePageSize">
+                                    <i class="fa fa-refresh"></i> Cập nhật cỡ trang
+                                </button>  
                                 <button type="button" class="btn btn-primary btn-sm" id="bntUpdateOrder">
                                     <i class="fa fa-refresh"></i> Cập nhật thứ tự
                                 </button>                                 
@@ -116,6 +119,28 @@ jQuery(document).ready(function($) {
                     location.reload(true);
                 }
             }
+        });
+    });
+
+    $('#bntUpdatePageSize').click(function() {       
+        var list = '';
+        $(".table tbody input[name='txtpageNumber']").each(function() {                   
+            list += $(this).val()+'-'+$(this).attr('id')+',';
+        });
+        //console.log(list);
+        
+        $.ajax({
+        type: "GET",
+        async: true,
+        url: "/api/category/updateMultilPageSize/"+list,        
+        cache: true,
+        dataType: "json",
+        success: function (done) {                        
+            if(done.status){ 
+                bootbox.alert("Cập nhật cỡ trang thành công");
+                location.reload(true);
+            }
+        }
         });
     });
 });

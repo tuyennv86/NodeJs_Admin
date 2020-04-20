@@ -39,6 +39,27 @@ router.get('/updateMultil/:str', isLoggedIn, async (req, res, next) =>{
 
 });
 
+router.get('/updateMultilPageSize/:str', isLoggedIn, async (req, res, next) =>{
+    const str = req.params.str;
+    var list  = lodash.trimEnd(str,',').split(',');
+    list.forEach(item =>{
+       
+        const pageNumber = Number(item.split('-')[0],1);
+        const id = item.split('-')[1];
+        if(lodash.isNumber(order)){
+            category.findOneAndUpdate({_id:id},{$set:{"pageNumber": pageNumber}}).exec(function(err, data){
+            if(err) console.log(err);            
+            console.log('update thanh cong');            
+            });
+        }
+    });
+    
+    res.json({
+        status : true
+    });
+
+});
+
 // function populateParents(node) {
 //     return category.populate(node, { path: "parent" }).then(function(node) {
 //       return node.parent ? populateParents(node.parent) : Promise.fulfill(node);

@@ -124,7 +124,7 @@ module.exports= {
         const searchQuery = req.query.search || '';
         const regex = new RegExp(req.query.search, 'gi');       
         categoryModel.find({'categoryName': regex}).populate('categoryType').sort({order : 'asc', createDate : 'desc'}).exec(function(err, listCate){        
-            if(err){ return next(err); }          
+            if(err){ return next(err); }                      
             res.render('Admin/categorys/index',{
                 title: 'Danh sách các danh mục',
                 data:listtotree.list_to_tree(listCate),              
