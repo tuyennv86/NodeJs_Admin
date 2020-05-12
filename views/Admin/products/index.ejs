@@ -37,17 +37,17 @@
                         <div class="col col-md-6">                       
                          <form action="/admin/product/search" method="POST" class="form-horizontal">
                             <div class="input-group">
-                                    <select class="form-control col-md-3"><option value="1">1</option></select>
-                                    <input type="text" class="form-control col-md-5"  name="textsearch" id="textsearch" placeholder="Nhập từ khóa tìm kiếm...">
+                                    <select class="form-control col-md-3 form-control-sm"><option value="1">1</option></select>
+                                    <input type="text" class="form-control col-md-5 form-control-sm" name="textsearch" id="textsearch" placeholder="Nhập từ khóa tìm kiếm...">
                                     <span class="input-group-btn">
-                                    <button class="btn btn-info" type="submit"><i class="fa fa-search fa-fw"></i> Tìm kiếm</button>
+                                    <button class="btn btn-info btn-sm" type="submit"><i class="fa fa-search fa-fw"></i> Tìm kiếm</button>
                                     </span>
                             </div>
                         </form>  
                         </div>
                         <form action="/admin/product/index/<%= current %>" method="POST" class="form-horizontal" onSubmit="if(!confirm('Bạn có muốn xóa không?')){return false;}"></form>
                         <div class="col-12 col-md-6">
-                                <div class="float-right mt-2">
+                                <div class="float-right">
                                     <a href="/admin/product/add" class="btn btn-success btn-sm" style="color: #fff;">
                                         <i class="fa fa-plus"></i> Thêm mới
                                     </a>
@@ -80,7 +80,9 @@
                            <% data.forEach(item => { %>
                              <tr>
                                     <td scope="row"><input type="checkbox" name="checkItem" class="checkItem" value="<%= item._id %>"></td>
-                                    <td ><%= item.productName %></td>
+                                    <td ><%= item.productName %><br>
+                                    <a href="/admin/product/indexType/<%= item.category._id %>"><%= item.category.categoryName %></a>
+                                    </td>
                                     <td><% if(item.imageUrl != ''){%>
                                         <img src="/uploads/pictures/<%= item.imageUrl %>" class="align-self-center" alt="<%= item.productName %>" style="width:50px; height:50px;">                                         
                                     <% } else { %>
