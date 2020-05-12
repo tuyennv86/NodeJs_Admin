@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const moment = require('moment');
-
+const numeral = require('numeral');
 const Schema = mongoose.Schema;
 
 const ProductSchema = new Schema({
@@ -10,7 +10,8 @@ const ProductSchema = new Schema({
     metaTile: {type: String },
     metaKeyword: {type:String},
     metaDescription: {type: String},
-    viewCounts:{type: Number},
+    quantum: {type: Number, default: 0, require: true},
+    viewCounts:{type: Number, default: 0},
     price: {type: Number, required: true, default: 0},
     priceOld: {type: Number, required: true, default: 0},
     order: { type: Number, required:true },
@@ -24,6 +25,14 @@ const ProductSchema = new Schema({
     editBy:{ type: String }  
   });
   
+  ProductSchema.virtual('priceFormat').get(function(){
+    return numeral(this.price).format('0,0');
+  });
+
+  ProductSchema.virtual('priceOldFormat').get(function(){
+    return numeral(this.priceOld).format('0,0');
+  });
+
   ProductSchema.virtual('createDateIso').get(function () {
     return moment(this.createDate).format('MM/DD/YYYY, h:mm:ss a');
   });
@@ -40,5 +49,4 @@ const ProductSchema = new Schema({
     return moment(this.editDate).format('DD/MM/YYYY');
   });
  
-  
-  module.exports = mongoose.model('product', ProductSchema);
+module.exports = mongoose.model('product', ProductSchema);

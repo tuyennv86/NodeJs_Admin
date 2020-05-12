@@ -20,9 +20,18 @@
                     <h3 class="menu-title">Danh sách các danh mục</h3><!-- /.menu-title --> 
                     <% categoriesTypeLocal.forEach(item => { %>
                         <li><a href="/admin/category/TypeIndex/<%= item._id %>"> <i class="menu-icon fa fa-tasks"></i>Danh mục - <%= item.typeName %></a></li>
+                        
+                        <% if(item.typeInt === 1){ %>
+                                <li><a href="/admin/product/index"> <i class="menu-icon fa fa-hdd-o"></i>Danh sách các - <%= item.typeName %></a></li>
+                        <% } %>
+                        <% if(item.typeInt === 3){ %>
+                                <li><a href="/admin/news/index"> <i class="menu-icon fa fa-file-text"></i>Danh sách các - <%= item.typeName %></a></li>
+                        <% } %>
+                        
+
                     <% }) %>   
 
-                    <h3 class="menu-title">Icons</h3><!-- /.menu-title -->
+                    <!--<h3 class="menu-title">Icons</h3>
                     <li class="menu-item-has-children dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-tasks"></i>Icons</a>
                         <ul class="sub-menu children dropdown-menu">

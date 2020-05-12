@@ -1,6 +1,8 @@
 const bcrypt = require('bcryptjs');
 const passport = require('passport');
 const fs = require('fs');
+const { v4: uuidv4 } = require('uuid');
+const filePath = require('../configs/fileConstants');
 // Load User model
 const User = require('../models/User');
 
@@ -41,13 +43,13 @@ module.exports = {
         res.redirect('/admin/changpass');
       }
       let sampleFile = req.files.avatar;
-      if (fs.existsSync('./public/uploads/avata/'+sampleFile.name)) {
-        imageUrl = "avata/"+Date.now()+ sampleFile.name; 
+      if (fs.existsSync(filePath.avataPath + sampleFile.name)) {
+        imageUrl = Date.now()+ sampleFile.name; 
       }else{  
-        imageUrl = "avata/"+sampleFile.name;    
+        imageUrl = sampleFile.name;    
       }
 
-      sampleFile.mv('./public/uploads/'+imageUrl, function(err) {
+      sampleFile.mv(filePath.avataPath + imageUrl, function(err) {
         if (err)
           return res.status(500).send(err);
       });
@@ -56,7 +58,7 @@ module.exports = {
       if (err) return res.status(500).send(err);
         if(data.ImageUrl.length > 0){
           try {
-            fs.unlink('./public/uploads/'+data.ImageUrl, function (err) {
+            fs.unlink(filePath.avataPath + data.ImageUrl, function (err) {
               if (err) console.log(err);           
               console.log('File deleted!');
             });  
@@ -140,7 +142,7 @@ module.exports = {
         if (err) return next(err);
         if(data.ImageUrl != ''){
           try {      
-            fs.unlink('./public/uploads/'+data.ImageUrl, function (err) {
+            fs.unlink(filePath.avataPath + data.ImageUrl, function (err) {
               if (err) console.log(err);           
               console.log('File deleted!');
             });  
@@ -182,7 +184,7 @@ module.exports = {
     if (!req.files || Object.keys(req.files).length === 0) {  }
     else{
       try {      
-        fs.unlink('./public/uploads/'+imageUrl, function (err) {
+        fs.unlink(filePath.avataPath + imageUrl, function (err) {
           if (err) console.log(err);           
           console.log('File deleted!');
         });  
@@ -191,13 +193,13 @@ module.exports = {
       }
 
       let sampleFile = req.files.fileImg;    
-      imageUrl = "avata/"+sampleFile.name;    
-      if (fs.existsSync('./public/uploads/avata/'+sampleFile.name)) {
-        imageUrl = "avata/"+Date.now()+ sampleFile.name; 
+      imageUrl = sampleFile.name;    
+      if (fs.existsSync(filePath.avataPath + sampleFile.name)) {
+        imageUrl = uuidv4() + sampleFile.name; 
       }else{  
-        imageUrl = "avata/"+sampleFile.name;    
+        imageUrl = sampleFile.name;    
       }
-      sampleFile.mv('./public/uploads/'+imageUrl, function(err) {
+      sampleFile.mv(filePath.avataPath + imageUrl, function(err) {
         if (err)
           return res.status(500).send(err);          
       });
@@ -249,7 +251,7 @@ module.exports = {
       if (err) throw err; 
       if(data.ImageUrl != ''){
         try {
-          fs.unlink('./public/uploads/'+data.ImageUrl, function (err) {
+          fs.unlink(filePath.avataPath + data.ImageUrl, function (err) {
             if (err) console.log(err);           
             console.log('File deleted!');
           }); 
@@ -281,12 +283,12 @@ module.exports = {
       imageUrl = "";        
     }else{     
       let sampleFile = req.files.fileImg;  
-      if (fs.existsSync('./public/uploads/avata/'+sampleFile.name)) {
-        imageUrl = "avata/"+Date.now()+ sampleFile.name; 
+      if (fs.existsSync(filePath.avataPath + sampleFile.name)) {
+        imageUrl = uuidv4() + sampleFile.name; 
       }else{  
-        imageUrl = "avata/"+sampleFile.name;    
+        imageUrl = sampleFile.name;    
       }
-      sampleFile.mv('./public/uploads/'+imageUrl, function(err) {
+      sampleFile.mv(filePath.avataPath + imageUrl, function(err) {
         if (err)
           return res.status(500).send(err);          
       });    

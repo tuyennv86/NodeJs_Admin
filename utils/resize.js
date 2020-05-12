@@ -1,17 +1,32 @@
-const fs = require('fs')
-const sharp = require('sharp')
+const sharp = require('sharp');
+const uuidv4 = require('uuid/v4');
+const path = require('path');
 
-module.exports = function resize(path, format, width, height) {
-  const readStream = fs.createReadStream(path);
-  let transform = sharp();
-
-  if (format) {
-    transform = transform.toFormat(format);
+class Resize {
+  constructor(folder, withImg, hightImg ) {
+    this.folder = folder;
+    this.withImg = withImg;
+    this.hightImg = hightImg;
   }
+  async save(buffer) {
+    const filename = Resize.filename();
+    const filepath = this.filepath(filename);
 
-  if (width || height) {
-    transform = transform.resize(width, height);
+    await sharp(buffer)
+      .resize(this.withImg, this.hightImg, { // size image 300x300
+        fit: sharp.fit.inside,
+        withoutEnlargement: true
+      })
+      .toFile(filepath);
+    
+    return filename;
   }
-
-  return readStream.pipe(transform);
+  static filename() {
+     // random file name
+    return `${uuidv4()}.png`;
+  }
+  filepath(filename) {
+    return path.resolve(`${this.folder}/${filename}`)
+  }
 }
+module.exports = Resize;

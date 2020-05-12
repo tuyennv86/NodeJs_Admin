@@ -1,10 +1,11 @@
 const fs = require('fs');
 const async = require('async');
-const uuidv4 = require('uuid/v4');
+const { v4: uuidv4 } = require('uuid');
 const categoryModel = require('../models/Category');
 const categoryTypeModel = require('../models/CategoryType');
 const listtotree = require('../utils/listTree');
 const mongoose = require('mongoose');
+const filePath = require('../configs/fileConstants');
 
 module.exports= {
     //Begin category type
@@ -215,12 +216,12 @@ module.exports= {
             imageUrl = "";            
         }else{     
             let sampleFile = req.files.fileImg;  
-            if (fs.existsSync('./public/uploads/pictures/'+sampleFile.name)) {
-              imageUrl = "pictures/"+Date.now()+ sampleFile.name;              
+            if (fs.existsSync(filePath.imagePath + sampleFile.name)) {               
+                imageUrl = uuidv4() + sampleFile.name;              
             }else{  
-              imageUrl = "pictures/"+sampleFile.name;    
+              imageUrl = sampleFile.name;
             }
-            sampleFile.mv('./public/uploads/'+imageUrl, function(err) {
+            sampleFile.mv(filePath.imagePath + imageUrl, function(err) {
               if (err)
                 return res.status(500).send(err);          
             });    
@@ -300,12 +301,12 @@ module.exports= {
             imageUrl = req.body.hidImg;
         }else{     
             let sampleFile = req.files.fileImg;  
-            if (fs.existsSync('./public/uploads/pictures/'+sampleFile.name)) {
-              imageUrl = "pictures/"+Date.now()+ sampleFile.name;
+            if (fs.existsSync(filePath.imagePath + sampleFile.name)) {
+              imageUrl = uuidv4() + sampleFile.name;
             }else{  
-              imageUrl = "pictures/"+sampleFile.name;    
+              imageUrl = sampleFile.name;    
             }
-            sampleFile.mv('./public/uploads/'+imageUrl, function(err) {
+            sampleFile.mv(filePath.imagePath + imageUrl, function(err) {
               if (err)
                 return res.status(500).send(err);          
             });    
@@ -351,7 +352,17 @@ module.exports= {
             }else{
                 categoryModel.findByIdAndDelete(id).exec(function(err, data){
                     if(err) return next(err);
-                    req.flash('success_msg', 'Bạn đã xóa kiểu danh mục: "'+ data.categoryName +'" thành công!');
+                    if(data.imageUrl != ''){
+                        try {
+                          fs.unlink(filePath.filePath + data.imageUrl, function (err) {
+                            if (err) console.log(err);           
+                            console.log('File deleted!');
+                          }); 
+                        } catch (error) {
+                          console.log(error);        
+                        }
+                    }
+                    req.flash('success_msg', 'Bạn đã xóa danh mục: "'+ data.categoryName +'" thành công!');
                     res.redirect('/'+url);
                 });
             }
