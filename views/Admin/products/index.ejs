@@ -87,9 +87,11 @@
                                     <a href="/admin/product/index?search=&cateid=<%= item.category._id %>"><%= item.category.categoryName %></a>
                                     </td>
                                     <td><% if(item.imageUrl != ''){%>
-                                        <img src="<%= item.ImageUrlFull %>" class="align-self-center" alt="<%= item.productName %>" style="width:50px; height:50px;">                                         
+                                        <img src="<%= item.ImageUrlFull %>" class="align-self-center" alt="<%= item.productName %>" style="width:50px; height:50px;">
+                                        <a class="showMore" href="#" title="Các ảnh khác"><i class="fa fa-eye-slash"></i></a>                                            
                                     <% } else { %>
                                         <img src="/images/noimg.jpg" class="align-self-center rounded-circle mr-3" alt="<%= item.productName %>" style="width:50px; height:50px;"> 
+                                        <a class="showMore" href="#" title="Các ảnh khác"><i class="fa fa-eye-slash"></i></a>                                            
                                      <% } %></td>
                                     <td><span style="font-weight: bold; color: #ff0084;"> Giá : <%= item.priceFormat %> vnđ </span><br><span style="color:#0161a1;  text-decoration: line-through;">Giá cũ : <%= item.priceOldFormat %> vnđ</span></td>
                                     <td><input type="text" name="txtpageNumber" id="<%= item._id %>" value="<%= item.quantum %>" class="form-control" style="width:45px;"></td>
@@ -110,11 +112,10 @@
                                     </td>
                                 </tr>  
                                 <% if(item.imageRelated.length > 0) {%> 
-                                <tr>
-                                    <td colspan="2">ảnh liên quan</td>
-                                    <td colspan="10">
+                                <tr style="display: none;">
+                                    <td colspan="12">
                                         <% item.imageRelated.forEach(img =>{%>
-                                            <img src="/uploads/pictures/<%= img %>" alt="<%= item.productName %>" width="50px" >      
+                                            <img src="/uploads/pictures/<%= img %>" alt="<%= item.productName %>" width="30px" >      
                                         <%}) %>
                                         
                                     </td>         
@@ -133,6 +134,16 @@
 </div>
 
 </div>
+<script>
+jQuery(document).ready(function($) {
+   
+    $(document).on("click", ".showMore", function() {
+        event.preventDefault();     
+       $(this).parent().parent().next().toggle();
+    });
 
+});
+
+</script>
 </body>
 </html>

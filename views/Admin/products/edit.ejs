@@ -100,7 +100,7 @@
                                       var id_img = list.imageUrl.substring(0,n);
                                     %>
                                 <div class="imgcontainer" id="<%= list._id %>">
-                                <img class="img-thumbnail" id="<%= list.imageUrl %>" src="/uploads/pictures/<%= list.imageUrl %>" alt="<%= list.productName %>" >    
+                                <img class="img-thumbnail" id="<%= list.imageUrl %>" src="<%= list.ImageUrlFull %>" alt="<%= list.productName %>" >    
                                 <a class="imgdelete1" id="<%= id_img %>" title="Xóa ảnh"><i class="fa fa-trash" aria-hidden="true"></i></a>
                                 </div>
                                 <%}%>
