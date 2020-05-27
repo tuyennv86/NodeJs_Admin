@@ -30,7 +30,8 @@ var list_to_tree = function (list) {
                 createBy: node.createBy,
                 editBy: node.editBy,
                 createDate_dd_mm_yyyy: node.createDate_dd_mm_yyyy,
-                editDate_dd_mm_yyyy: node.editDate_dd_mm_yyyy,                               
+                editDate_dd_mm_yyyy: node.editDate_dd_mm_yyyy,  
+                ImageUrlFull: node.ImageUrlFull,                             
                 children: node.children
             }            
             list[map[node.parent]].children.push(node2); //You can push direct "node"                                    
@@ -57,7 +58,8 @@ var list_to_tree = function (list) {
                 createBy: node.createBy,
                 editBy: node.editBy,
                 createDate_dd_mm_yyyy: node.createDate_dd_mm_yyyy,
-                editDate_dd_mm_yyyy: node.editDate_dd_mm_yyyy,                               
+                editDate_dd_mm_yyyy: node.editDate_dd_mm_yyyy,  
+                ImageUrlFull: node.ImageUrlFull,                             
                 children: node.children
             }
             roots.push(node2); // chuyển thành tree node cha con            

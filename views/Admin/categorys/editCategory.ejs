@@ -97,9 +97,15 @@
                     <div class="row form-group">
                             <div class="col col-md-3"><label for="fileImg" class=" form-control-label">Ảnh</label></div>
                             <div class="col-12 col-md-9 mserro"> 
-                                <% if(list.imageUrl.length > 0 ){%>
-                                <img class="img-thumbnail" src="/uploads/<%= list.imageUrl %>" alt="<%= list.categoryName %>" style="max-width: 200px;" >    
-                                <%}%>
+                                <% if(list.imageUrl.length > 0 ){
+                                      var n = list.imageUrl.indexOf('.');
+                                      var id_img = list.imageUrl.substring(0,n);
+                                %>
+                                <div class="imgcontainer" id="<%= list._id %>">
+                                <img class="img-thumbnail" id="<%= list.imageUrl %>" src="<%= list.ImageUrlFull %>" alt="<%= list.categoryName %>" >    
+                                <a class="imgdelete1" id="<%= id_img %>" title="Xóa ảnh"><i class="fa fa-trash" aria-hidden="true"></i></a>
+                                </div> 
+                                <%}%>                             
                             </div>
                     </div>
                     <div class="row form-group">
@@ -162,6 +168,36 @@ jQuery(document).ready(function($) {
             }
         });
 
+    });
+
+    // xoa anh chinh
+    $(document).on("click", ".imgdelete1", function() {
+        event.preventDefault();
+        var id = $(this).attr("id"); 
+        var id = $(this).parent().attr("id");      
+        var imgString = $(this).prev().attr("id");
+        bootbox.confirm("Bạn có chắc chắn muốn xóa ảnh này không?", function(result){             
+        if(result){
+                
+            $.ajax({
+                type: "GET",
+                async: true,
+                url: "/api/category/deleteImageUrl/"+id+"/"+imgString,        
+                cache: false,
+                dataType: "json",
+                success: function (done) {                        
+                    if(done.status){ 
+                        $('#'+id).parent().remove();  
+                        $("#hidImg").val('');
+                        console.log('Đã xóa thành công ảnh'+ done.img);                      
+                    }
+                }
+            });
+                
+            
+            }
+        });
+       
     });
 
 });

@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const moment = require('moment');
+const filePath = require('../configs/fileConstants');
 // const Populate = require("../utils/autopopulate");
 const Schema = mongoose.Schema;
 
@@ -26,6 +27,11 @@ const CategorySchema = new Schema({
 });
 
 // CategorySchema.pre('find', Populate('parent'));
+
+CategorySchema.virtual('ImageUrlFull').get(function () {
+  return filePath.imagePathView + this.imageUrl;
+});
+
 
 CategorySchema.virtual('createDateIso').get(function () {
   return moment(this.createDate).format('MM/DD/YYYY, h:mm:ss a');

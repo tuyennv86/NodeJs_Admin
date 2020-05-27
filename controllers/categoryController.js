@@ -142,7 +142,7 @@ module.exports= {
                 if(err) return next(err);
                 if(data.imageUrl != ''){
                     try {      
-                    fs.unlink('./public/uploads/'+data.ImageUrl, function (err) {
+                    fs.unlink(filePath.imagePath + data.ImageUrl, function (err) {
                         if (err) console.log(err);
                     });  
                     } catch (error) {

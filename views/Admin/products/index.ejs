@@ -37,7 +37,10 @@
                         <div class="col col-md-6">                       
                          <form action="/admin/product/search" method="POST" class="form-horizontal">
                             <div class="input-group">
-                                    <select class="form-control col-md-3 form-control-sm"><option value="1">1</option></select>
+                                    <select class="form-control col-md-3 form-control-sm" id="slcate" name="slcate">
+                                        <option value="1">Tất cả</option>
+                                        <%- include('../../partials/backend/dropallTree', {items: listcate, level: 1, id_check: id_check }) %> 
+                                    </select>
                                     <input type="text" class="form-control col-md-5 form-control-sm" name="textsearch" id="textsearch" placeholder="Nhập từ khóa tìm kiếm...">
                                     <span class="input-group-btn">
                                     <button class="btn btn-info btn-sm" type="submit"><i class="fa fa-search fa-fw"></i> Tìm kiếm</button>
@@ -45,7 +48,7 @@
                             </div>
                         </form>  
                         </div>
-                        <form action="/admin/product/index/<%= current %>" method="POST" class="form-horizontal" onSubmit="if(!confirm('Bạn có muốn xóa không?')){return false;}"></form>
+                        <form action="/admin/product/index/<%= current %>" method="POST" class="form-horizontal" onSubmit="if(!confirm('Bạn có muốn xóa không?')){return false;}">
                         <div class="col-12 col-md-6">
                                 <div class="float-right">
                                     <a href="/admin/product/add" class="btn btn-success btn-sm" style="color: #fff;">
@@ -81,10 +84,10 @@
                              <tr>
                                     <td scope="row"><input type="checkbox" name="checkItem" class="checkItem" value="<%= item._id %>"></td>
                                     <td ><%= item.productName %><br>
-                                    <a href="/admin/product/indexType/<%= item.category._id %>"><%= item.category.categoryName %></a>
+                                    <a href="/admin/product/index?search=&cateid=<%= item.category._id %>"><%= item.category.categoryName %></a>
                                     </td>
                                     <td><% if(item.imageUrl != ''){%>
-                                        <img src="/uploads/pictures/<%= item.imageUrl %>" class="align-self-center" alt="<%= item.productName %>" style="width:50px; height:50px;">                                         
+                                        <img src="<%= item.ImageUrlFull %>" class="align-self-center" alt="<%= item.productName %>" style="width:50px; height:50px;">                                         
                                     <% } else { %>
                                         <img src="/images/noimg.jpg" class="align-self-center rounded-circle mr-3" alt="<%= item.productName %>" style="width:50px; height:50px;"> 
                                      <% } %></td>
@@ -96,7 +99,7 @@
                                      <% }else{%><span class="badge badge-danger"><span class="ti-lock"></span>&nbsp; Clock</span><%} %> </td>
                                     <td> <% if (item.home) { %>
                                     <span class="badge badge-success"><span class="ti-check-box"></span>&nbsp; Home</span>                                     
-                                    <% } else{%><span class="badge badge-danger"><span class="ti-na"></span>&nbsp; </span><%} %></td>
+                                    <% } else{%><span class="badge badge-danger"><span class="ti-na"></span>&nbsp; Ẩn </span><%} %></td>
                                     <td><%= item.createDate_dd_mm_yyyy %></td>
                                     <td><%= item.createBy %></td>
                                     <td>
@@ -106,16 +109,23 @@
                                         </div>
                                     </td>
                                 </tr>  
+                                <% if(item.imageRelated.length > 0) {%> 
                                 <tr>
                                     <td colspan="2">ảnh liên quan</td>
-                                    <td colspan="10">d </td>         
+                                    <td colspan="10">
+                                        <% item.imageRelated.forEach(img =>{%>
+                                            <img src="/uploads/pictures/<%= img %>" alt="<%= item.productName %>" width="50px" >      
+                                        <%}) %>
+                                        
+                                    </td>         
                                 </tr>   
+                                <%}%>
                            <% }) %>
                                                           
                             </tbody>
                         </table>
                       <% include ../../partials/backend/PageNavigation %>
-                    </div>
+                    </div>                    
             </div>
             </form>
         </div>

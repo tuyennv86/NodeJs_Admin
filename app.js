@@ -22,6 +22,7 @@ const categorysRouter = require('./routes/admin/categorys');
 const productsRouter = require('./routes/admin/products');
 
 const categoryApi = require('./api/categoryApi');
+const productApi = require('./api/productApi');
 
 const categoryType = require('./models/CategoryType');
 
@@ -42,7 +43,7 @@ app.use(xss());// bảo mật xss
 require('./configs/passport')(passport);
 
 // Connect to MongoDB
-mongoose.connect(settings.mongoURI, { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect(settings.mongoURI, { useFindAndModify: false, useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => console.log('MongoDB Connected'))
   .catch(err => console.log(err));
 
@@ -110,6 +111,7 @@ app.use('/', indexRouter);
 app.use('/admin', usersRouter);
 app.use('/admin/category', categorysRouter);
 app.use('/api/category', categoryApi);
+app.use('/api/product', productApi);
 app.use('/admin/product', productsRouter);
 
 // catch 404 and forward to error handler

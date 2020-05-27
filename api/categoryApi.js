@@ -60,6 +60,26 @@ router.get('/updateMultilPageSize/:str', isLoggedIn, async (req, res, next) =>{
 
 });
 
+router.get('/deleteImageUrl/:id/:imgString', isLoggedIn, async (req, res, next) => {
+    const id = req.params.id;  
+    const imgString = req.params.imgString;
+     
+    try {
+        fs.unlink(filePath.imagePath + imgString, function (err) {
+          if (err) console.log(err);           
+          console.log('File deleted!');
+        }); 
+      } catch (error) {
+        console.log(error);        
+      }
+
+      category.findByIdAndUpdate(id ,{$set:{"imageUrl": ""}}).exec(function(err, data){
+        if(err) console.log(err);  
+            console.log('Xóa thành công');        
+            res.json({ status:true, img: data.categoryName});
+        }); 
+
+});
 // function populateParents(node) {
 //     return category.populate(node, { path: "parent" }).then(function(node) {
 //       return node.parent ? populateParents(node.parent) : Promise.fulfill(node);

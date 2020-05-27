@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const moment = require('moment');
 const numeral = require('numeral');
+const filePath = require('../configs/fileConstants');
 const Schema = mongoose.Schema;
 
 const ProductSchema = new Schema({
@@ -19,12 +20,17 @@ const ProductSchema = new Schema({
     active: { type: Boolean, default : true },
     home : { type: Boolean, default : true },
     imageRelated: { type: Array, default:[] },
+    preview: {type: String, default: ''},
+    detail: {type:String, default:''},
     createDate: { type: Date },
     editDate: { type: Date },
     createBy: { type: String},
     editBy:{ type: String }  
   });
-  
+  ProductSchema.virtual('ImageUrlFull').get(function(){
+    return filePath.imagePathView + this.imageUrl;
+  });
+
   ProductSchema.virtual('priceFormat').get(function(){
     return numeral(this.price).format('0,0');
   });
