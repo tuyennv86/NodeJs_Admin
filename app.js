@@ -102,6 +102,7 @@ app.use(function (req, res, next) {
   res.locals.error = req.flash('error');
   res.locals.users = req.user;
   res.locals.title = req.title;  
+  res.locals.urladdress = req.originalUrl;
   next();
 });
 

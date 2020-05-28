@@ -56,6 +56,47 @@ router.get('/deleteImageUrl/:productid/:imgString', isLoggedIn, async (req, res,
 
 });
 
+router.get('/updateMultilOrder/:str', isLoggedIn, async (req, res, next) =>{
+  const str = req.params.str;
+  var list  = lodash.trimEnd(str,',').split(',');
+  list.forEach(item =>{
+     
+      const order = Number(item.split('-')[0],1);
+      const id = item.split('-')[1];
+      if(lodash.isNumber(order)){
+        Product.findOneAndUpdate({_id:id},{$set:{"order": order}}).exec(function(err, data){
+          if(err) console.log(err);            
+          console.log('update thanh cong');            
+          });
+      }
+  });
+  
+  res.json({
+      status : true
+  });
+
+});
+
+router.get('/updateMultilQuantum/:str', isLoggedIn, async (req, res, next) =>{
+  const str = req.params.str;
+  var list  = lodash.trimEnd(str,',').split(',');
+  list.forEach(item =>{
+     
+      const quantum = Number(item.split('-')[0],1);
+      const id = item.split('-')[1];
+      if(lodash.isNumber(quantum)){
+        Product.findOneAndUpdate({_id:id},{$set:{"quantum": quantum}}).exec(function(err, data){
+          if(err) console.log(err);            
+          console.log('update thanh cong');            
+          });
+      }
+  });
+  
+  res.json({
+      status : true
+  });
+
+});
 
 
 

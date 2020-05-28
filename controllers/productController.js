@@ -16,15 +16,13 @@ module.exports = {
         const perPage = 10;
         const cateId = req.query.cateid || '1';
         const searchQuery = req.query.search || '';
-        const regex = new RegExp(req.query.search, 'gi');       
-        
+        const regex = new RegExp(req.query.search, 'gi');
         try {
             const listcate = await categoryModel.find({typeCategory: 1});            
             if(cateId === '1'){
 
-                const list = await productModel.find({productName:regex}).populate('category').sort({createDate : 'descending'}).skip((perPage * page) - perPage).limit(perPage);
+                const list = await productModel.find({productName:regex}).populate('category').sort({order : 'asc', createDate : 'desc'}).skip((perPage * page) - perPage).limit(perPage);
                 const count = await productModel.countDocuments({productName:regex});
-
                 res.render('Admin/products/index',{
                     title: 'Danh sách các sản phẩm',
                     data: list,
@@ -37,7 +35,7 @@ module.exports = {
                 });
 
             }else{
-                const list = await productModel.find({productName:regex, category: cateId}).populate('category').sort({createDate : 'descending'}).skip((perPage * page) - perPage).limit(perPage);
+                const list = await productModel.find({productName:regex, category: cateId}).populate('category').sort({order : 'asc', createDate : 'desc'}).skip((perPage * page) - perPage).limit(perPage);
                 const count = await productModel.countDocuments({productName:regex, category: cateId});
 
                 res.render('Admin/products/index',{

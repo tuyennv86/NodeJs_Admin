@@ -101,4 +101,4 @@ getSeoTitle = function(input) {
         return slug;
 
     }
-}
+};

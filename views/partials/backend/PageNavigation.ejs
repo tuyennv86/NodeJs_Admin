@@ -1,4 +1,9 @@
-<% if (pages > 1) { %>
+<% if (pages > 1) {
+    let linkaddress =  ""; 
+    if(urladdress.includes("?")){
+        linkaddress = urladdress.substring(urladdress.indexOf("?"),urladdress.length) ;
+    }
+    %>
     <nav><ul class="pagination justify-content-center">
         <% if (current == 1) { %>
             <li class="page-item disabled"><a class="page-link">Trang đầu</a></li>
@@ -13,7 +18,7 @@
             <% if (i == current) { %>
                 <li class="page-item active"><a class="page-link"><%= i %></a></li>
             <% } else { %>
-                <li page-item><a class="page-link" href="/<%= linkUrl %>/<%= i %>"><%= i %></a></li>
+                <li page-item><a class="page-link" href="/<%= linkUrl %>/<%= i %><%= linkaddress %>"><%= i %></a></li>
             <% } %>
             <% if (i == Number(current) + 4 && i < pages) { %>
                 <li class="page-item disabled"><a class="page-link">...</a></li>

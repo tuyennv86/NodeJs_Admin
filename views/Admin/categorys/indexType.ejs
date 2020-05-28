@@ -114,9 +114,10 @@ jQuery(document).ready(function($) {
         cache: true,
         dataType: "json",
             success: function (done) {                        
-                if(done.status){ 
-                    bootbox.alert("Cập nhật thứ tự thành công");
-                    location.reload(true);
+                if(done.status){                   
+                    bootbox.alert("Cập nhật thứ tự thành công!", function(){ 
+                        location.reload(true);
+                    });
                 }
             }
         });
@@ -136,13 +137,30 @@ jQuery(document).ready(function($) {
         cache: true,
         dataType: "json",
         success: function (done) {                        
-            if(done.status){ 
-                bootbox.alert("Cập nhật cỡ trang thành công");
-                location.reload(true);
+            if(done.status){                
+                bootbox.alert("Cập nhật cỡ trang thành công!", function(){ 
+                    location.reload(true);
+                });
             }
         }
         });
     });
+
+   
+$('input[name="txtpageNumber"]').on("keypress keyup blur",function (event) {    
+    $(this).val($(this).val().replace(/[^\d].+/, ""));
+    if ((event.which < 48 || event.which > 57)) {
+        event.preventDefault();
+    }
+});
+
+ $('input[name="txtOrder"]').on("keypress keyup blur",function (event) {    
+    $(this).val($(this).val().replace(/[^\d].+/, ""));
+    if ((event.which < 48 || event.which > 57)) {
+        event.preventDefault();
+    }
+});
+
 });
 </script>
 </body>

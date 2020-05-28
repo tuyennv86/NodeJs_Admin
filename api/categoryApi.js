@@ -46,7 +46,7 @@ router.get('/updateMultilPageSize/:str', isLoggedIn, async (req, res, next) =>{
        
         const pageNumber = Number(item.split('-')[0],1);
         const id = item.split('-')[1];
-        if(lodash.isNumber(order)){
+        if(lodash.isNumber(pageNumber)){
             category.findOneAndUpdate({_id:id},{$set:{"pageNumber": pageNumber}}).exec(function(err, data){
             if(err) console.log(err);            
             console.log('update thanh cong');            

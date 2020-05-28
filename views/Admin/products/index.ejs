@@ -37,7 +37,7 @@
                         <div class="col col-md-6">                       
                          <form action="/admin/product/search" method="POST" class="form-horizontal">
                             <div class="input-group">
-                                    <select class="form-control col-md-3 form-control-sm" id="slcate" name="slcate">
+                                    <select class="form-control col-md-3 form-control-sm" id="slcate" name="slcate">                                    
                                         <option value="1">Tất cả</option>
                                         <%- include('../../partials/backend/dropallTree', {items: listcate, level: 1, id_check: id_check }) %> 
                                     </select>
@@ -54,6 +54,12 @@
                                     <a href="/admin/product/add" class="btn btn-success btn-sm" style="color: #fff;">
                                         <i class="fa fa-plus"></i> Thêm mới
                                     </a>
+                                    <button type="button" class="btn btn-info btn-sm" id="bntUpdateQuantum">
+                                    <i class="fa fa-refresh"></i> Cập nhật số lượng
+                                </button>  
+                                <button type="button" class="btn btn-primary btn-sm" id="bntUpdateOrder">
+                                    <i class="fa fa-refresh"></i> Cập nhật thứ tự
+                                </button>  
                                     <button type="submit" class="btn btn-danger btn-sm" id="bntdeleteList" disabled>
                                             <i class="fa fa-trash-o"></i> Xóa sản phẩm được chọn
                                         </button>                                   
@@ -94,9 +100,9 @@
                                         <a class="showMore" href="#" title="Các ảnh khác"><i class="fa fa-eye-slash"></i></a>                                            
                                      <% } %></td>
                                     <td><span style="font-weight: bold; color: #ff0084;"> Giá : <%= item.priceFormat %> vnđ </span><br><span style="color:#0161a1;  text-decoration: line-through;">Giá cũ : <%= item.priceOldFormat %> vnđ</span></td>
-                                    <td><input type="text" name="txtpageNumber" id="<%= item._id %>" value="<%= item.quantum %>" class="form-control" style="width:45px;"></td>
+                                    <td><input type="text" name="txtquantum" id="<%= item._id %>" value="<%= item.quantum %>" class="form-control" style="width:45px;"></td>
                                     <td> <%= item.viewCounts %> </td>
-                                    <td><input type="text" name="txtpageNumber" id="<%= item._id %>" value="<%= item.order %>" class="form-control" style="width:45px;"></td>
+                                    <td><input type="text" name="txtorder" id="<%= item._id %>" value="<%= item.order %>" class="form-control" style="width:45px;"></td>
                                     <td> <% if ( item.active) { %><span class="badge badge-success"><span class="ti-unlock"></span>&nbsp; Active</span>
                                      <% }else{%><span class="badge badge-danger"><span class="ti-lock"></span>&nbsp; Clock</span><%} %> </td>
                                     <td> <% if (item.home) { %>
@@ -136,10 +142,70 @@
 </div>
 <script>
 jQuery(document).ready(function($) {
-   
+  
     $(document).on("click", ".showMore", function() {
         event.preventDefault();     
        $(this).parent().parent().next().toggle();
+    });
+
+    $('input[name="txtquantum"]').on("keypress keyup blur",function (event) {    
+        $(this).val($(this).val().replace(/[^\d].+/, ""));
+        if ((event.which < 48 || event.which > 57)) {
+            event.preventDefault();
+        }
+    });
+
+    $('input[name="txtorder"]').on("keypress keyup blur",function (event) {    
+        $(this).val($(this).val().replace(/[^\d].+/, ""));
+        if ((event.which < 48 || event.which > 57)) {
+            event.preventDefault();
+        }
+    });
+
+     $('#bntUpdateOrder').click(function() {       
+        var list = '';
+        $(".table tbody input[name='txtorder']").each(function() {                   
+            list += $(this).val()+'-'+$(this).attr('id')+',';
+        });
+        //console.log(list);
+        
+        $.ajax({
+        type: "GET",
+        async: true,
+        url: "/api/product/updateMultilOrder/"+list,        
+        cache: true,
+        dataType: "json",
+        success: function (done) {                        
+            if(done.status){ 
+                bootbox.alert("Cập nhật thứ tự thành công!", function(){ 
+                    location.reload(true);
+                });               
+            }
+        }
+        });
+    });
+
+    $('#bntUpdateQuantum').click(function() {       
+        var list = '';
+        $(".table tbody input[name='txtquantum']").each(function() {                   
+            list += $(this).val()+'-'+$(this).attr('id')+',';
+        });
+        //console.log(list);
+        
+        $.ajax({
+        type: "GET",
+        async: true,
+        url: "/api/product/updateMultilQuantum/"+list,        
+        cache: true,
+        dataType: "json",
+        success: function (done) {                        
+            if(done.status){                
+                bootbox.alert("Cập nhật số lượng thành công!", function(){ 
+                    location.reload(true);
+                });  
+            }
+        }
+        });
     });
 
 });
