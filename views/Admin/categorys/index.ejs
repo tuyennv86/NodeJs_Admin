@@ -97,16 +97,14 @@
 
 </div>
 
-<script>
-
+ <script>
 jQuery(document).ready(function($) {    
 
-     $('#bntUpdateOrder').click(function() {       
+    $('#bntUpdateOrder').click(function() {       
         var list = '';
         $(".table tbody input[name='txtOrder']").each(function() {                   
             list += $(this).val()+'-'+$(this).attr('id')+',';
-        });
-        //console.log(list);
+        });      
         
         $.ajax({
         type: "GET",
@@ -114,13 +112,13 @@ jQuery(document).ready(function($) {
         url: "/api/category/updateMultil/"+list,        
         cache: true,
         dataType: "json",
-        success: function (done) {                        
-            if(done.status){                
-                bootbox.alert("Cập nhật thứ tự thành công!", function(){ 
-                    location.reload(true);
-                });
+            success: function (done) {                        
+                if(done.status){                   
+                    bootbox.alert("Cập nhật thứ tự thành công!", function(){ 
+                        location.reload(true);
+                    });
+                }
             }
-        }
         });
     });
 
@@ -138,35 +136,33 @@ jQuery(document).ready(function($) {
         cache: true,
         dataType: "json",
         success: function (done) {                        
-            if(done.status){ 
-                bootbox.alert("Cập nhật cỡ trang thành công!" function(){ 
+            if(done.status){                
+                bootbox.alert("Cập nhật cỡ trang thành công!", function(){ 
                     location.reload(true);
                 });
             }
-          }
+        }
         });
     });
 
+   
+    $('input[name="txtpageNumber"]').on("keypress keyup blur",function (event) {    
+        $(this).val($(this).val().replace(/[^\d].+/, ""));
+        if ((event.which < 48 || event.which > 57)) {
+            event.preventDefault();
+        }
+    });
 
-$('input[name="txtpageNumber"]').on("keypress keyup blur",function (event) {    
-    $(this).val($(this).val().replace(/[^\d].+/, ""));
-    if ((event.which < 48 || event.which > 57)) {
-        event.preventDefault();
-    }
-});
-
- $('input[name="txtOrder"]').on("keypress keyup blur",function (event) {    
-    $(this).val($(this).val().replace(/[^\d].+/, ""));
-    if ((event.which < 48 || event.which > 57)) {
-        event.preventDefault();
-    }
-});
-
-
+    $('input[name="txtOrder"]').on("keypress keyup blur",function (event) {    
+        $(this).val($(this).val().replace(/[^\d].+/, ""));
+        if ((event.which < 48 || event.which > 57)) {
+            event.preventDefault();
+        }
+    });
 
 });
 
-</script>
+ </script>
 </body>
 </html>
 

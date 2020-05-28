@@ -147,19 +147,19 @@ jQuery(document).ready(function($) {
     });
 
    
-$('input[name="txtpageNumber"]').on("keypress keyup blur",function (event) {    
-    $(this).val($(this).val().replace(/[^\d].+/, ""));
-    if ((event.which < 48 || event.which > 57)) {
-        event.preventDefault();
-    }
-});
+    $('input[name="txtpageNumber"]').on("keypress keyup blur",function (event) {    
+        $(this).val($(this).val().replace(/[^\d].+/, ""));
+        if ((event.which < 48 || event.which > 57)) {
+            event.preventDefault();
+        }
+    });
 
- $('input[name="txtOrder"]').on("keypress keyup blur",function (event) {    
-    $(this).val($(this).val().replace(/[^\d].+/, ""));
-    if ((event.which < 48 || event.which > 57)) {
-        event.preventDefault();
-    }
-});
+    $('input[name="txtOrder"]').on("keypress keyup blur",function (event) {    
+        $(this).val($(this).val().replace(/[^\d].+/, ""));
+        if ((event.which < 48 || event.which > 57)) {
+            event.preventDefault();
+        }
+    });
 
 });
 </script>

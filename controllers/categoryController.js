@@ -331,8 +331,7 @@ module.exports= {
             editDate: Date.now(),             
             editBy: req.user.name  
         });       
-        console.log(objCate);
-
+       
        categoryModel.findByIdAndUpdate(req.params.id, objCate, {}, function (err,thecate) {
         if (err) { return next(err); }
             req.flash('success_msg', 'Bạn đã cập nhật thành công : '+ thecate.categoryName);
