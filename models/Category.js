@@ -1,7 +1,6 @@
 const mongoose = require('mongoose');
 const moment = require('moment');
 const filePath = require('../configs/fileConstants');
-// const Populate = require("../utils/autopopulate");
 const Schema = mongoose.Schema;
 
 const CategorySchema = new Schema({
@@ -26,8 +25,6 @@ const CategorySchema = new Schema({
   editBy:{ type: String }  
 });
 
-// CategorySchema.pre('find', Populate('parent'));
-
 CategorySchema.virtual('ImageUrlFull').get(function () {
   return filePath.imagePathView + this.imageUrl;
 });
@@ -48,7 +45,5 @@ CategorySchema.virtual('createDate_dd_mm_yyyy').get(function () {
 CategorySchema.virtual('editDate_dd_mm_yyyy').get(function () {
   return moment(this.editDate).format('DD/MM/YYYY');
 });
-// CategorySchema.pre('findOne', Populate('parent'))
-//     .pre('find', Populate('parent'))
 
 module.exports = mongoose.model('Category', CategorySchema);

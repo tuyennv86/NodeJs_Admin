@@ -17,18 +17,24 @@
                     <li><a href="/admin/category/Index"> <i class="menu-icon fa fa-tasks"></i>Tất cả danh mục</a></li>
                     <h3 class="menu-title">Danh sách các danh mục</h3><!-- /.menu-title --> 
                     <% categoriesTypeLocal.forEach(item => { %>
-                        <li><a href="/admin/category/TypeIndex/<%= item._id %>"> <i class="menu-icon fa fa-tasks"></i>Danh mục - <%= item.typeName %></a></li>
-                        <% if(item.typeInt === 1){ %>
-                                <li><a href="/admin/product/index"> <i class="menu-icon fa fa-hdd-o"></i>Danh sách các - <%= item.typeName %></a></li>
-                        <% } %>
-                        <% if(item.typeInt === 3){ %>
-                                <li><a href="/admin/news/index"> <i class="menu-icon fa fa-file-text"></i>Danh sách các - <%= item.typeName %></a></li>
-                        <% } %>
+
+                        <li class="menu-item-has-children dropdown show">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"> <i class="menu-icon fa fa-tasks"></i><%= item.typeName %></a>
+                            <ul class="sub-menu children dropdown-menu show">
+                                <li><i class="menu-icon fa fa-sign-in"></i><a href="/admin/category/TypeIndex/<%= item._id %>">Danh mục</a></li>
+                                <% if(item.typeInt === 1){ %>
+                                    <li><i class="menu-icon fa fa-hdd-o"></i><a href="/admin/product/index"><%= item.typeName %></a></li>
+                                <% } %>
+                                <% if(item.typeInt === 3){ %>
+                                    <li> <i class="menu-icon fa fa-file-text"></i><a href="/admin/news/index"><%= item.typeName %></a></li>
+                                <% } %>
+                            </ul>
+                        </li>                       
                     <% }) %>
                     <li><a href="/admin/user/list"> <i class="menu-icon fa fa-user"></i>Danh sách users </a></li>
-                    <li class="menu-item-has-children dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-glass"></i>Pages</a>
-                        <ul class="sub-menu children dropdown-menu">
+                    <li class="menu-item-has-children dropdown show">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"> <i class="menu-icon fa fa-glass"></i>Pages</a>
+                        <ul class="sub-menu children dropdown-menu show">
                             <li><i class="menu-icon fa fa-sign-in"></i><a href="page-login.html">Login</a></li>
                             <li><i class="menu-icon fa fa-sign-in"></i><a href="page-register.html">Register</a></li>
                             <li><i class="menu-icon fa fa-paper-plane"></i><a href="pages-forget.html">Forget Pass</a></li>
