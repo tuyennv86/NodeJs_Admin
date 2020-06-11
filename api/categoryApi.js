@@ -125,6 +125,3 @@ router.get('/deleteImageUrl/:id/:imgString', isLoggedIn, async (req, res, next) 
 // });
 
 module.exports = router;
-
-
-

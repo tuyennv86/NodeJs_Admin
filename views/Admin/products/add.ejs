@@ -2,8 +2,10 @@
 <html>
   <head>
     <% include ../../partials/backend/partialLink %>     
-    <% include ../../partials/backend/partialCsript %>     
-    
+    <% include ../../partials/backend/partialCsript %>   
+    <link rel="stylesheet" href="/jodit-3.3.8/jodit.min.css"/>
+    <script src="/jodit-3.3.8/jodit.min.js"></script>  
+    <!-- <script type="text/javascript" src="/ckeditor/ckeditor.js"></script> -->
   </head>
   <body> 
 <% include ../../partials/backend/aside %> 
@@ -98,11 +100,11 @@
 
                     <div class="row form-group">
                         <div class="col col-md-3"><label class=" form-control-label">Mô tả ngắn:</label></div>
-                        <div class="col-12 col-md-9 mserro"><textarea id="preview" name="preview"  placeholder="Nhập mô tả ngắn" class="form-control" rows="3"></textarea></div>
+                        <div class="col-12 col-md-9 mserro"><textarea id="preview" name="preview"  placeholder="Nhập mô tả ngắn" class="form-control" rows="3" cols="50"></textarea></div>
                     </div>
                     <div class="row form-group">
                         <div class="col col-md-3"><label class=" form-control-label">Chi tiết:</label></div>
-                        <div class="col-12 col-md-9 mserro"><textarea id="detail" name="detail" placeholder="Nhập chi tiết" class="form-control" rows="4"></textarea></div>
+                        <div class="col-12 col-md-9 mserro"><textarea id="detail" name="detail" placeholder="Nhập chi tiết" class="form-control" rows="4" cols="50"></textarea></div>
                     </div>                   
 
                     <div class="row form-group">
@@ -135,16 +137,84 @@
 </div>
 
 </div>
+
 <script>
-jQuery(document).ready(function($) {
+    var editor = new Jodit('#detail', {
+        textIcons: false,
+        iframe: false,
+        iframeStyle: '*,.jodit_wysiwyg {color:red;}',
+        height: 500,
+        defaultMode: Jodit.MODE_WYSIWYG,
+        observer: {
+            timeout: 100
+        },
+        uploader: {
+          insertImageAsBase64URI: true,
+        },
+
+        // uploader: {
+        //    // url: 'https://xdsoft.net/jodit/connector/index.php?action=fileUpload'
+        //    url: '/api/uploads'
+        // },
+        // filebrowser: {
+        //     // buttons: ['list', 'tiles', 'sort'],
+        //     ajax: {
+        //         //url: 'https://xdsoft.net/jodit/connector/index.php'
+        //         url: '/filebrowse/api/files'
+        //     }
+        // },
+        commandToHotkeys: {
+            'openreplacedialog': 'ctrl+p'
+        }
+        // buttons: ['symbol'],
+        // disablePlugins: 'hotkeys,mobile'
+    });
+    var editor = new Jodit('#preview', {
+        textIcons: false,
+        iframe: false,
+        iframeStyle: '*,.jodit_wysiwyg {color:red;}',
+        height: 300,
+        defaultMode: Jodit.MODE_WYSIWYG,
+        observer: {
+            timeout: 100
+        },
+        uploader: {
+          insertImageAsBase64URI: true,
+        },
+
+        // uploader: {
+        //    // url: 'https://xdsoft.net/jodit/connector/index.php?action=fileUpload'
+        //    url: '/api/uploads'
+        // },
+        // filebrowser: {
+        //     // buttons: ['list', 'tiles', 'sort'],
+        //     ajax: {
+        //         //url: 'https://xdsoft.net/jodit/connector/index.php'
+        //         url: '/filebrowse/api/files'
+        //     }
+        // },
+        commandToHotkeys: {
+            'openreplacedialog': 'ctrl+p'
+        }
+        // buttons: ['symbol'],
+        // disablePlugins: 'hotkeys,mobile'
+    });
+</script>
+
+
+<script type="text/javascript">
+
+    jQuery(document).ready(function($) {   
+        
+        $('#slCategory').select2();
+
+        $("#productName").bind("keyup", function (e) {
+            var productName = $(this).val();
+            $('#productKey').val(getSeoTitle(productName));
+            $('#metaTile').val(productName);
+        });    
    
-    $("#productName").bind("keyup", function (e) {
-        var productName = $(this).val();
-        $('#productKey').val(getSeoTitle(productName));
-        $('#metaTile').val(productName);
-    });    
-   
-});
+    });
 </script>
 
 

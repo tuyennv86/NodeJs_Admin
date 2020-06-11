@@ -3,7 +3,8 @@
   <head>
     <% include ../../partials/backend/partialLink %>     
     <% include ../../partials/backend/partialCsript %>     
-    
+    <link rel="stylesheet" href="/jodit-3.3.8/jodit.min.css"/>
+    <script src="/jodit-3.3.8/jodit.min.js"></script>  
   </head>
   <body> 
 <% include ../../partials/backend/aside %> 
@@ -172,8 +173,73 @@
 
 </div>
 <script>
+    var editor = new Jodit('#detail', {
+        textIcons: false,
+        iframe: false,
+        iframeStyle: '*,.jodit_wysiwyg {color:red;}',
+        height: 500,
+        defaultMode: Jodit.MODE_WYSIWYG,
+        observer: {
+            timeout: 100
+        },
+        uploader: {
+          insertImageAsBase64URI: true,
+        },
+
+        // uploader: {
+        //    // url: 'https://xdsoft.net/jodit/connector/index.php?action=fileUpload'
+        //    url: '/api/uploads'
+        // },
+        // filebrowser: {
+        //     // buttons: ['list', 'tiles', 'sort'],
+        //     ajax: {
+        //         //url: 'https://xdsoft.net/jodit/connector/index.php'
+        //         url: '/filebrowse/api/files'
+        //     }
+        // },
+        commandToHotkeys: {
+            'openreplacedialog': 'ctrl+p'
+        }
+        // buttons: ['symbol'],
+        // disablePlugins: 'hotkeys,mobile'
+    });
+    var editor = new Jodit('#preview', {
+        textIcons: false,
+        iframe: false,
+        iframeStyle: '*,.jodit_wysiwyg {color:red;}',
+        height: 300,
+        defaultMode: Jodit.MODE_WYSIWYG,
+        observer: {
+            timeout: 100
+        },
+        uploader: {
+          insertImageAsBase64URI: true,
+        },
+
+        // uploader: {
+        //    // url: 'https://xdsoft.net/jodit/connector/index.php?action=fileUpload'
+        //    url: '/api/uploads'
+        // },
+        // filebrowser: {
+        //     // buttons: ['list', 'tiles', 'sort'],
+        //     ajax: {
+        //         //url: 'https://xdsoft.net/jodit/connector/index.php'
+        //         url: '/filebrowse/api/files'
+        //     }
+        // },
+        commandToHotkeys: {
+            'openreplacedialog': 'ctrl+p'
+        }
+        // buttons: ['symbol'],
+        // disablePlugins: 'hotkeys,mobile'
+    });
+</script>
+
+<script>
 jQuery(document).ready(function($) {
    
+    $('#slCategory').select2();
+
     $("#productName").bind("keyup", function (e) {
         var productName = $(this).val();
         $('#productKey').val(getSeoTitle(productName));

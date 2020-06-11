@@ -3,7 +3,7 @@ const compression = require('compression');
 const helmet = require('helmet');
 const xss = require('xss-clean');
 const express = require('express');
-// const expressLayouts = require('express-ejs-layouts');
+
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
@@ -94,7 +94,6 @@ app.use(function (req, res, next) {
        next();
     });
 });
-
 
 app.use(function (req, res, next) {
   res.locals.success_msg = req.flash('success_msg');
