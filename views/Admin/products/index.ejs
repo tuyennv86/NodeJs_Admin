@@ -37,7 +37,7 @@
                         <div class="col col-md-6">                       
                          <form action="/admin/product/search" method="POST" class="form-horizontal">
                             <div class="input-group">
-                                    <select class="form-control col-md-3 form-control-sm" id="slcate" name="slcate">                                    
+                                    <select class="form-control col-md-3 form-control-sm" id="slcate" name="slcate" style="width:250px;">
                                         <option value="1">Tất cả</option>
                                         <%- include('../../partials/backend/dropallTree', {items: listcate, level: 1, id_check: id_check }) %></select>
                                     <input type="text" class="form-control col-md-5 form-control-sm" name="textsearch" id="textsearch" placeholder="Nhập từ khóa tìm kiếm...">
@@ -141,6 +141,8 @@
 </div>
 <script>
 jQuery(document).ready(function($) {
+
+    $('#slcate').select2();
   
     $(document).on("click", ".showMore", function() {
         event.preventDefault();     
