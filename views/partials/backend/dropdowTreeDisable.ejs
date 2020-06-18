@@ -1,0 +1,18 @@
+<% if (items.length) { %>
+    <% items.forEach(function(item){        
+        let space = "";
+        for(let j = 1 ;j< level; j++ ){
+                space = space + "--";
+        }        
+        %>      
+        <option value="<%= item._id %>" <% if(item._id.equals(id_check)){ %> selected="selected" <%}%> disabled="disabled" ><%= space %> <%= item.categoryName %></option>
+        <% if(item.children.length > 0) { %>  
+                 
+            <%- include('dropdowTreeDisable', {items: item.children, id_check, level: level +1 }) %> 
+            
+        <% } %>
+
+                 
+  <%  }) %>
+
+<% } %>

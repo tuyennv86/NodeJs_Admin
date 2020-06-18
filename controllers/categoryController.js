@@ -239,8 +239,8 @@ module.exports= {
                 pageNumber: pageNumber,
                 preview: preview,
                 detail: detail,
-                parent: parent != '' ? parent : new mongoose.Types.ObjectId,
-                typeCategory: data.typeInt,
+                parent: parent != '' ? parent : new mongoose.Types.ObjectId,               
+                typeCategory: data.typeInt,                
                 order: order,                    
                 imageUrl: imageUrl,
                 active: active,
@@ -252,7 +252,7 @@ module.exports= {
             });            
             console.log(objCategory);
             
-            objCategory.save(function(err){
+            objCategory.save(function(err, cate){
                 if(err) return next(err);
                 req.flash('success_msg', 'Bạn đã thêm mới thành công: '+ categoryName);
                 res.redirect('/admin/category/add');
@@ -359,7 +359,7 @@ module.exports= {
                           }); 
                         } catch (error) {
                           console.log(error);        
-                        }
+                        }                        
                     }
                     req.flash('success_msg', 'Bạn đã xóa danh mục: "'+ data.categoryName +'" thành công!');
                     res.redirect('/'+url);

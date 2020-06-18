@@ -2,7 +2,7 @@ const express = require('express');
 var lodash = require('lodash');
 const router = express.Router();
 const category = require('../models/Category');
-const Promise = require('bluebird');
+// const Promise = require('bluebird');
 const listtree = require('../utils/listTree');
 const { isLoggedIn } = require('../configs/auth');
 

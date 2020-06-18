@@ -5,8 +5,8 @@ const categoryModel = require('../models/Category');
 const productModel = require('../models/Product');
 const listtotree = require('../utils/listTree');
 const lodash = require('lodash');
+var Promise = require('promise');
 const filePath = require('../configs/fileConstants');
-
 
 module.exports = {
 
@@ -34,7 +34,68 @@ module.exports = {
                     linkUrl: 'admin/product/index'
                 });
 
-            }else{
+            }else{ 
+                
+                //------------------------------------------------------------------
+                // const recursivelyPopulatePath = (entry, path) => {
+                //     if (entry[path]) {
+                //         return categoryModel.findById(entry[path])
+                //             .then((foundPath) => {
+                //                 return recursivelyPopulatePath(foundPath, path)
+                //                     .then((populatedFoundPath) => {
+                //                         entry[path] = populatedFoundPath;
+                //                         return Promise.resolve(entry);
+                //                     });
+                //             });
+                //     }
+                //     return Promise.resolve(entry);
+                // };
+
+                // categoryModel.findOne({ _id: cateId })
+                // .then((category) => {
+                //     if (category) {
+                //         recursivelyPopulatePath(category, 'parent')
+                //             .then((populatedNode) => {
+                //                 console.log(populatedNode);                                
+                //             });
+                //     } else {
+                //        console.log(category);                       
+                //     }
+                // });
+                // const getAllChildNodes = (startNodeId, callback) =>{
+                //     const tree = [];
+                //     let idsToLoad = [];
+                  
+                //     categoryModel.findOne({_id: startNodeId }).exec((err, node) => {
+                //       tree.push(node);
+                //       idsToLoad = node.parent;
+                //       let count = 0;
+                  
+                //       async.whilst(
+                //         () => {
+                //           return count < idsToLoad.length
+                //         },
+                //         (cb) => {
+                //           categoryModel.findOne({_id: idsToLoad[count] }).exec((err, doc) => {
+                //             tree.push(doc);
+                //             idsToLoad = idsToLoad.concat(doc.parent);
+                //             count++;
+                //             cb();
+                //           });
+                //         },
+                //         (err) => {
+                //           if (err) {
+                //             console.error(err);
+                //             return callback(err);
+                //           }
+                //           return callback(null, tree);
+                //         }
+                //       );
+                  
+                //     });
+                //   };
+                //   console.log(getAllChildNodes(cateId));
+                //------------------------------------------------------------------
                 const list = await productModel.find({productName:regex, category: cateId}).populate('category').sort({order : 'asc', createDate : 'desc'}).skip((perPage * page) - perPage).limit(perPage);
                 const count = await productModel.countDocuments({productName:regex, category: cateId});
 
