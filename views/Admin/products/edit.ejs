@@ -42,6 +42,7 @@
             <% include ../../partials/backend/messages %>                       
                 <form action="/admin/product/edit/<%= list._id %>" method="post" enctype="multipart/form-data" class="form-horizontal form-validate" id="ud">                    
                     <input type="hidden" value="<%= url %>" name="url" id="url"/>
+                    <input type="hidden" value="<%= list._id %>" name="id" id="id"/>
                     <div class="row form-group">
                         <div class="col col-md-3"><label for="parent" class="form-control-label">Danh mục sản phẩm :</label></div>
                         <div class="col-12 col-md-9 mserro">
@@ -56,7 +57,7 @@
                     </div>
                     <div class="row form-group">
                         <div class="col col-md-3"><label class=" form-control-label">Tên Alias:</label></div>
-                        <div class="col-12 col-md-9 mserro"><input type="text" id="productKey" name="productKey" placeholder="Nhập tên Alias" class="form-control"  data-rule-required="true" value="<%= list.productKey %>"></div>
+                        <div class="col-12 col-md-9 mserro"><input type="text" id="productKey" name="productKey" placeholder="Nhập tên Alias" class="form-control"  data-rule-required="true" value="<%= list.productKey %>"><span id="keyspan" style = "color:red;"><span></div>
                     </div>                  
                     
                     <div class="row form-group">
@@ -161,7 +162,7 @@
                         </div>
                          <div class="row form-group">
                         <div class="col col-md-3">&nbsp;</div>
-                        <div class="col-12 col-md-9"><button type="submit" class="btn btn-primary btn-sm"><i class="fa fa-plus-square-o"></i> Thêm mới</button>
+                        <div class="col-12 col-md-9"><button type="submit" id="bntAdd" class="btn btn-primary btn-sm"><i class="fa fa-plus-square-o"></i> Thêm mới</button>
                         <a href="/admin/product/Index" class="btn btn-danger btn-sm"><i class="fa fa-reply"></i> Quay lại</a> </div>
                     </div> 
                     
@@ -244,7 +245,37 @@ jQuery(document).ready(function($) {
         var productName = $(this).val();
         $('#productKey').val(getSeoTitle(productName));
         $('#metaTile').val(productName);
-    });    
+    });   
+    $("#productName").blur(function(){
+        var catetext = $(this).val();
+        $('#productKey').val(getSeoTitle(catetext));
+        $('#metaTile').val(catetext);
+    });
+
+    function checkExistProductKey(objId){
+        $("#"+objId).blur(function(){
+            $.ajax({
+                type: "GET",
+                async: true,        
+                url: "/api/product/checkExistProductKeyOtherId/"+$("#productKey").val()+"/"+$("#id").val(),        
+                cache: false,
+                dataType: "json",
+                success: function (done) {                
+                    if(done.status){ 
+                        $("#keyspan").html(done.message);    
+                        $("#productKey").focus();
+                        $("#bntAdd").attr("disabled", true);
+                        return false;
+                    }else{
+                        $("#keyspan").html('');    
+                        $("#bntAdd").removeAttr("disabled");
+                    }
+                }
+            });
+        });
+    }
+    checkExistProductKey("productName");
+    checkExistProductKey("productKey"); 
     // xoa anh lien quan
     $(document).on("click", ".imgdelete", function() {
         event.preventDefault();

@@ -43,6 +43,7 @@
                     <div class="row form-group">
                         <div class="col col-md-3"><label for="categoryType" class="form-control-label">Chọn chủng loại :</label></div>
                         <div class="col-12 col-md-9 mserro">
+                         <input type="hidden" value="<%= list._id %>" name="id" id="id"/>
                         <input type="hidden" value="<%= url %>" name="url" id="url"/>
                         <select name="categoryType" id="categoryType" class="standardSelect form-control" data-rule-required="true" disabled>
                         <% 
@@ -68,7 +69,7 @@
                     </div>
                     <div class="row form-group">
                         <div class="col col-md-3"><label class=" form-control-label">Tên Alias:</label></div>
-                        <div class="col-12 col-md-9 mserro"><input type="text" id="categoryKey" name="categoryKey" value="<%= list.categoryKey %>" placeholder="Nhập tên Alias" class="form-control"  data-rule-required="true"></div>
+                        <div class="col-12 col-md-9 mserro"><input type="text" id="categoryKey" name="categoryKey" value="<%= list.categoryKey %>" placeholder="Nhập tên Alias" class="form-control"  data-rule-required="true"><span id="keyspan" style = "color:red;"><span></div>
                     </div>                  
                     <div class="row form-group">
                         <div class="col col-md-3"><label class=" form-control-label">Meta Tile:</label></div>
@@ -137,7 +138,7 @@
                         </div>
                          <div class="row form-group">
                         <div class="col col-md-3">&nbsp;</div>
-                        <div class="col-12 col-md-9"><button type="submit" class="btn btn-primary btn-sm"><i class="fa fa-refresh"></i> Cập nhật</button>
+                        <div class="col-12 col-md-9"><button type="submit" id="bntAdd" class="btn btn-primary btn-sm"><i class="fa fa-refresh"></i> Cập nhật</button>
                         <a href="#" onclick="history.back()" class="btn btn-danger btn-sm"><i class="fa fa-reply"></i> Quay lại</a> </div>
                     </div> 
                 </form>
@@ -221,7 +222,36 @@ jQuery(document).ready(function($) {
         $('#categoryKey').val(getSeoTitle(catetext));
         $('#metaTile').val(catetext);
     });  
+    $("#categoryName").blur(function(){
+        var catetext = $(this).val();
+        $('#categoryKey').val(getSeoTitle(catetext));
+        $('#metaTile').val(catetext);
+    });
 
+    function checkExistCategoryKey(objId){
+        $("#"+objId).blur(function(){
+            $.ajax({
+                type: "GET",
+                async: true,        
+                url: "/api/category/checkExistCategoryKeyOtherId/"+$("#categoryKey").val()+"/"+$("#id").val(),        
+                cache: false,
+                dataType: "json",
+                success: function (done) {                
+                    if(done.status){ 
+                        $("#keyspan").html(done.message);    
+                        $("#categoryKey").focus();
+                        $("#bntAdd").attr("disabled", true);
+                        return false;
+                    }else{
+                        $("#keyspan").html('');    
+                        $("#bntAdd").removeAttr("disabled");
+                    }
+                }
+            });
+        });
+    }
+    checkExistCategoryKey("categoryName");
+    checkExistCategoryKey("categoryKey");
     $('#categoryType').on('change', function() {
         $.ajax({
             type: "GET",

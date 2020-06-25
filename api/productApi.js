@@ -98,7 +98,42 @@ router.get('/updateMultilQuantum/:str', isLoggedIn, async (req, res, next) =>{
 
 });
 
+router.get('/checkExistProductKey/:productkey', isLoggedIn, async(req, res, next) =>{
+  const productkey = req.params.productkey;
+  Product.find({productKey: productkey}).exec(function(err, data){
+      if(err) return next(err);
+      if(data.length){
+          res.json({
+              status:true,
+              message:"Từ khóa này đã tồn tại trong sản phẩm!"
+          })
+      }else{
+          res.json({
+              status:false,
+              message:"Ok"
+          })
+      }
+  });    
+});
 
+router.get('/checkExistProductKeyOtherId/:productkey/:id', isLoggedIn, async (req, res, next) => {
+  const productkey = req.params.productkey;
+  const id = req.params.id;
+  Product.find({productKey: productkey, _id: { $ne: id}}).exec(function(err, data){  
+      if (err) return next(err);
+      if (data.length) {
+          res.json({
+              status: true,
+              message: "Từ khóa này đã tồn tại trong sản phẩm!"
+          })
+      } else {
+          res.json({
+              status: false,
+              message: "Ok"
+          })
+      }
+  });
+});
 
 module.exports = router;
 

@@ -43,7 +43,7 @@ app.use(xss());// bảo mật xss
 require('./configs/passport')(passport);
 
 // Connect to MongoDB
-mongoose.connect(settings.mongoURI, { useFindAndModify: false, useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect(settings.mongoURI, { useCreateIndex: true, useFindAndModify: false, useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => console.log('MongoDB Connected'))
   .catch(err => console.log(err));
 

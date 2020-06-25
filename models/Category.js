@@ -5,7 +5,7 @@ const Schema = mongoose.Schema;
 
 const CategorySchema = new Schema({
   categoryName: { type: String, required: true },
-  categoryKey: { type: String, required: true },  
+  categoryKey: { type: String, unique:true, required: true },  
   metaTile: {type: String, default:'' },
   metaKeyword: {type:String}, default:'',
   metaDescription: {type: String, default:''},
@@ -15,6 +15,7 @@ const CategorySchema = new Schema({
   parent: { type: Schema.ObjectId, ref :"Category", default: new mongoose.Types.ObjectId() },  
   categoryType: { type: Schema.ObjectId, ref: 'CategoryType', required:true },  
   typeCategory: { type: Number, required: true }, 
+  // treeCode: {type: String, default:''},
   order: { type: Number, required:true },
   imageUrl: { type: String, default : '' },  
   active: { type: Boolean, default : true },
