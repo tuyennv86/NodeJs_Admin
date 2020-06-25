@@ -15,13 +15,14 @@
                     <h3 class="menu-title">Quản lý danh mục</h3><!-- /.menu-title -->     
                     <li><a href="/admin/category/categorytype"> <i class="menu-icon fa fa-bars"></i>Kiểu danh mục </a></li>                   
                     <li><a href="/admin/category/Index"> <i class="menu-icon fa fa-tasks"></i>Tất cả danh mục</a></li>
+                    <li><a href="/admin/menu/Index"> <i class="menu-icon fa fa-sitemap"></i>Quản lý Menu</a></li>
                     <h3 class="menu-title">Danh sách các danh mục</h3><!-- /.menu-title --> 
                     <% categoriesTypeLocal.forEach(item => { %>
 
                         <li class="menu-item-has-children dropdown show">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"> <i class="menu-icon fa fa-tasks"></i><%= item.typeName %></a>
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"> <i class="menu-icon fa fa-folder"></i><%= item.typeName %></a>
                             <ul class="sub-menu children dropdown-menu show">
-                                <li><i class="menu-icon fa fa-sign-in"></i><a href="/admin/category/TypeIndex/<%= item._id %>">Danh mục</a></li>
+                                <li><i class="menu-icon fa fa-tasks"></i><a href="/admin/category/TypeIndex/<%= item._id %>">Danh mục</a></li>
                                 <% if(item.typeInt === 1){ %>
                                     <li><i class="menu-icon fa fa-hdd-o"></i><a href="/admin/product/index"><%= item.typeName %></a></li>
                                 <% } %>
