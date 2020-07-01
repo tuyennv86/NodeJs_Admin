@@ -1,0 +1,50 @@
+<% if (items.length) {
+    items.forEach(function(item){  
+    var space = "";
+    for(var j = 1 ;j< level; j++ ){
+            space = space + "---";
+    } %>
+     <tr>
+        <td scope="row"><input type="checkbox" name="checkItem" class="checkItem" value="<%= item._id %>"></td>
+        <td><%= space %><%=item.Name%><br>
+        <a href="#"><%= item.categoryName %></a>
+        </td>                                    
+        <td><input type="text" name="txtorder" id="<%= item._id %>" value="<%= item.order %>" class="form-control" style="width:45px;"></td>
+        <td><% if ( item.active) { %><span class="badge badge-success"><span class="ti-unlock"></span>&nbsp; Active</span>
+        <% }else{%><span class="badge badge-danger"><span class="ti-lock"></span>&nbsp; Clock</span><%} %></td>
+        <td>
+         <%  let strPost = '';
+            item.position.forEach( post =>{ 
+            switch(post) {
+                case '1':
+                    strPost += 'Top, '
+                    break;
+                case '2':
+                    strPost += 'Left, '
+                    break;
+                case '3':
+                        strPost += 'Right, '
+                    break;
+                case '4':
+                        strPost += 'Bottom, '
+                    break;
+                }                                                 
+            %>
+            
+        <% }) %>
+        <%=  strPost %>
+        </td>      
+        <td><%= item.editBy %></td>
+        <td><%= item.editDateIso %></td>                                  
+        <td>
+            <div class="float-right">
+                <a class="btn btn-primary btn-sm" href="/admin/menu/edit/<%= item._id %>"><i class="fa fa-wrench"></i>&nbsp; Sửa</a>
+                <a class="btn btn-danger btn-sm" href="#" onclick="deleteById('<%= item._id %>')"><i class="fa fa-trash"></i>&nbsp; Xóa</a>
+            </div>
+        </td>
+    </tr>  
+    <% if(item.children){ %>
+    <%- include('treeHtmlMenu', {items: item.children, level: level + 1 }) %> 
+    <%}%>
+    <% }) 
+} %>

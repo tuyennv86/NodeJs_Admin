@@ -4,7 +4,8 @@ module.exports = {
       return next();
     }
     req.flash('error_msg', 'Phiên làm việc của bạn đã hết hãy đăng nhập lại');
-    res.redirect('/admin');    
+    req.session.returnTo = req.originalUrl;
+    res.redirect(`/admin?returnUrl=${req.originalUrl}`);      
   },
   notLoggedIn: function(req, res, next) {
     if (!req.isAuthenticated()) {

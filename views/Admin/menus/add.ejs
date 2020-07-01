@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <% include ../../partials/backend/partialLink %>     
+    <% include ../../partials/backend/partialCsript %> 
+  </head>
+  <body> 
+<% include ../../partials/backend/aside %> 
+<div id="right-panel" class="right-panel">
+<% include ../../partials/backend/header %>
+
+<div class="breadcrumbs">
+    <div class="col-sm-4">
+        <div class="page-header float-left">
+            <div class="page-title">
+                <h1>Thêm mới sản phẩm</h1>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-8">
+        <div class="page-header float-right">
+            <div class="page-title">
+                <ol class="breadcrumb text-right">
+                    <li><a href="index">Trang chủ</a></li>                  
+                    <li class="active">Thêm mới menu</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="content mt-3">
+    <div class="animated fadeIn">
+         <div class="card">
+                    <div class="card-header">
+                <strong>Thêm mới menu</strong> 
+            </div>
+            <div class="card-body card-block">
+            <% include ../../partials/backend/messages %>                       
+                <form action="/admin/menu/add" method="post" enctype="multipart/form-data" class="form-horizontal form-validate" id="ud">                    
+                  
+                    <div class="row form-group">
+                        <div class="col col-md-3"><label for="categoryType" class="form-control-label">Chọn chủng loại :</label></div>
+                        <div class="col-12 col-md-9 mserro">
+                        <select name="categoryType" id="categoryType" class="standardSelect form-control" data-rule-required="true">
+                        <% listType.forEach(item => { %>
+                         <option value="<%= item._id %>"><%= item.typeName %></option>
+                        <% }) %>                            
+                        <select>
+                        </div>
+                    </div>  
+                    <div class="row form-group">
+                        <div class="col col-md-3"><label for="parent" class="form-control-label">Chọn danh mục :</label></div>
+                        <div class="col-12 col-md-9 mserro">
+                        <select name="slCategory" id="slCategory" class="form-control" data-placeholder="Chọn danh mục..." data-rule-required="true">
+
+                        <select>
+                        </div>
+                    </div>  
+                    <div class="row form-group">
+                        <div class="col col-md-3"><label for="parent" class="form-control-label">Chọn mục cha :</label></div>
+                        <div class="col-12 col-md-9 mserro">
+                        <select name="parent" id="parent" class="form-control" data-placeholder="Chọn mục cha...">
+                            <option value="">Root</option>
+                            <%- include('../../partials/backend/menuTree', {items: listmenu, level: 1, id_check: 1 }) %>                          
+                        <select>
+                        </div>
+                    </div>  
+                    <div class="row form-group">
+                        <div class="col col-md-3"><label class="form-control-label">Tên menu:</label></div>
+                        <div class="col-12 col-md-9 mserro"><input type="text" id="name" name="name" placeholder="Nhập tên menu" class="form-control" data-rule-required="true"></div>
+                    </div>                   
+                     <div class="row form-group">
+                        <div class="col col-md-3"><label class=" form-control-label">Thứ tự</label></div>
+                        <div class="col-12 col-md-9 mserro"><input type="text" id="order" name="order" placeholder="Nhập thứ tự sản phẩm" class="form-control" data-rule-required="true" data-rule-number="true"></div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col col-md-3"><label class=" form-control-label">Vị trí</label></div>
+                        <div class="col-12 col-md-9 mserro">
+                        <select name="slOption" id="slOption" class="form-control"  multiple="multiple" data-placeholder="Chọn vị trí" data-rule-required="true">
+                            <option value="1">Top</option>
+                            <option value="2">Left</option>
+                            <option value="3">Right</option>
+                            <option value="4">Bottom</option>
+                        <select>
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col col-md-3"> &nbsp; </div>
+                            <div class="col col-md-9">
+                                <div class="form-check">
+                                    <div class="checkbox">
+                                        <label for="chkActive" class="form-check-label ">
+                                            <input type="checkbox" id="chkActive" name="chkActive" class="form-check-input"> Active
+                                        </label>
+                                    </div>                        
+                                </div>
+                            </div>
+                        </div>
+                         <div class="row form-group">
+                        <div class="col col-md-3">&nbsp;</div>
+                        <div class="col-12 col-md-9"><button type="submit" id="bntAdd" class="btn btn-primary btn-sm"><i class="fa fa-plus-square-o"></i> Thêm mới</button>
+                        <a href="/admin/menu/Index" class="btn btn-danger btn-sm"><i class="fa fa-reply"></i> Quay lại</a> </div>
+                    </div> 
+                    
+                </form>
+            </div>            
+        </div>
+    </div>
+</div>
+
+</div>
+
+
+<script type="text/javascript">
+
+    jQuery(document).ready(function($) {   
+        
+        $('#slCategory').select2({
+            placeholder: 'Chọn 1 danh mục',
+            allowClear: true
+        });
+        $('#parent').select2({
+            placeholder: 'Chọn menu cha',
+            allowClear: true
+        });
+        $("#slOption").select2({
+            placeholder: 'Chọn các vị trí menu',
+            allowClear: true                          
+        });
+
+        $.ajax({
+            type: "GET",
+            async: true,        
+            url: "/api/category/getparent/"+$("#categoryType option:selected").val(),        
+            cache: false,
+            dataType: "json",
+            success: function (done) {
+            // console.log(done);          
+                if(done.status){
+                    if(done.status){ 
+                        $("#slCategory").html(listCate(done.data, true, 1));      
+                    }     
+                }
+            }
+        });
+
+        $('#categoryType').on('change', function() {
+        $.ajax({
+            type: "GET",
+            async: true,        
+            url: "/api/category/getparent/"+$("#categoryType option:selected").val(),        
+            cache: false,
+            dataType: "json",
+            success: function (done) {                
+                if(done.status){ 
+                    $("#slCategory").html(listCate(done.data, true, 1));      
+                }
+            }
+        });
+
+    });
+
+});
+
+function listCate(list, isChild, level){   
+    var html;
+    if(isChild){
+         html ='';
+    }
+    list.forEach(function(item){
+        var space = "";
+        for(var j = 1 ;j< level; j++ ){
+            space = space + "--";
+        }        
+        html +='<option value="'+item._id+'">'+space+item.categoryName+'</option>';
+        if(item.children.length > 0 ){
+           html += listCate(item.children, false, level + 1);           
+        }
+    })  
+    return html;
+}  
+</script>
+
+
+</body>
+</html>

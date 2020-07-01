@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <% include ../../partials/backend/partialLink %> 
+    <% include ../../partials/backend/partialCsript %>
+  </head>
+  <body> 
+<% include ../../partials/backend/aside %> 
+<div id="right-panel" class="right-panel">
+<% include ../../partials/backend/header %>
+
+<div class="breadcrumbs">
+    <div class="col-sm-4">
+        <div class="page-header float-left">
+            <div class="page-title">
+                <h1>Danh sách các menu</h1>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-8">
+        <div class="page-header float-right">
+            <div class="page-title">
+                <ol class="breadcrumb text-right">
+                    <li><a href="index">Trang chủ</a></li>                  
+                    <li class="active">Danh sách menu</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="content mt-3">
+    <div class="animated fadeIn">
+            
+         <div class="card">
+                    <div class="card-header">
+                        <div class="col col-md-6">                       
+                         <form action="/admin/menu/search" method="POST" class="form-horizontal">
+                            <div class="input-group">                                   
+                                    <input type="text" class="form-control col-md-5 form-control-sm" name="textsearch" id="textsearch" placeholder="Nhập từ khóa tìm kiếm...">
+                                    <span class="input-group-btn">
+                                    <button class="btn btn-info btn-sm" type="submit"><i class="fa fa-search fa-fw"></i> Tìm kiếm</button>
+                                    </span>
+                            </div>
+                        </form>  
+                        </div>
+                        <form action="/admin/menu/index" method="POST" class="form-horizontal">
+                        <div class="col-12 col-md-6">
+                                <div class="float-right">
+                                    <a href="/admin/menu/add" class="btn btn-success btn-sm" style="color: #fff;">
+                                        <i class="fa fa-plus"></i> Thêm mới
+                                    </a>                                    
+                                <button type="button" class="btn btn-primary btn-sm" id="bntUpdateOrder">
+                                    <i class="fa fa-refresh"></i> Cập nhật thứ tự
+                                </button>  
+                                    <button type="button" class="btn btn-danger btn-sm" id="bntdeleteList" disabled>
+                                            <i class="fa fa-trash-o"></i> Xóa menu được chọn
+                                        </button>                                   
+                                </div>
+                        </div>
+                        
+                    </div>
+                    <div class="card-body">
+                     <% include ../../partials/backend/messages %>                       
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col"><input type="checkbox" id="checkAll"></th>
+                                    <th scope="col" style="width:300px">Tên menu</th>
+                                    <th scope="col">Thứ tự</th>
+                                    <th scope="col">Active</th>                                   
+                                    <th scope="col">Vị trí</th>                                                                  
+                                    <th scope="col">Người sửa</th>
+                                    <th scope="col">Ngày sửa</th>  
+                                    <th scope="col"></th>         
+                                </tr>
+                            </thead>
+                            <tbody>
+                            <%- include('../../partials/backend/treeHtmlMenu', {items: data, level: 1 }) %> 
+                            </tbody>
+                        </table>                     
+                    </div>                    
+            </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+</div>
+<script>
+jQuery(document).ready(function($) {
+
+    $('input[name="txtorder"]').on("keypress keyup blur",function (event) {    
+        $(this).val($(this).val().replace(/[^\d].+/, ""));
+        if ((event.which < 48 || event.which > 57)) {
+            event.preventDefault();
+        }
+    });
+
+    $('#bntUpdateOrder').click(function() { 
+        event.preventDefault();      
+        var list = '';
+        $(".table tbody input[name='txtorder']").each(function() {                   
+            list += $(this).val()+'-'+$(this).attr('id')+',';
+        });       
+        $.ajax({
+        type: "GET",
+        async: true,
+        url: "/api/menu/updateMultilOrder/"+list,        
+        cache: true,
+        dataType: "json",
+        success: function (done) {                        
+            if(done.status){ 
+                bootbox.alert("Cập nhật thứ tự thành công!", function(){ 
+                    location.reload(true);
+                });               
+            }
+        }
+        });
+    });
+
+    $('#bntdeleteList').click(function() {
+        event.preventDefault(); 
+        bootbox.confirm("Bạn có chắc chắn XÓA các menu đã chọn không ?", function (result) {
+            if (result == true) {
+                var listId = '';
+                $(".table tbody input[name='checkItem']:checked").each(function() {                   
+                    listId += $(this).val()+',';
+                });
+                $.ajax({
+                type: "GET",
+                async: true,
+                url: "/api/menu/deleteMultil/"+listId,        
+                cache: true,
+                dataType: "json",
+                success: function (done) {                        
+                    if(done.status){ 
+                        bootbox.alert(done.message, function(){ 
+                            location.reload(true);
+                        });               
+                    }else{
+                        bootbox.alert(done.message);
+                    }
+                }
+                });
+            }
+        });       
+
+    });
+
+
+    deleteById = function(id){
+        event.preventDefault();
+        bootbox.confirm("Bạn có chắc chắn XÓA không ?", function (result) {
+            if (result == true) {
+                 $.ajax({
+                    type: "GET",
+                    async: true,
+                    url: "/api/menu/deleteById/"+id,        
+                    cache: true,
+                    dataType: "json",
+                    success: function (done) {                        
+                        if(done.status){
+                             bootbox.alert(done.message, function(){ 
+                                location.reload(true);
+                            });                                              
+                        }else{                                                    
+                            bootbox.alert(done.message); 
+                        }
+                    }
+                });
+            }
+        });
+    }
+});
+
+</script>
+</body>
+</html>

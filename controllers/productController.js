@@ -44,11 +44,11 @@ module.exports = {
                 results.forEach(item => {
                     mang.push(item._id.toString());
                 })
-                mang = [...mang, cateId];               
+                mang = [...mang, cateId];
 
 
                 const list = await productModel.find({ productName: regex, category: { $in: mang } }).populate('category').sort({ order: 'asc', createDate: 'desc' }).skip((perPage * page) - perPage).limit(perPage);
-                const count = await productModel.countDocuments({ productName: regex,  category: { $in: mang } });
+                const count = await productModel.countDocuments({ productName: regex, category: { $in: mang } });
 
                 res.render('Admin/products/index', {
                     title: 'Danh sách các sản phẩm',

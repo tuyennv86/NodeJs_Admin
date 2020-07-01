@@ -1,0 +1,7 @@
+<% if(items.length){ 
+    items.forEach(function(item){
+    var space = "";
+    for(var j = 1 ;j< level; j++ ){
+            space = space + "--";
+    } %><option value="<%= item._id %>"<% if (item._id.equals(id_check)) {%> <%='selected'%> <% } %>><%= space %><%= item.Name %></option>
+    <% if(item.children){ %><%- include('menuTree', {items: item.children, level: level +1, id_check: id_check }) %><% } %><% }) } %>

@@ -19,7 +19,7 @@ module.exports = {
 
   postLogin : (req, res, next) => {
       passport.authenticate('local', {
-        successRedirect: '/admin/index',
+        successRedirect: req.session.returnTo != undefined ? req.session.returnTo : '/admin/index', 
         failureRedirect: '/admin',
         failureFlash: true
       })(req, res, next);
@@ -27,6 +27,7 @@ module.exports = {
 
   logout : (req, res) => {
       req.logout();
+      req.session.returnTo = undefined;
       req.flash('success_msg', 'Bạn đã thoát khỏi quản trị');
       res.redirect('/admin');
   },
