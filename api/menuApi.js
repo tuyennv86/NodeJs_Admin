@@ -27,47 +27,22 @@ router.get('/updateMultilOrder/:str', isLoggedIn, async (req, res, next) => {
 router.get('/deleteMultil/:str', isLoggedIn, async (req, res, next) => {
     const str = req.params.str;
     let list = lodash.trimEnd(str, ',').split(',');
-    let check = true;
-    for(let item of list){
-        menuModel.find({'parent': item}).exec(function(err, data){
-            if(err) return next;
-            if(data.length){
-                console.log('có con'+item); 
-                check = false;
-            }                      
-        });  
-        if(check === false){break;}
+
+    for (let item of list) {
+        let a = await menuModel.findByIdAndDelete(item);
     }
-    // list.forEach(item => {
-    //    menuModel.find({'parent': item}).exec(function(err, data){
-    //        if(err) return next;
-    //        if(data.length){
-    //            check = false;
-    //        }
-    //        console.log('có con'+item);           
-    //    });  
-    //    if(check === false) 
-    //        return;    
-    // });
-    if(check === true){
-        res.json({
-            status: true,
-            message:"Bạn đã xóa thành công!"
-        });
-    }else{
-        res.json({
-            status: false,
-            message:"Bạn phải chọn xóa toàn bộ con!"
-        });
-    }
+    res.json({
+        status: true,
+        message: "Bạn đã xóa thành công!"
+    });
 });
 
 
 router.get('/deleteById/:id', isLoggedIn, async (req, res, next) => {
-    const id = req.params.id;  
-    menuModel.find({'parent': id }).exec(function (err, colmenu) {
+    const id = req.params.id;
+    menuModel.find({ 'parent': id }).exec(function (err, colmenu) {
         if (err) return next(err);
-        if (colmenu.length) {           
+        if (colmenu.length) {
             res.json({
                 status: false,
                 message: "Bạn phải xóa hết menu con trước"
@@ -76,7 +51,7 @@ router.get('/deleteById/:id', isLoggedIn, async (req, res, next) => {
             menuModel.findByIdAndDelete(id).exec(function (err, data) {
                 if (err) return next(err);
                 res.json({
-                    status: true,                    
+                    status: true,
                     message: "Đã xóa thành công :" + data.Name
                 });
             });

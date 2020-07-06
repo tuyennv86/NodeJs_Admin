@@ -2,6 +2,7 @@ const express = require('express');
 var lodash = require('lodash');
 const router = express.Router();
 const category = require('../models/Category');
+const menuModel = require('../models/Menu');
 const listtree = require('../utils/listTree');
 const { isLoggedIn } = require('../configs/auth');
 
@@ -101,7 +102,7 @@ router.get('/checkExistCategoryKey/:categorykey', isLoggedIn, async (req, res, n
 router.get('/checkExistCategoryKeyOtherId/:categorykey/:id', isLoggedIn, async (req, res, next) => {
     const categorykey = req.params.categorykey;
     const id = req.params.id;
-    category.find({ categoryKey: categorykey,_id: { $ne: id}}).exec(function (err, data) {
+    category.find({ categoryKey: categorykey, _id: { $ne: id } }).exec(function (err, data) {
         if (err) return next(err);
         if (data.length) {
             res.json({
@@ -114,6 +115,47 @@ router.get('/checkExistCategoryKeyOtherId/:categorykey/:id', isLoggedIn, async (
                 message: "Ok"
             })
         }
+    });
+});
+// lấy toàn bộ category chưa thuộc menu
+router.get('/getparentAndCategoryInMenu/:typeId', isLoggedIn, async (req, res, next) => {
+
+    const typeId = req.params.typeId || "";   
+    category.find({ categoryType: typeId }).exec(function (err, data) {
+        if (err) return next(err);
+        menuModel.find({ outLink: false }).exec(function(err, listmenu){
+            if (err) return next(err);
+             let arrCate = [];
+             listmenu.forEach(item =>{
+                arrCate.push(item.category);
+             });
+            res.json({
+                data: listtree.list_to_tree(data),
+                listmenu: arrCate,
+                status: true
+            });
+        });
+    });
+});
+
+router.get('/getparentAndCategoryInMenuOtherCateId/:typeId/:cateid', isLoggedIn, async (req, res, next) => {
+
+    const typeId = req.params.typeId || "";  
+    const categoryId = req.params.cateid || ""; 
+    category.find({ categoryType: typeId }).exec(function (err, data) {
+        if (err) return next(err);
+        menuModel.find({ outLink: false, category: { $ne: categoryId } }).exec(function(err, listmenu){
+            if (err) return next(err);
+             let arrCate = [];
+             listmenu.forEach(item =>{
+                arrCate.push(item.category);
+             });
+            res.json({
+                data: listtree.list_to_tree(data),
+                listmenu: arrCate,
+                status: true
+            });
+        });
     });
 });
 

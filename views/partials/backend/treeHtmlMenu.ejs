@@ -7,11 +7,17 @@
      <tr>
         <td scope="row"><input type="checkbox" name="checkItem" class="checkItem" value="<%= item._id %>"></td>
         <td><%= space %><%=item.Name%><br>
-        <a href="#"><%= item.categoryName %></a>
+        <% if(item.outLink) {%>
+            <a href="#"><%= item.linkUrl %></a>
+        <% } else { %>
+            <a href="#"><%= item.categoryName %></a>
+         <% } %>
         </td>                                    
         <td><input type="text" name="txtorder" id="<%= item._id %>" value="<%= item.order %>" class="form-control" style="width:45px;"></td>
         <td><% if ( item.active) { %><span class="badge badge-success"><span class="ti-unlock"></span>&nbsp; Active</span>
         <% }else{%><span class="badge badge-danger"><span class="ti-lock"></span>&nbsp; Clock</span><%} %></td>
+        <td><% if ( item.outLink) { %><span class="badge badge-success"><span class="ti-unlock"></span>&nbsp; OutLink</span>
+        <% }else{%><span class="badge badge-danger"><span class="ti-lock"></span>&nbsp; InLink</span><%} %></td>
         <td>
          <%  let strPost = '';
             item.position.forEach( post =>{ 

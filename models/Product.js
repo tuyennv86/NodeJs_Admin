@@ -22,6 +22,7 @@ const ProductSchema = new Schema({
     imageRelated: { type: Array, default:[] },
     preview: {type: String, default: ''},
     detail: {type:String, default:''},
+    // tags:[{tagsName: String, tagsKey: String}],
     createDate: { type: Date },
     editDate: { type: Date },
     createBy: { type: String},

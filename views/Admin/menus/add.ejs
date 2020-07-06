@@ -13,7 +13,7 @@
     <div class="col-sm-4">
         <div class="page-header float-left">
             <div class="page-title">
-                <h1>Thêm mới sản phẩm</h1>
+                <h1>Thêm mới menu</h1>
             </div>
         </div>
     </div>
@@ -38,8 +38,23 @@
             <div class="card-body card-block">
             <% include ../../partials/backend/messages %>                       
                 <form action="/admin/menu/add" method="post" enctype="multipart/form-data" class="form-horizontal form-validate" id="ud">                    
-                  
-                    <div class="row form-group">
+                  <div class="row form-group">
+                        <div class="col col-md-3"><label class="form-control-label">Link ngoài:</label></div>
+                        <div class="col-12 col-md-9 mserro">
+                            <div class="form-check">
+                                <div class="checkbox">
+                                    <label for="chkOutLink" class="form-check-label ">
+                                        <input type="checkbox" id="chkOutLink" name="chkOutLink" class="form-check-input"> Link Ngoài
+                                    </label>
+                                </div>  
+                            </div> 
+                        </div>
+                    </div>
+                    <div class="row form-group" id="divlinkout" style="display: none;">
+                        <div class="col col-md-3"><label class="form-control-label">Link Url:</label></div>
+                        <div class="col-12 col-md-9 mserro"><input type="text" id="linkUrl" name="linkUrl" placeholder="Nhập link liên kết Url" class="form-control" data-rule-required="true" disabled></div>
+                    </div> 
+                    <div class="row form-group" id="divchungloai">
                         <div class="col col-md-3"><label for="categoryType" class="form-control-label">Chọn chủng loại :</label></div>
                         <div class="col-12 col-md-9 mserro">
                         <select name="categoryType" id="categoryType" class="standardSelect form-control" data-rule-required="true">
@@ -49,7 +64,7 @@
                         <select>
                         </div>
                     </div>  
-                    <div class="row form-group">
+                    <div class="row form-group" id="divdanhmuc">
                         <div class="col col-md-3"><label for="parent" class="form-control-label">Chọn danh mục :</label></div>
                         <div class="col-12 col-md-9 mserro">
                         <select name="slCategory" id="slCategory" class="form-control" data-placeholder="Chọn danh mục..." data-rule-required="true">
@@ -128,18 +143,31 @@
             placeholder: 'Chọn các vị trí menu',
             allowClear: true                          
         });
-
+        $("#chkOutLink").change(function () {
+            if (this.checked){ 
+                $('#divlinkout').show();
+                $("#linkUrl").removeAttr("disabled");
+                $("#divchungloai").hide();
+                $("#divdanhmuc").hide();
+            }
+            else{ 
+                $('#divlinkout').hide();
+                $("#linkUrl").attr('disabled','disabled');
+                $("#divchungloai").show();
+                $("#divdanhmuc").show();
+            }
+        });
+        
         $.ajax({
             type: "GET",
             async: true,        
-            url: "/api/category/getparent/"+$("#categoryType option:selected").val(),        
+            url: "/api/category/getparentAndCategoryInMenu/"+$("#categoryType option:selected").val(),        
             cache: false,
             dataType: "json",
-            success: function (done) {
-            // console.log(done);          
+            success: function (done) {                 
                 if(done.status){
                     if(done.status){ 
-                        $("#slCategory").html(listCate(done.data, true, 1));      
+                        $("#slCategory").html(listCate(done.data, done.listmenu, true, 1));      
                     }     
                 }
             }
@@ -149,12 +177,12 @@
         $.ajax({
             type: "GET",
             async: true,        
-            url: "/api/category/getparent/"+$("#categoryType option:selected").val(),        
+            url: "/api/category/getparentAndCategoryInMenu/"+$("#categoryType option:selected").val(),        
             cache: false,
             dataType: "json",
             success: function (done) {                
-                if(done.status){ 
-                    $("#slCategory").html(listCate(done.data, true, 1));      
+                if(done.status){
+                    $("#slCategory").html(listCate(done.data, done.listmenu, true, 1));      
                 }
             }
         });
@@ -163,7 +191,7 @@
 
 });
 
-function listCate(list, isChild, level){   
+function listCate(list, arrCate, isChild, level){   
     var html;
     if(isChild){
          html ='';
@@ -173,9 +201,13 @@ function listCate(list, isChild, level){
         for(var j = 1 ;j< level; j++ ){
             space = space + "--";
         }        
-        html +='<option value="'+item._id+'">'+space+item.categoryName+'</option>';
+        var disString = '';
+        if(arrCate.includes(item._id)){
+            disString = 'disabled="disabled"'
+        }
+        html +='<option value="'+item._id+'"'+disString+'>'+space+item.categoryName+'</option>';
         if(item.children.length > 0 ){
-           html += listCate(item.children, false, level + 1);           
+           html += listCate(item.children, arrCate, false, level + 1);           
         }
     })  
     return html;

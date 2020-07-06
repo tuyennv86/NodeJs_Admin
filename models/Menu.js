@@ -1,12 +1,16 @@
 const mongoose = require('mongoose');
 const moment = require('moment');
+const { schema } = require('./Category');
 const Schema = mongoose.Schema;
 
 const MenuSchema = new Schema({
   Name: { type: String, required: true },
-  categoryKey: { type: String, required: true },
+  categoryKey: { type: String},
+  linkUrl:{type: String},
+  outLink:{type: Boolean},
   parent: { type: Schema.ObjectId, ref :"Menu", default: new mongoose.Types.ObjectId() },     
-  category: { type: Schema.ObjectId, ref: 'Category', required:true },  
+  category: { type: Schema.ObjectId, ref: 'Category', required:true }, 
+  categoryType: {type:Schema.ObjectId},
   order: { type: Number, required:true },  
   active: { type: Boolean, default : true },
   position : { type: Array , default : [] },
