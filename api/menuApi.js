@@ -1,5 +1,5 @@
 const express = require('express');
-var lodash = require('lodash');
+const lodash = require('lodash');
 const router = express.Router();
 const menuModel = require('../models/Menu');
 const { isLoggedIn } = require('../configs/auth');

@@ -13,42 +13,34 @@
                         <a href="/admin/index"> <i class="menu-icon fa fa-dashboard"></i>Dashboard </a>
                     </li>
                     <h3 class="menu-title">Quản lý danh mục</h3><!-- /.menu-title -->     
-                    <li><a href="/admin/user/list"> <i class="menu-icon fa fa-users"></i>Danh sách users </a></li>
-                    <li><a href="#"> <i class="menu-icon fa fa-braille"></i>Chặn quyền truy cập</a></li>
-                    <li><a href="/admin/category/categorytype"> <i class="menu-icon fa fa-bars"></i>Kiểu danh mục </a></li>                   
-                    <li><a href="/admin/category/Index"> <i class="menu-icon fa fa-tasks"></i>Tất cả danh mục</a></li>
-                    <li><a href="/admin/menu/Index"> <i class="menu-icon fa fa-sitemap"></i>Quản lý Menu</a></li>
+                    <li><a href="/admin/user/list" title="Quản lý danh sách users"> <i class="menu-icon fa fa-users"></i>Danh sách users </a></li>
+                    <li><a href="#"> <i class="menu-icon fa fa-braille" title="Quản lý quyền truy cập"></i>Chặn quyền truy cập</a></li>
+                    <li><a href="/admin/category/categorytype" title="Quản lý kiểu danh mục"> <i class="menu-icon fa fa-bars"></i>Kiểu danh mục </a></li>                   
+                    <li><a href="/admin/category/Index" tile="Quản lý các danh mục"> <i class="menu-icon fa fa-tasks"></i>Tất cả danh mục</a></li>
+                    <li><a href="/admin/menu/Index" title="Quản lý menu"> <i class="menu-icon fa fa-sitemap"></i>Quản lý Menu</a></li>
                     <h3 class="menu-title">Danh sách các danh mục</h3><!-- /.menu-title --> 
                     <% categoriesTypeLocal.forEach(item => { %>
                         <li class="menu-item-has-children dropdown show">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"> <i class="menu-icon fa fa-folder"></i><%= item.typeName %></a>
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" title="<%= item.typeName %>"> <i class="menu-icon fa fa-folder"></i><%= item.typeName %></a>
                             <ul class="sub-menu children dropdown-menu show">
-                                <li><i class="menu-icon fa fa-tasks"></i><a href="/admin/category/TypeIndex/<%= item._id %>">Danh mục</a></li>
+                                <li><i class="menu-icon fa fa-tasks"></i><a href="/admin/category/TypeIndex/<%= item._id %>" title="Danh mục <%= item.typeName %>">Danh mục</a></li>
                                 <% if(item.typeInt === 1){ %>
-                                    <li><i class="menu-icon fa fa-hdd-o"></i><a href="/admin/product/index"><%= item.typeName %></a></li>
+                                    <li><i class="menu-icon fa fa-hdd-o"></i><a href="/admin/product/index" title="<%= item.typeName %>"><%= item.typeName %></a></li>
                                 <% } %>
                                 <% if(item.typeInt === 3){ %>
-                                    <li> <i class="menu-icon fa fa-newspaper-o"></i><a href="/admin/news/index"><%= item.typeName %></a></li>
+                                    <li> <i class="menu-icon fa fa-newspaper-o"></i><a href="/admin/news/index" title="<%= item.typeName %>"><%= item.typeName %></a></li>
                                 <% } %>
                             </ul>
                         </li>                       
-                    <% }) %>                    
-                    <!-- <li class="menu-item-has-children dropdown show">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"> <i class="menu-icon fa fa-glass"></i>Pages</a>
-                        <ul class="sub-menu children dropdown-menu show">
-                            <li><i class="menu-icon fa fa-sign-in"></i><a href="page-login.html">Login</a></li>
-                            <li><i class="menu-icon fa fa-sign-in"></i><a href="page-register.html">Register</a></li>
-                            <li><i class="menu-icon fa fa-paper-plane"></i><a href="pages-forget.html">Forget Pass</a></li>
-                        </ul>
-                    </li> -->
+                    <% }) %> 
                     <h3 class="menu-title">Quản lý đơn hàng</h3><!-- /.menu-title -->     
-                    <li><a href="#" title="Ảnh quảng cáo"> <i class="menu-icon fa fa-shopping-cart"></i>Đơn mới đặt</a></li>                   
-                    <li><a href="#"> <i class="menu-icon fa fa-cogs"></i>Đang sử lý</a></li>
-                    <li><a href="#"> <i class="menu-icon fa fa-shopping-bag"></i>Hoàn thành</a></li>
+                    <li><a href="#" title="Đơn mới đặt"> <i class="menu-icon fa fa-shopping-cart"></i>Đơn mới đặt</a></li>                   
+                    <li><a href="#" title="Đơn đang sửa lý"> <i class="menu-icon fa fa-cogs"></i>Đang sử lý</a></li>
+                    <li><a href="#"title="Đơn hoàn thành"> <i class="menu-icon fa fa-shopping-bag"></i>Hoàn thành</a></li>
                     <h3 class="menu-title">Quảng cáo & Logo</h3><!-- /.menu-title -->     
                     <li><a href="#" title="Ảnh quảng cáo"> <i class="menu-icon fa fa-money"></i>Ảnh quảng cáo</a></li>                   
-                    <li><a href="#"> <i class="menu-icon fa fa-adjust"></i>Logo</a></li>
-                    <li><a href="#"> <i class="menu-icon fa fa-picture-o"></i>Banner</a></li>
+                    <li><a href="#" title="Ảnh logo"> <i class="menu-icon fa fa-adjust"></i>Logo</a></li>
+                    <li><a href="#" title="Ảnh banner"> <i class="menu-icon fa fa-picture-o"></i>Banner</a></li>
                 </ul>
             </div><!-- /.navbar-collapse -->
         </nav>

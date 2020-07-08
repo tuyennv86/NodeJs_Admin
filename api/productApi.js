@@ -1,6 +1,6 @@
 const express = require('express');
-var lodash = require('lodash');
 const router = express.Router();
+const lodash = require('lodash');
 const fs = require('fs');
 const Product = require('../models/Product');
 const filePath = require('../configs/fileConstants');

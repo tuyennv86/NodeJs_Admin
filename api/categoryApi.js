@@ -1,6 +1,6 @@
 const express = require('express');
-var lodash = require('lodash');
 const router = express.Router();
+const lodash = require('lodash');
 const category = require('../models/Category');
 const menuModel = require('../models/Menu');
 const listtree = require('../utils/listTree');

@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <% include ../../partials/backend/partialLink %>     
+    <% include ../../partials/backend/partialCsript %>     
+    <link rel="stylesheet" href="/jodit-3.3.8/jodit.min.css"/>
+    <script src="/jodit-3.3.8/jodit.min.js"></script>  
+  </head>
+  <body> 
+<% include ../../partials/backend/aside %> 
+<div id="right-panel" class="right-panel">
+<% include ../../partials/backend/header %>
+
+<div class="breadcrumbs">
+    <div class="col-sm-4">
+        <div class="page-header float-left">
+            <div class="page-title">
+                <h1>Thêm mới sản phẩm</h1>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-8">
+        <div class="page-header float-right">
+            <div class="page-title">
+                <ol class="breadcrumb text-right">
+                    <li><a href="index">Trang chủ</a></li>  
+                    <li><a href="/admin/news/index">Danh sách bản tin</a></li>                    
+                    <li class="active">Sửa tin bài</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="content mt-3">
+    <div class="animated fadeIn">
+         <div class="card">
+                    <div class="card-header">
+                <strong>Sửa tin bài: <%= list.Name %></strong> 
+                
+            </div>
+            <div class="card-body card-block">
+            <% include ../../partials/backend/messages %>                       
+                <form action="/admin/news/edit/<%= list._id %>" method="post" enctype="multipart/form-data" class="form-horizontal form-validate" id="ud">                    
+                    <input type="hidden" value="<%= url %>" name="url" id="url"/>
+                    <input type="hidden" value="<%= list._id %>" name="id" id="id"/>
+                    <div class="row form-group">
+                        <div class="col col-md-3"><label for="parent" class="form-control-label">Danh mục tin :</label></div>
+                        <div class="col-12 col-md-9 mserro">
+                        <select name="slCategory" id="slCategory" class="form-control" data-placeholder="Chọn mục cha..." data-rule-required="true">
+                            <%- include('../../partials/backend/dropallTree', {items: listCate, level: 1, id_check: list.category }) %>                          
+                        <select>
+                        </div>
+                    </div>  
+                    <div class="row form-group">
+                        <div class="col col-md-3"><label class="form-control-label">Tên tin bài :</label></div>
+                        <div class="col-12 col-md-9 mserro"><input type="text" id="Name" name="Name" placeholder="Nhập tên tin bài" class="form-control" data-rule-required="true" value="<%= list.Name %>"></div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col col-md-3"><label class=" form-control-label">Tên Alias:</label></div>
+                        <div class="col-12 col-md-9 mserro"><input type="text" id="newsKey" name="newsKey" placeholder="Nhập tên Alias" class="form-control"  data-rule-required="true" value="<%= list.newsKey %>"><span id="keyspan" style = "color:red;"><span></div>
+                    </div>                  
+                    
+                    <div class="row form-group">
+                        <div class="col col-md-3"><label class=" form-control-label">Meta Tile:</label></div>
+                        <div class="col-12 col-md-9 mserro"><input type="text" id="metaTile" name="metaTile" placeholder="Nhập tên hiển thị cho Title" class="form-control"  data-rule-required="true" value="<%= list.metaTile %>"></div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col col-md-3"><label class=" form-control-label">Meta Keyword:</label></div>
+                        <div class="col-12 col-md-9 mserro"><input type="text" id="metaKeyword" name="metaKeyword" placeholder="Nhập keyword" class="form-control"  data-rule-required="true" value="<%= list.metaKeyword %>"></div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col col-md-3"><label class=" form-control-label">Meta Description:</label></div>
+                        <div class="col-12 col-md-9 mserro"><textarea  id="metaDescription" name="metaDescription" placeholder="Nhập Description" class="form-control"  data-rule-required="true" rows="2"><%= list.metaDescription %></textarea></div>
+                    </div>                   
+                     <div class="row form-group">
+                        <div class="col col-md-3"><label class=" form-control-label">Thứ tự</label></div>
+                        <div class="col-12 col-md-9 mserro"><input type="text" id="order" name="order" placeholder="Nhập thứ tự sản phẩm" class="form-control" data-rule-required="true" data-rule-number="true" value="<%= list.order %>"></div>
+                    </div>                                          
+                    <div class="row form-group">
+                            <div class="col col-md-3"><label for="fileImg" class=" form-control-label">Chọn ảnh</label></div>
+                            <div class="col-12 col-md-9 mserro"><input type="file" id="fileImg" name="fileImg" class="form-control-file" accept="image/*">
+                             <input type="hidden" value="<%= list.imageUrl %>" id="hidImg" name="hidImg">
+                            </div>
+                    </div>
+                     <div class="row form-group">
+                            <div class="col col-md-3"><label for="fileImg" class=" form-control-label"></label></div>
+                            <div class="col-12 col-md-9 mserro"> 
+                                <% if(list.imageUrl.length > 0 ){
+                                      var n = list.imageUrl.indexOf('.');
+                                      var id_img = list.imageUrl.substring(0,n);
+                                    %>
+                                <div class="imgcontainer" id="<%= list._id %>">
+                                <img class="img-thumbnail" id="<%= list.imageUrl %>" src="<%= list.ImageUrlFull %>" alt="<%= list.Name %>" >    
+                                <a class="imgdelete1" id="<%= id_img %>" title="Xóa ảnh"><i class="fa fa-trash" aria-hidden="true"></i></a>
+                                </div>
+                                <%}%>
+                            </div>
+                    </div>                    
+
+                    <div class="row form-group">
+                        <div class="col col-md-3"><label class=" form-control-label">Mô tả ngắn:</label></div>
+                        <div class="col-12 col-md-9 mserro"><textarea id="preview" name="preview"  placeholder="Nhập mô tả ngắn" class="form-control" rows="3"><%= list.preview %></textarea></div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col col-md-3"><label class=" form-control-label">Chi tiết:</label></div>
+                        <div class="col-12 col-md-9 mserro"><textarea id="detail" name="detail" placeholder="Nhập chi tiết" class="form-control" rows="4"><%= list.detail %></textarea></div>
+                    </div> 
+                    <div class="row form-group">
+                        <div class="col col-md-3"><label class=" form-control-label">Vị trí :</label></div>
+                        <div class="col-12 col-md-9 mserro">
+                        <select name="slOption" id="slOption" class="form-control"  multiple="multiple" data-placeholder="Chọn vị trí">
+                            <option value="1" <% if(list.type.includes("1")){ %> selected <%}%>>Home</option>
+                            <option value="2" <% if(list.type.includes("2")){ %> selected <%}%>>Left</option>
+                            <option value="3" <% if(list.type.includes("3")){ %> selected <%}%>>Right</option>
+                            <option value="4" <% if(list.type.includes("4")){ %> selected <%}%>>Bottom</option>
+                        <select>
+                        </div>
+                    </div>                   
+
+                    <div class="row form-group">
+                        <div class="col col-md-3"> &nbsp; </div>
+                            <div class="col col-md-9">
+                                <div class="form-check">
+                                    <div class="checkbox">
+                                        <label for="chkActive" class="form-check-label ">
+                                            <input type="checkbox" id="chkActive" name="chkActive" class="form-check-input"  <% if(list.active) { %> checked="checkbox" <%}%>> Active
+                                        </label>
+                                    </div>                                                                      
+                                </div>
+                            </div>
+                        </div>
+                         <div class="row form-group">
+                        <div class="col col-md-3">&nbsp;</div>
+                        <div class="col-12 col-md-9"><button type="submit" id="bntAdd" class="btn btn-primary btn-sm"><i class="fa fa-refresh"></i> Cập nhật</button>
+                        <a href="/admin/news/Index" class="btn btn-danger btn-sm"><i class="fa fa-reply"></i> Quay lại</a> </div>
+                    </div> 
+                    
+                </form>
+            </div>            
+        </div>
+    </div>
+</div>
+
+</div>
+<script>
+    var editor = new Jodit('#detail', {
+        textIcons: false,
+        iframe: false,
+        iframeStyle: '*,.jodit_wysiwyg {color:red;}',
+        height: 500,
+        defaultMode: Jodit.MODE_WYSIWYG,
+        observer: {
+            timeout: 100
+        },
+        uploader: {
+          insertImageAsBase64URI: true,
+        },
+
+        // uploader: {
+        //    // url: 'https://xdsoft.net/jodit/connector/index.php?action=fileUpload'
+        //    url: '/api/uploads'
+        // },
+        // filebrowser: {
+        //     // buttons: ['list', 'tiles', 'sort'],
+        //     ajax: {
+        //         //url: 'https://xdsoft.net/jodit/connector/index.php'
+        //         url: '/filebrowse/api/files'
+        //     }
+        // },
+        commandToHotkeys: {
+            'openreplacedialog': 'ctrl+p'
+        }
+        // buttons: ['symbol'],
+        // disablePlugins: 'hotkeys,mobile'
+    });
+    var editor = new Jodit('#preview', {
+        textIcons: false,
+        iframe: false,
+        iframeStyle: '*,.jodit_wysiwyg {color:red;}',
+        height: 300,
+        defaultMode: Jodit.MODE_WYSIWYG,
+        observer: {
+            timeout: 100
+        },
+        uploader: {
+          insertImageAsBase64URI: true,
+        },
+
+        // uploader: {
+        //    // url: 'https://xdsoft.net/jodit/connector/index.php?action=fileUpload'
+        //    url: '/api/uploads'
+        // },
+        // filebrowser: {
+        //     // buttons: ['list', 'tiles', 'sort'],
+        //     ajax: {
+        //         //url: 'https://xdsoft.net/jodit/connector/index.php'
+        //         url: '/filebrowse/api/files'
+        //     }
+        // },
+        commandToHotkeys: {
+            'openreplacedialog': 'ctrl+p'
+        }
+        // buttons: ['symbol'],
+        // disablePlugins: 'hotkeys,mobile'
+    });
+</script>
+
+<script>
+jQuery(document).ready(function($) {
+   
+    $('#slCategory').select2();
+    $("#slOption").select2({
+            placeholder: 'Chọn các vị trí hiển thị',
+            allowClear: true                          
+        });
+
+    $("#Name").bind("keyup", function (e) {
+        var productName = $(this).val();
+        $('#newsKey').val(getSeoTitle(productName));
+        $('#metaTile').val(productName);
+    });   
+    $("#Name").blur(function(){
+        var catetext = $(this).val();
+        $('#newsKey').val(getSeoTitle(catetext));
+        $('#metaTile').val(catetext);
+    });
+
+    function checkExistProductKey(objId){
+        $("#"+objId).blur(function(){
+            $.ajax({
+                type: "GET",
+                async: true,        
+                url: "/api/news/checkExistKeyOtherId/"+$("#newsKey").val()+"/"+$("#id").val(),        
+                cache: false,
+                dataType: "json",
+                success: function (done) {                
+                    if(done.status){ 
+                        $("#keyspan").html(done.message);    
+                        $("#newsKey").focus();
+                        $("#bntAdd").attr("disabled", true);
+                        return false;
+                    }else{
+                        $("#keyspan").html('');    
+                        $("#bntAdd").removeAttr("disabled");
+                    }
+                }
+            });
+        });
+    }
+    checkExistProductKey("Name");
+    checkExistProductKey("newsKey"); 
+    
+    // xoa anh chinh
+    $(document).on("click", ".imgdelete1", function() {
+        event.preventDefault();
+        var id = $(this).attr("id"); 
+        var newsid = $(this).parent().attr("id");      
+        var imgString = $(this).prev().attr("id");
+        bootbox.confirm("Bạn có chắc chắn muốn xóa ảnh này không?", function(result){             
+        if(result){                
+            $.ajax({
+                type: "GET",
+                async: true,
+                url: "/api/news/deleteImageUrl/"+newsid+"/"+imgString,        
+                cache: false,
+                dataType: "json",
+                success: function (done) {                        
+                    if(done.status){ 
+                        $('#'+id).parent().remove();  
+                        $("#hidImg").val('');
+                        console.log('Đã xóa thành công ảnh'+ done.img);                      
+                    }
+                }
+            });                
+            
+            }
+        });
+       
+    });
+   
+});
+</script>
+
+
+</body>
+</html>

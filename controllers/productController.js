@@ -274,7 +274,7 @@ module.exports = {
         productModel.findById(req.params.id, function (err, data) {
             if (err) return handleError(err);
 
-            data.productName = req.body.productName,
+                data.productName = req.body.productName,
                 data.productKey = req.body.productKey,
                 data.category = req.body.slCategory,
                 data.metaTile = req.body.metaTile,
@@ -292,11 +292,7 @@ module.exports = {
                 data.detail = req.body.detail,
                 data.editDate = Date.now(),
                 data.editBy = req.user.name
-
-            console.log(data);
-
-
-            data.save(function (err) {
+                data.save(function (err) {
                 if (err) {
                     req.flash('error_msg', 'Lỗi : ' + err.message);
                     return res.redirect('/' + url);

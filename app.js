@@ -21,21 +21,24 @@ const usersRouter = require('./routes/admin/users');
 const categorysRouter = require('./routes/admin/categorys');
 const productsRouter = require('./routes/admin/products');
 const menusRouter = require('./routes/admin/menus');
+const newsRouter = require('./routes/admin/news');
 
 const categoryApi = require('./api/categoryApi');
 const productApi = require('./api/productApi');
 const menuApi = require('./api/menuApi');
+const newsApi = require('./api/newsApi');
+const fileView = require('./api/fileView/fileViewApi');
 
 const categoryType = require('./models/CategoryType');
 
 const app = express();
 
 app.use(compression({ filter: shouldCompress })); // không nén headers
-function shouldCompress (req, res) {
+function shouldCompress(req, res) {
   if (req.headers['x-no-compression']) {
     // don't compress responses with this request header
     return false
-  } 
+  }
   // fallback to standard filter function
   return compression.filter(req, res)
 }
@@ -78,23 +81,23 @@ app.use(passport.session());
 app.use(flash());
 // Global variables
 
-app.use((req, res, next) => {     
-  res.header('Access-Control-Allow-Origin', '*'); 
-  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');     
-  next();     
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+  next();
   app.options('*', (req, res) => {
-    res.header('Access-Control-Allow-Methods', 'GET, PATCH, PUT, POST, DELETE, OPTIONS');         
-    res.send();     
-  }); 
+    res.header('Access-Control-Allow-Methods', 'GET, PATCH, PUT, POST, DELETE, OPTIONS');
+    res.send();
+  });
 });
 // app.use(helmet());
 
 app.use(function (req, res, next) {
   categoryType.find({}, function (err, categoriesType) {
-       if(err) return next(err);
-       res.locals.categoriesTypeLocal = categoriesType;
-       next();
-    });
+    if (err) return next(err);
+    res.locals.categoriesTypeLocal = categoriesType;
+    next();
+  });
 });
 
 app.use(function (req, res, next) {
@@ -102,7 +105,7 @@ app.use(function (req, res, next) {
   res.locals.error_msg = req.flash('error_msg');
   res.locals.error = req.flash('error');
   res.locals.users = req.user;
-  res.locals.title = req.title;  
+  res.locals.title = req.title;
   res.locals.urladdress = req.originalUrl;
   next();
 });
@@ -112,19 +115,24 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/admin', usersRouter);
 app.use('/admin/category', categorysRouter);
+app.use('/admin/product', productsRouter);
+app.use('/admin/menu', menusRouter);
+app.use('/admin/news', newsRouter);
+
 app.use('/api/category', categoryApi);
 app.use('/api/product', productApi);
 app.use('/api/menu', menuApi);
-app.use('/admin/product', productsRouter);
-app.use('/admin/menu',menusRouter);
+app.use('/api/news', newsApi);
+app.use('/api/fileView', fileView);
+
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
   next(createError(404));
 });
 
 // error handler
-app.use(function(err, req, res, next) {
+app.use(function (err, req, res, next) {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
