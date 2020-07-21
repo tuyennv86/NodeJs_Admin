@@ -19,7 +19,7 @@ module.exports = {
             const list = await advertisementModel.find({ Name: regex }).populate('category').sort({ order: 'asc', createDate: 'desc' }).skip((perPage * page) - perPage).limit(perPage);
             const count = await advertisementModel.countDocuments({ Name: regex });
             res.render('Admin/advertisement/index', {
-                title: 'Danh sách các tin bài',
+                title: 'Danh sách các quảng cáo',
                 data: list,
                 current: page,
                 searchVal: searchQuery,
