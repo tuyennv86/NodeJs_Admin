@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <% include ../../partials/backend/partialLink %>     
+    <% include ../../partials/backend/partialCsript %>   
+    <!-- <link rel="stylesheet" href="/jodit-3.3.8/jodit.min.css"/>
+    <script src="/jodit-3.3.8/jodit.min.js"></script>       -->
+  </head>
+  <body> 
+<% include ../../partials/backend/aside %> 
+<div id="right-panel" class="right-panel">
+<% include ../../partials/backend/header %>
+
+<div class="breadcrumbs">
+    <div class="col-sm-4">
+        <div class="page-header float-left">
+            <div class="page-title">
+                <h1>Sửa quảng cáo</h1>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-8">
+        <div class="page-header float-right">
+            <div class="page-title">
+                <ol class="breadcrumb text-right">
+                    <li><a href="index">Trang chủ</a></li> 
+                    <li><a href="/admin/advertisement/index">Danh sách quảng cáo</a></li>                 
+                    <li class="active">Sửa quảng cáo</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="content mt-3">
+    <div class="animated fadeIn">
+         <div class="card">
+                    <div class="card-header">
+                <strong>Sửa quảng cáo : <%= list.Name %></strong> 
+            </div>
+            <div class="card-body card-block">
+            <% include ../../partials/backend/messages %>                       
+                <form action="/admin/advertisement/edit/<%= list._id %>" method="post" enctype="multipart/form-data" class="form-horizontal form-validate" id="ud">                   
+                    <input type="hidden" value="<%= url %>" name="url" id="url"/>
+                    <div class="row form-group">
+                        <div class="col col-md-3"><label class="form-control-label">Tên quảng cáo:</label></div>
+                        <div class="col-12 col-md-9 mserro"><input type="text" id="Name" name="Name" placeholder="Nhập tên quảng cáo" class="form-control" value="<%= list.Name %>" data-rule-required="true"></div>
+                    </div>         
+                     <div class="row form-group">
+                        <div class="col col-md-3"><label class=" form-control-label">Thứ tự</label></div>
+                        <div class="col-12 col-md-9 mserro"><input type="text" id="order" name="order" placeholder="Nhập thứ tự sản phẩm" class="form-control" value="<%= list.order %>" data-rule-required="true" data-rule-number="true"></div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col col-md-3"><label class="form-control-label">link Url:</label></div>
+                        <div class="col-12 col-md-9 mserro"><input type="text" id="linkUrl" name="linkUrl" placeholder="Nhập link cho ảnh quảng cáo" value="<%= list.linkUrl %>" class="form-control" data-rule-required="true"></div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col col-md-3"><label class="form-control-label">Link ngoài:</label></div>
+                        <div class="col-12 col-md-9 mserro">
+                            <div class="form-check">
+                                <div class="checkbox">
+                                    <label for="chkOutLink" class="form-check-label ">
+                                    <input type="checkbox" id="viewType" name="viewType" class="form-check-input" <% if(list.viewType){%> checked="checkbox" <%}%> > Link Ngoài
+                                    </label>
+                                </div>  
+                            </div> 
+                        </div>
+                    </div>
+                    <div class="row form-group" id="divLink" <% if(!list.viewType){%> style="display: none;" <%}%>>
+                        <div class="col col-md-3"><label class="form-control-label">link Ảnh:</label></div>
+                        <div class="col-12 col-md-9 mserro"><input type="text" id="linkImage" name="linkImage" placeholder="Nhập đường dẫn ảnh" class="form-control" value="<%= list.imageUrl %>" data-rule-required="true"></div>
+                    </div>             
+                    <div class="row form-group" id="divLocal" <% if(list.viewType){%> style="display: none;" <%}%>>
+                            <div class="col col-md-3"><label for="fileImg" class=" form-control-label">Chọn ảnh</label></div>
+                            <div class="col-12 col-md-9 mserro"><input type="file" id="fileImg" name="fileImg" class="form-control-file" accept="image/*">
+                                <input type="hidden" value="<%= list.imageUrl %>" id="hidImg" name="hidImg">
+                            </div>
+                    </div> 
+                    <div class="row form-group">
+                        <div class="col col-md-3"><label for="fileImg" class=" form-control-label"></label></div>
+                        <div class="col-12 col-md-9 mserro">
+                            <div class="imgcontainer">
+                            <img class="img-thumbnail" <% if(!list.viewType){%> src="<%= list.ImageUrlFull %>"<%}else{%> src="<%= list.imageUrl %>" <%}%> alt="<%= list.Name %>" >    
+                            <a class="imgdelete1" id="<%= list._id %>" title="Xóa ảnh"><i class="fa fa-trash" aria-hidden="true"></i></a>
+                            </div>                           
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col col-md-3"><label for="parent" class="form-control-label">Danh mục quảng cáo :</label></div>
+                        <div class="col-12 col-md-9 mserro">
+                        <select name="slCategory" id="slCategory" class="form-control" data-placeholder="Chọn mục quảng cáo..." multiple="multiple" data-rule-required="true">
+                            <%- include('../../partials/backend/dropallTreeArray', {items: listCate, level: 1, array: list.category }) %>                          
+                        <select>
+                        </div>
+                    </div>                    
+                    <div class="row form-group">
+                        <div class="col col-md-3"><label class=" form-control-label">Mô tả:</label></div>
+                        <div class="col-12 col-md-9 mserro"><textarea id="destination" name="destination"  placeholder="Nhập mô tả ngắn" class="form-control" rows="3" cols="50"><%= list.Destination %></textarea></div>
+                    </div>
+                                    
+                    <div class="row form-group">
+                        <div class="col col-md-3"><label class=" form-control-label">Vị trí :</label></div>
+                        <div class="col-12 col-md-9 mserro">
+                        <select name="slOption" id="slOption" class="form-control"  multiple="multiple" data-placeholder="Chọn vị trí">
+                            <option value="1" <% if(list.position.includes("1")){ %> selected <%}%>>Home</option>
+                            <option value="2" <% if(list.position.includes("2")){ %> selected <%}%>>Left</option>
+                            <option value="3" <% if(list.position.includes("3")){ %> selected <%}%>>Right</option>
+                            <option value="4" <% if(list.position.includes("4")){ %> selected <%}%>>Bottom</option>
+                        <select>
+                        </div>
+                    </div> 
+                    <div class="row form-group">
+                        <div class="col col-md-3"> &nbsp; </div>
+                            <div class="col col-md-9">
+                                <div class="form-check">
+                                    <div class="checkbox">
+                                        <label for="chkActive" class="form-check-label ">
+                                            <input type="checkbox" id="chkActive" name="chkActive" class="form-check-input" <% if(list.active){%> checked="checkbox" <%}%>> Active
+                                        </label>
+                                    </div>                                                                     
+                                </div>
+                            </div>
+                        </div>
+                         <div class="row form-group">
+                        <div class="col col-md-3">&nbsp;</div>
+                        <div class="col-12 col-md-9"><button type="submit" id="bntAdd" class="btn btn-primary btn-sm"><i class="fa fa-plus-square-o"></i> Cập nhật</button>
+                        <a href="/admin/advertisement/index" class="btn btn-danger btn-sm"><i class="fa fa-reply"></i> Quay lại</a> </div>
+                    </div> 
+                    
+                </form>
+            </div>            
+        </div>
+    </div>
+</div>
+
+</div>
+
+<script type="text/javascript">
+
+    jQuery(document).ready(function($) {   
+        
+        $('#slCategory').select2();
+        $("#slOption").select2({
+            placeholder: 'Chọn các vị trí hiển thị',
+            allowClear: true                          
+        });
+
+        $("#viewType").change(function () {
+            if (this.checked){ 
+                $('#divLink').show();
+                $("#divLocal").hide();                
+                $("#divLink").removeAttr("disabled");                
+            }
+            else{ 
+                $('#divLink').hide();
+                $("#divLocal").show();                
+                $("#divLink").attr('disabled','disabled');
+            }
+        });
+
+        // xoa anh chinh
+        $(document).on("click", ".imgdelete1", function() {
+            event.preventDefault();
+            var id = $(this).attr("id");           
+            bootbox.confirm("Bạn có chắc chắn muốn xóa ảnh này không?", function(result){             
+            if(result){                
+                $.ajax({
+                    type: "GET",
+                    async: true,
+                    url: "/api/advertisement/deleteImageUrl/"+id,        
+                    cache: false,
+                    dataType: "json",
+                    success: function (done) {                        
+                        if(done.status){ 
+                            $('#'+id).parent().remove();  
+                            $("#hidImg").val('');
+                            $("#linkImage").val('');
+                            console.log('Đã xóa thành công ảnh'+ done.img);                      
+                        }
+                    }
+                });                
+                
+                }
+            });
+        
+        });
+       
+    });
+</script>
+
+
+</body>
+</html>

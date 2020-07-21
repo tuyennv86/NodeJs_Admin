@@ -1,0 +1,7 @@
+<% if(items.length){ 
+    items.forEach(function(item){
+    var space = "";
+    for(var j = 1 ;j< level; j++ ){
+            space = space + "--";
+    } %><option value="<%= item._id %>"<% if(array.includes(item._id)){ %> selected <%}%>><%= space %><%= item.categoryName %></option>
+    <% if(item.children){ %><%- include('dropallTreeArray', {items: item.children, level: level +1, array: array }) %><% } %><% }) } %>
