@@ -3,7 +3,6 @@ const categoryModel = require('../models/Category');
 const categoryTypeModel = require('../models/CategoryType');
 const async = require('async');
 const listtotreemenu = require('../utils/listTreeMenu');
-// const listtotree = require('../utils/listTree');
 const mongoose = require('mongoose');
 
 module.exports = {
