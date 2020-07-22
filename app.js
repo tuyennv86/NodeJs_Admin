@@ -23,12 +23,14 @@ const productsRouter = require('./routes/admin/products');
 const menusRouter = require('./routes/admin/menus');
 const newsRouter = require('./routes/admin/news');
 const advertisementRouter = require('./routes/admin/advertisement');
+const logoRouter = require('./routes/admin/logo');
 
 const categoryApi = require('./api/categoryApi');
 const productApi = require('./api/productApi');
 const menuApi = require('./api/menuApi');
 const newsApi = require('./api/newsApi');
 const advertisementApi = require('./api/advertisementApi');
+const logoApi = require('./api/logoApi');
 const fileView = require('./api/fileView/fileViewApi');
 
 const categoryType = require('./models/CategoryType');
@@ -121,12 +123,14 @@ app.use('/admin/product', productsRouter);
 app.use('/admin/menu', menusRouter);
 app.use('/admin/news', newsRouter);
 app.use('/admin/advertisement', advertisementRouter);
+app.use('/admin/logo', logoRouter);
 
 app.use('/api/category', categoryApi);
 app.use('/api/product', productApi);
 app.use('/api/menu', menuApi);
 app.use('/api/news', newsApi);
 app.use('/api/advertisement', advertisementApi);
+app.use('/api/logo', logoApi);
 app.use('/api/fileView', fileView);
 
 

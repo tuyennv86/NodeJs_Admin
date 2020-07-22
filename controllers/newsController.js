@@ -106,18 +106,18 @@ module.exports = {
         if (!req.files || Object.keys(req.files).length === 0) {
             stringImg = "";
         } else {
-            if (req.files.fileImg !== undefined) {
-                let sampleFile = req.files.fileImg;
-                if (fs.existsSync(filePath.imagePath + sampleFile.name)) {
-                    stringImg = uuidv4() + sampleFile.name;
-                } else {
-                    stringImg = sampleFile.name;
-                }
-                sampleFile.mv(filePath.imagePath + stringImg, function (err) {
-                    if (err)
-                        return res.status(500).send(err);
-                });
+         
+            let sampleFile = req.files.fileImg;
+            if (fs.existsSync(filePath.imagePath + sampleFile.name)) {
+                stringImg = uuidv4() + sampleFile.name;
+            } else {
+                stringImg = sampleFile.name;
             }
+            sampleFile.mv(filePath.imagePath + stringImg, function (err) {
+                if (err)
+                    return res.status(500).send(err);
+            });
+            
         }
         news.imageUrl = stringImg;
 
@@ -153,9 +153,7 @@ module.exports = {
 
         if (!req.files || Object.keys(req.files).length === 0) {
 
-        } else {
-
-            if (req.files.fileImg !== undefined) {
+        } else {           
                 let sampleFile = req.files.fileImg;
                 if (sampleFile.name.length > 0) {
                     // xoa anh cu o server di
@@ -176,36 +174,35 @@ module.exports = {
                 sampleFile.mv(filePath.imagePath + stringImg, function (err) {
                     if (err)
                         return res.status(500).send(err);
-                });
-            }
+                });           
         }
 
         newsModel.findById(req.params.id, function (err, data) {
             if (err) return handleError(err);
 
-                data.Name = req.body.Name,
-                data.newsKey = req.body.newsKey,
-                data.category = req.body.slCategory,
-                data.metaTile = req.body.metaTile,
-                data.metaKeyword = req.body.metaKeyword,
-                data.metaDescription = req.body.metaDescription,
-                data.order = req.body.order,
-                data.imageUrl = stringImg,
-                data.active = req.body.chkActive ? true : false,
-                data.type = req.body.slOption,
-                data.preview = req.body.preview,
-                data.detail = req.body.detail,
-                data.editDate = Date.now(),
-                data.editBy = req.user.name
+            data.Name = req.body.Name,
+            data.newsKey = req.body.newsKey,
+            data.category = req.body.slCategory,
+            data.metaTile = req.body.metaTile,
+            data.metaKeyword = req.body.metaKeyword,
+            data.metaDescription = req.body.metaDescription,
+            data.order = req.body.order,
+            data.imageUrl = stringImg,
+            data.active = req.body.chkActive ? true : false,
+            data.type = req.body.slOption,
+            data.preview = req.body.preview,
+            data.detail = req.body.detail,
+            data.editDate = Date.now(),
+            data.editBy = req.user.name
 
-                data.save(function (err) {
-                    if (err) {
-                        req.flash('error_msg', 'Lỗi : ' + err.message);
-                        return res.redirect('/' + url);
-                    }
-                    req.flash('success_msg', 'Bạn đã cập nhật thành công tin bài : ' + data.Name);
-                    res.redirect('/' + url);
-                });
+            data.save(function (err) {
+                if (err) {
+                    req.flash('error_msg', 'Lỗi : ' + err.message);
+                    return res.redirect('/' + url);
+                }
+                req.flash('success_msg', 'Bạn đã cập nhật thành công tin bài : ' + data.Name);
+                res.redirect('/' + url);
+            });
 
         });
 

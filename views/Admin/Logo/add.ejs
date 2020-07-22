@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <% include ../../partials/backend/partialLink %>     
+    <% include ../../partials/backend/partialCsript %>
+  </head>
+  <body> 
+<% include ../../partials/backend/aside %> 
+<div id="right-panel" class="right-panel">
+<% include ../../partials/backend/header %>
+
+<div class="breadcrumbs">
+    <div class="col-sm-4">
+        <div class="page-header float-left">
+            <div class="page-title">
+                <h1>Thêm mới logo & banner</h1>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-8">
+        <div class="page-header float-right">
+            <div class="page-title">
+                <ol class="breadcrumb text-right">
+                    <li><a href="index">Trang chủ</a></li> 
+                    <li><a href="/admin/logo/index">Danh sách logo & banner</a></li>                 
+                    <li class="active">Thêm mới logo & banner</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="content mt-3">
+    <div class="animated fadeIn">
+         <div class="card">
+                    <div class="card-header">
+                <strong>Thêm mới logo & banner</strong> 
+            </div>
+            <div class="card-body card-block">
+            <% include ../../partials/backend/messages %>                       
+                <form action="/admin/logo/add" method="post" enctype="multipart/form-data" class="form-horizontal form-validate" id="ud"> 
+                    <div class="row form-group">
+                        <div class="col col-md-3"><label class="form-control-label">Tên logo & banner:</label></div>
+                        <div class="col-12 col-md-9 mserro"><input type="text" id="Name" name="Name" placeholder="Nhập tên bản tin" class="form-control" data-rule-required="true"></div>
+                    </div>                                    
+                     <div class="row form-group">
+                        <div class="col col-md-3"><label class=" form-control-label">Thứ tự</label></div>
+                        <div class="col-12 col-md-9 mserro"><input type="text" id="order" name="order" placeholder="Nhập thứ tự sản phẩm" class="form-control" data-rule-required="true" data-rule-number="true"></div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col col-md-3"><label class="form-control-label">Link Url:</label></div>
+                        <div class="col-12 col-md-9 mserro"><input type="text" id="linkUrl" name="linkUrl" placeholder="Nhập tên bản tin" class="form-control" data-rule-required="true"></div>
+                    </div>             
+                    <div class="row form-group">
+                            <div class="col col-md-3"><label for="fileImg" class=" form-control-label">Chọn ảnh</label></div>
+                            <div class="col-12 col-md-9 mserro"><input type="file" id="fileImg" name="fileImg" class="form-control-file" accept="image/*" data-rule-required="true"></div>
+                    </div>                   
+                    <div class="row form-group">
+                        <div class="col col-md-3"><label class=" form-control-label">Mô tả ngắn:</label></div>
+                        <div class="col-12 col-md-9 mserro"><textarea id="Destination" name="Destination"  placeholder="Nhập mô tả ngắn" class="form-control" rows="3" cols="50"></textarea></div>
+                    </div>                               
+                    <div class="row form-group">
+                        <div class="col col-md-3"><label class=" form-control-label">Vị trí :</label></div>
+                        <div class="col-12 col-md-9 mserro">
+                            <div class="form-check">
+                                    <div class="checkbox">
+                                        <label for="type" class="form-check-label ">
+                                            <input type="checkbox" id="type" name="type" class="form-check-input"> Logo
+                                        </label>
+                                    </div>                                                                     
+                                </div>
+                        </div>
+                    </div> 
+                    <div class="row form-group">
+                        <div class="col col-md-3"> &nbsp; </div>
+                            <div class="col col-md-9">
+                                <div class="form-check">
+                                    <div class="checkbox">
+                                        <label for="chkActive" class="form-check-label ">
+                                            <input type="checkbox" id="chkActive" name="chkActive" class="form-check-input"> Active
+                                        </label>
+                                    </div>                                                                     
+                                </div>
+                            </div>
+                        </div>
+                         <div class="row form-group">
+                        <div class="col col-md-3">&nbsp;</div>
+                        <div class="col-12 col-md-9"><button type="submit" id="bntAdd" class="btn btn-primary btn-sm"><i class="fa fa-plus-square-o"></i> Thêm mới</button>
+                        <a href="/admin/logo/index" class="btn btn-danger btn-sm"><i class="fa fa-reply"></i> Quay lại</a> </div>
+                    </div> 
+                    
+                </form>
+            </div>            
+        </div>
+    </div>
+</div>
+
+</div>
+
+</body>
+</html>
