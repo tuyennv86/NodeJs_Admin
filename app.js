@@ -17,6 +17,7 @@ const cors = require('cors');
 const settings = require('./configs/keys');
 
 const indexRouter = require('./routes/index');
+// const gropuRouter = require('./routes/routerGroup');
 const usersRouter = require('./routes/admin/users');
 const categorysRouter = require('./routes/admin/categorys');
 const productsRouter = require('./routes/admin/products');
@@ -117,6 +118,7 @@ app.use(function (req, res, next) {
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
+// app.use('/', gropuRouter);
 app.use('/admin', usersRouter);
 app.use('/admin/category', categorysRouter);
 app.use('/admin/product', productsRouter);
