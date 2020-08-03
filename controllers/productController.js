@@ -87,6 +87,7 @@ module.exports = {
         const product = new productModel({
             productName: req.body.productName,
             productKey: req.body.productKey,
+            productCode: req.body.productCode,
             category: req.body.slCategory,
             metaTile: req.body.metaTile,
             metaKeyword: req.body.metaKeyword,
@@ -276,6 +277,7 @@ module.exports = {
 
                 data.productName = req.body.productName,
                 data.productKey = req.body.productKey,
+                data.productCode = req.body.productCode,
                 data.category = req.body.slCategory,
                 data.metaTile = req.body.metaTile,
                 data.metaKeyword = req.body.metaKeyword,

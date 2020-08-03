@@ -5,6 +5,7 @@ const xss = require('xss-clean');
 const express = require('express');
 
 const path = require('path');
+// const favicon = require('serve-favicon');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const logger = require('morgan');
@@ -17,7 +18,6 @@ const cors = require('cors');
 const settings = require('./configs/keys');
 
 const indexRouter = require('./routes/index');
-// const gropuRouter = require('./routes/routerGroup');
 const usersRouter = require('./routes/admin/users');
 const categorysRouter = require('./routes/admin/categorys');
 const productsRouter = require('./routes/admin/products');
@@ -56,7 +56,7 @@ require('./configs/passport')(passport);
 mongoose.connect(settings.mongoURI, { useCreateIndex: true, useFindAndModify: false, useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => console.log('MongoDB Connected'))
   .catch(err => console.log(err));
-
+// app.use(favicon(__dirname + '/public/favicon.ico'));
 app.use(fileUpload());
 app.use(cors());
 // view engine setup
@@ -118,7 +118,6 @@ app.use(function (req, res, next) {
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
-// app.use('/', gropuRouter);
 app.use('/admin', usersRouter);
 app.use('/admin/category', categorysRouter);
 app.use('/admin/product', productsRouter);

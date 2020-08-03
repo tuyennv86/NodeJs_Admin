@@ -7,6 +7,7 @@ const Schema = mongoose.Schema;
 const ProductSchema = new Schema({
     productName: { type: String, required: true },
     productKey: { type: String, unique:true, required: true },   
+    productCode:{type:String },
     category: { type: Schema.ObjectId, ref: 'Category', required:true },   
     metaTile: {type: String },
     metaKeyword: {type:String},

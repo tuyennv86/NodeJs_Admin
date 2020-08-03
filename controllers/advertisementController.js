@@ -5,7 +5,6 @@ const categoryModel = require('../models/Category');
 const advertisementModel = require('../models/Advertisement');
 const listtotree = require('../utils/listTree');
 const filePath = require('../configs/fileConstants');
-// const getChid = require('../utils/getChild');
 
 module.exports = {
 

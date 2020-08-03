@@ -66,7 +66,6 @@ class logoController {
             }
             objLogo.imageUrl = stringImg;
             await objLogo.save();
-
             req.flash('success_msg', 'Bạn đã thêm mới logo : ' + req.body.Name);
             return res.redirect('/admin/logo/add');
         } catch (error) {
@@ -82,7 +81,7 @@ class logoController {
         }
     }
     static async editPost(req, res, next) {
-        try {          
+        try {
             const objLogo = new logoModel({
                 _id: req.body.id,
                 Name: req.body.Name,
@@ -125,7 +124,7 @@ class logoController {
 
             const data = await logoModel.findByIdAndUpdate(req.body.id, objLogo, {});
             req.flash('success_msg', 'Bạn đã cập nhật thành công : ' + data.Name);
-            return res.redirect('/' + req.body.url);            
+            return res.redirect('/' + req.body.url);
 
         } catch (error) {
             throw new Error(error);

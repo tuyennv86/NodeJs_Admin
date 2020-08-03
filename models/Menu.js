@@ -1,6 +1,5 @@
 const mongoose = require('mongoose');
 const moment = require('moment');
-const { schema } = require('./Category');
 const Schema = mongoose.Schema;
 
 const MenuSchema = new Schema({
