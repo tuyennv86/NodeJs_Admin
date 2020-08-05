@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <% include ../../partials/backend/partialLink %> 
+    <% include ../../partials/backend/partialCsript %>
+  </head>
+  <body> 
+<% include ../../partials/backend/aside %> 
+<div id="right-panel" class="right-panel">
+<% include ../../partials/backend/header %>
+
+<div class="breadcrumbs">
+    <div class="col-sm-4">
+        <div class="page-header float-left">
+            <div class="page-title">
+                <h1>Danh sách các User bị chặn quyền</h1>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-8">
+        <div class="page-header float-right">
+            <div class="page-title">
+                <ol class="breadcrumb text-right">
+                    <li><a href="index">Trang chủ</a></li>                  
+                    <li class="active"><a href="/admin/advertisement/index">Danh sách các user bị chặn quyền</a></li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="content mt-3">
+    <div class="animated fadeIn">
+            
+         <div class="card">
+                    <div class="card-header">
+                        <div class="col col-md-6">                       
+                         <form action="/admin/checkaccess/search" method="POST" class="form-horizontal">
+                            <div class="input-group">                                   
+                                    <input type="text" class="form-control col-md-5 form-control-sm" name="textsearch" id="textsearch" placeholder="Nhập từ khóa tìm kiếm..." value="<%= searchVal %>">
+                                    <span class="input-group-btn">
+                                    <button class="btn btn-info btn-sm" type="submit"><i class="fa fa-search fa-fw"></i> Tìm kiếm</button>
+                                    </span>
+                            </div>
+                        </form>  
+                        </div>
+                        <form action="/admin/checkaccess/index" method="POST" class="form-horizontal">
+                        <div class="col-12 col-md-6">
+                                <div class="float-right">
+                                    <a href="/admin/checkaccess/add" class="btn btn-success btn-sm" style="color: #fff;">
+                                        <i class="fa fa-plus"></i> Thêm mới
+                                    </a>                                                             
+                                </div>
+                        </div>
+                        
+                    </div>
+                    <div class="card-body">
+                     <% include ../../partials/backend/messages %>                       
+                        <table class="table">
+                            <thead>
+                                <tr>                                   
+                                    <th scope="col" style="width:300px">Tên thư mục</th>
+                                    <th scope="col">Đường dẫn</th>                                  
+                                    <th scope="col">UserName</th>                                         
+                                    <th scope="col"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                           <% data.forEach(item => { %>
+                             <tr>                                  
+                                    <td ><%= item.NameUrl %> </td>                                                           
+                                    <td><%= item.Url %></td>
+                                    <td>
+                                        <% item.userId.forEach(e =>{ %>
+                                            <i> <%= e.name %>  <a style="color:crimson;" title="Xóa user" href="#" onclick="deleteUser('<%= e._id %>-<%= item._id %>')" ><i class="fa fa-trash" aria-hidden="true"></i></a></i>&nbsp; ; &nbsp;
+                                        <% }) %>
+                                    </td>
+                                    <td>
+                                        <div class="float-right">
+                                            <a class="btn btn-primary btn-sm" href="/admin/checkaccess/edit/<%= item._id %>"><i class="fa fa-wrench"></i>&nbsp; Add User</a>                                           
+                                        </div>
+                                    </td>
+                                </tr>                                
+                           <% }) %>
+                                                          
+                            </tbody>
+                        </table>                     
+                    </div>                    
+            </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+</div>
+<script>
+jQuery(document).ready(function($) {
+
+    deleteUser = function(id){
+        event.preventDefault();
+        bootbox.confirm("Bạn có chắc chắn XÓA không ?", function (result) {
+            if (result == true) {
+                 $.ajax({
+                    type: "GET",
+                    async: true,
+                    url: "/Admin/CheckAccess/delete/"+id,
+                    cache: true,
+                    dataType: "json",
+                    success: function (done) {                        
+                        if(done.status){
+                             bootbox.alert(done.message, function(){ 
+                                location.reload(true);
+                            });                                              
+                        }else{                                                    
+                            bootbox.alert(done.message); 
+                        }
+                    }
+                });
+            }
+        });
+    }
+
+});
+
+</script>
+</body>
+</html>

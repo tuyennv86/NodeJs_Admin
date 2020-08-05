@@ -100,8 +100,7 @@ module.exports = {
                 advertisementModel.findById(id).exec(callback);
             },
         }, function (err, results) {
-            if (err) { return next(err); }
-            //console.log(results.advertisement);
+            if (err) { return next(err); }                         
             if (results.advertisement != null) {
                 res.render('Admin/advertisement/edit', { title: 'Sửa ảnh quảng cáo ', list: results.advertisement, listCate: listtotree.list_to_tree(results.category), url: url });
             }

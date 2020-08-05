@@ -13,10 +13,13 @@
                         <a href="/admin/index"> <i class="menu-icon fa fa-dashboard"></i>Dashboard </a>
                     </li>
                     <h3 class="menu-title">Quản lý danh mục</h3><!-- /.menu-title -->     
+                    <% if(users.admin) { %>
                     <li><a href="/admin/user/list" title="Quản lý danh sách users"> <i class="menu-icon fa fa-users"></i>Danh sách users </a></li>
-                    <li><a href="#"> <i class="menu-icon fa fa-braille" title="Quản lý quyền truy cập"></i>Chặn quyền truy cập</a></li>
-                    <li><a href="/admin/category/categorytype" title="Quản lý kiểu danh mục"> <i class="menu-icon fa fa-bars"></i>Kiểu danh mục </a></li>                   
+                    <li><a href="/admin/checkaccess/index"> <i class="menu-icon fa fa-braille" title="Quản lý quyền truy cập"></i>Chặn quyền truy cập</a></li>                  
+                    <li><a href="/admin/category/categorytype" title="Quản lý kiểu danh mục"> <i class="menu-icon fa fa-bars"></i>Kiểu danh mục </a></li>      
+                      <% } %>             
                     <li><a href="/admin/category/Index" tile="Quản lý các danh mục"> <i class="menu-icon fa fa-tasks"></i>Tất cả danh mục</a></li>
+                  
                     <li><a href="/admin/menu/Index" title="Quản lý menu"> <i class="menu-icon fa fa-sitemap"></i>Quản lý Menu</a></li>
                     <h3 class="menu-title">Danh sách các danh mục</h3><!-- /.menu-title --> 
                     <% categoriesTypeLocal.forEach(item => { %>

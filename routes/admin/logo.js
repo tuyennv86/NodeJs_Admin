@@ -1,11 +1,13 @@
 const express = require('express');
 const router = express.Router();
-const { isLoggedIn } = require('../../configs/auth');
+const { isLoggedIn, checkAccess } = require('../../configs/auth');
 const logoController = require('../../controllers/logoController');
 
-router.get('/index', isLoggedIn, logoController.index);
-router.get('/index/:page', isLoggedIn, logoController.index);
-router.post('/search', isLoggedIn, logoController.search);
-router.get('/add', isLoggedIn, logoController.add).post('/add', isLoggedIn, logoController.addPost);
-router.get('/edit/:id',isLoggedIn, logoController.edit).post('/edit/:id', isLoggedIn, logoController.editPost);
+router.get('/index', isLoggedIn, checkAccess, logoController.index);
+router.get('/index/:page', isLoggedIn, checkAccess, logoController.index);
+router.post('/search', isLoggedIn, checkAccess, logoController.search);
+router.get('/add', isLoggedIn, checkAccess, logoController.add)
+    .post('/add', isLoggedIn, checkAccess, logoController.addPost);
+router.get('/edit/:id', isLoggedIn, checkAccess, logoController.edit)
+    .post('/edit/:id', isLoggedIn, checkAccess, logoController.editPost);
 module.exports = router;

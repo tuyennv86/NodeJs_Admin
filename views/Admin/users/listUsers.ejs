@@ -71,7 +71,7 @@
                                     <td scope="row"><input type="checkbox" name="checkItem" class="checkItem" value="<%= item._id %>"></td>
                                     <td><%= item.name %></td>
                                     <td><% if(item.ImageUrl != ''){%>
-                                        <img src="/uploads/<%= item.ImageUrl %>" class="align-self-center rounded-circle mr-3" alt="<%= item.name %>" style="width:50px; height:50px;">                                         
+                                        <img src="<%= item.ImageUrlFull %>" class="align-self-center rounded-circle mr-3" alt="<%= item.name %>" style="width:50px; height:50px;">                                         
                                     <% } else { %>
                                         <img src="/images/noimg.jpg" class="align-self-center rounded-circle mr-3" alt="<%= item.name %>" style="width:50px; height:50px;"> 
                                      <% } %></td>

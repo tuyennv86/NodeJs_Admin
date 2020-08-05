@@ -14,7 +14,7 @@ module.exports = {
         const page = req.params.page || 1;
         categoryTypeModel.find({}).sort({ date: 'descending' }).skip((perPage * page) - perPage).limit(perPage).exec(function (err, list) {
             if (err) return next(err);
-            categoryTypeModel.count().exec(function (err, count) {
+            categoryTypeModel.countDocuments().exec(function (err, count) {
                 res.render('Admin/categorys/listCategoryType', {
                     title: 'Danh sách loại danh mục',
                     data: list,

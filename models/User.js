@@ -1,5 +1,7 @@
 const mongoose = require('mongoose');
 const moment = require('moment');
+const filePath = require('../configs/fileConstants');
+
 const UserSchema = new mongoose.Schema({
   name: {
     type: String,
@@ -31,10 +33,11 @@ const UserSchema = new mongoose.Schema({
   }
 });
 
-UserSchema
-.virtual('date_dd_mm_yyyy')
-.get(function () {
+UserSchema.virtual('date_dd_mm_yyyy').get(function () {
   return moment(this.date).format('DD/MM/YYYY, h:mm:ss a');
+});
+UserSchema.virtual('ImageUrlFull').get(function(){
+  return filePath.avataPathView + this.ImageUrl;
 });
 
 module.exports = mongoose.model('User', UserSchema);

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <% include ../../partials/backend/partialLink %>     
+    <% include ../../partials/backend/partialCsript %> 
+  </head>
+  <body> 
+<% include ../../partials/backend/aside %> 
+<div id="right-panel" class="right-panel">
+<% include ../../partials/backend/header %>
+
+<div class="breadcrumbs">
+    <div class="col-sm-4">
+        <div class="page-header float-left">
+            <div class="page-title">
+                <h1>Thêm mới danh sách link chặn quyền</h1>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-8">
+        <div class="page-header float-right">
+            <div class="page-title">
+                <ol class="breadcrumb text-right">
+                    <li><a href="index">Trang chủ</a></li> 
+                    <li><a href="/admin/checkaccess/index">Danh sách link chặn</a></li>                 
+                    <li class="active">Thêm mới danh sách link chặn quyền</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="content mt-3">
+    <div class="animated fadeIn">
+         <div class="card">
+                    <div class="card-header">
+                <strong>Thêm mới quảng cáo</strong> 
+            </div>
+            <div class="card-body card-block">
+            <% include ../../partials/backend/messages %>                       
+                <form action="/admin/checkaccess/add" method="post" enctype="multipart/form-data" class="form-horizontal form-validate" id="ud">                   
+                    <div class="row form-group">
+                        <div class="col col-md-3"><label class="form-control-label">Tên Link:</label></div>
+                        <div class="col-12 col-md-9 mserro"><input type="text" id="NameUrl" name="NameUrl" placeholder="Nhập tên link" class="form-control" data-rule-required="true"></div>
+                    </div>         
+                     <div class="row form-group">
+                        <div class="col col-md-3"><label class=" form-control-label">Link Url</label></div>
+                        <div class="col-12 col-md-9 mserro"><input type="text" id="Url" name="Url" placeholder="Nhập URL link" class="form-control" data-rule-required="true"></div>
+                    </div>                                      
+                       
+                    <div class="row form-group">
+                        <div class="col col-md-3">&nbsp;</div>
+                        <div class="col-12 col-md-9"><button type="submit" id="bntAdd" class="btn btn-primary btn-sm"><i class="fa fa-plus-square-o"></i> Thêm mới</button>
+                        <a href="/admin/checkaccess/index" class="btn btn-danger btn-sm"><i class="fa fa-reply"></i> Quay lại</a> </div>
+                    </div> 
+                    
+                </form>
+            </div>            
+        </div>
+    </div>
+</div>
+
+</div>
+</body>
+</html>

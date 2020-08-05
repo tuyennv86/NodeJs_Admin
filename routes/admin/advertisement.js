@@ -1,11 +1,13 @@
 const express = require('express');
 const router = express.Router();
-const { isLoggedIn } = require('../../configs/auth');
+const { isLoggedIn, checkAccess } = require('../../configs/auth');
 const advertisementController = require('../../controllers/advertisementController');
 
-router.get('/index', isLoggedIn, advertisementController.index);
-router.get('/index/:page',isLoggedIn, advertisementController.index);
-router.post('/search', isLoggedIn, advertisementController.search);
-router.get('/add', isLoggedIn, advertisementController.add).post('/add', isLoggedIn, advertisementController.addPost);
-router.get('/edit/:id',isLoggedIn, advertisementController.edit).post('/edit/:id', isLoggedIn, advertisementController.editPost);
+router.get('/index', isLoggedIn, checkAccess, advertisementController.index);
+router.get('/index/:page', isLoggedIn, checkAccess, advertisementController.index);
+router.post('/search', isLoggedIn, checkAccess, advertisementController.search);
+router.get('/add', isLoggedIn, checkAccess, advertisementController.add)
+    .post('/add', isLoggedIn, checkAccess, advertisementController.addPost);
+router.get('/edit/:id', isLoggedIn, checkAccess, advertisementController.edit)
+    .post('/edit/:id', isLoggedIn, checkAccess, advertisementController.editPost);
 module.exports = router;

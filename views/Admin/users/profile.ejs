@@ -44,7 +44,7 @@
                             <div class="panel-body">
                             <div class="col-md-4 col-xs-12 col-sm-6 col-lg-4">
                             <% if(users.ImageUrl != ''){ %> 
-                            <img src="/uploads/<%= users.ImageUrl %>" id="profile-image1" class="rounded-circle img-responsive" alt="<%= users.name %>"> 
+                            <img src="<%= users.ImageUrlFull %>" id="profile-image1" class="rounded-circle img-responsive" alt="<%= users.name %>"> 
                             <%} else {%>
                             <img src="/images/noimg.jpg" class="rounded-circle img-responsive" alt="<%= users.name %>"> 
                             <%}%>
