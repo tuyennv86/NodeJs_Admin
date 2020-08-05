@@ -34,7 +34,7 @@ module.exports = {
         if (data !== null) {
           // console.log(data + req.user._id);
           // console.log(data.userId.indexOf(req.user._id) + "  vi trí ");
-          if (data.userId.indexOf(req.user._id) >= 0) {
+          if (data.userId.indexOf(req.user._id) > -1) {
             res.redirect('/admin/index');
             return;
           } else
