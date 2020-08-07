@@ -11,7 +11,9 @@ module.exports = {
   index: (req, res, next) => {
     res.render('Admin/index', { title: 'Wellcome to CSM Admin' });
   },
-
+  unauthorized: (req, res, next) => {
+    res.render('Admin/unauthorized', { title: 'Bạn không được quyền truy cập' });
+  },
   //login
   login: (req, res, next) => {
     res.render('Admin/users/login', { title: 'Login to CSM Admin' });

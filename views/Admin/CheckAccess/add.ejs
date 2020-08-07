@@ -2,7 +2,7 @@
 <html>
   <head>
     <% include ../../partials/backend/partialLink %>     
-    <% include ../../partials/backend/partialCsript %> 
+    <% include ../../partials/backend/partialCsript %>     
   </head>
   <body> 
 <% include ../../partials/backend/aside %> 
@@ -44,8 +44,8 @@
                         <div class="col-12 col-md-9 mserro"><input type="text" id="NameUrl" name="NameUrl" placeholder="Nhập tên link" class="form-control" data-rule-required="true"></div>
                     </div>         
                      <div class="row form-group">
-                        <div class="col col-md-3"><label class=" form-control-label">Link Url</label></div>
-                        <div class="col-12 col-md-9 mserro"><input type="text" id="Url" name="Url" placeholder="Nhập URL link" class="form-control" data-rule-required="true"></div>
+                        <div class="col col-md-3"><label class=" form-control-label">Link Url</label><button type="button" id="bntaddtexxt" class="btn btn-link btn-sm" style="float:right;"><i class="fa fa-plus-square-o"></i> Thêm Link</button></div>
+                        <div class="col-12 col-md-9 mserro" id="urlarray"><input type="text" id="Url" name="Url" placeholder="Nhập URL link" class="form-control" data-rule-required="true"></div>
                     </div>                                      
                        
                     <div class="row form-group">
@@ -61,5 +61,12 @@
 </div>
 
 </div>
+<script>
+     jQuery(document).ready(function($) {   
+      $("#bntaddtexxt").click(function(){          
+         $("#urlarray").append("<br><input type='text' name='Url' placeholder='Nhập URL link' class='form-control' data-rule-required='true'>");
+      });
+    });
+    </script>
 </body>
 </html>

@@ -47,7 +47,9 @@
                     </div>         
                      <div class="row form-group">
                         <div class="col col-md-3"><label class=" form-control-label">Link Url</label></div>
-                        <div class="col-12 col-md-9 mserro"><input type="text" id="Url" name="Url" placeholder="Nhập URL link" class="form-control" data-rule-required="true" value="<%= data.Url %>" disabled></div>
+                        <div class="col-12 col-md-9 mserro">
+                            <textarea id="Url" name="Url"  placeholder="Nhập URL link" class="form-control" rows="3" cols="50" disabled><% data.Url.forEach(element => { %><%= element %> &nbsp; ; &nbsp; <%}) %></textarea>                        
+                        </div>
                     </div>                                      
                     <div class="row form-group">
                         <div class="col col-md-3"><label for="slUser" class="form-control-label">danh sách user :</label></div>

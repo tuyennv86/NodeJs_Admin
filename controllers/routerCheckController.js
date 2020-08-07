@@ -26,11 +26,17 @@ class routercheckController {
     static async addPost(req, res, next) {
 
         try {
+            let urlLink = [];
+            if(typeof req.body.Url === 'string'){
+                urlLink = [req.body.Url.toLowerCase()];
+            }else{
+                urlLink = req.body.Url.map(v => v.toLowerCase());
+            }
             const objcheck = new routerCheckModel({
-                Url: req.body.Url,
+                Url: urlLink,
                 NameUrl: req.body.NameUrl
             });
-            await objcheck.save();
+            await objcheck.save();            
             req.flash('success_msg', 'Bạn đã thêm mới Link : ' + req.body.NameUrl);
             return res.redirect('/admin/checkaccess/add');
         } catch (error) {

@@ -2,7 +2,7 @@
 <html>
   <head>
     <% include ../../partials/backend/partialLink %> 
-    <% include ../../partials/backend/partialCsript %>
+    <% include ../../partials/backend/partialCsript %>    
   </head>
   <body> 
 <% include ../../partials/backend/aside %> 
@@ -69,7 +69,9 @@
                            <% data.forEach(item => { %>
                              <tr>                                  
                                     <td ><%= item.NameUrl %> </td>                                                           
-                                    <td><%= item.Url %></td>
+                                    <td><% item.Url.forEach(it =>{ %>
+                                        <%= it %><br>
+                                     <%}) %></td>
                                     <td>
                                         <% item.userId.forEach(e =>{ %>
                                             <i> <%= e.name %>  <a style="color:crimson;" title="Xóa user" href="#" onclick="deleteUser('<%= e._id %>-<%= item._id %>')" ><i class="fa fa-trash" aria-hidden="true"></i></a></i>&nbsp; ; &nbsp;

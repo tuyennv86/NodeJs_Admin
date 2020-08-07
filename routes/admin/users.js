@@ -4,7 +4,7 @@ const userCopntroller = require('../../controllers/userController');
 const { isLoggedIn, notLoggedIn } = require('../../configs/auth');
 
 router.get('/index', isLoggedIn, userCopntroller.index);
-
+router.get('/unauthorized', isLoggedIn, userCopntroller.unauthorized);
 //login
 router.get('/', notLoggedIn, userCopntroller.login)
 .post('/', notLoggedIn, userCopntroller.postLogin);
