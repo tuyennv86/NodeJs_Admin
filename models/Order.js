@@ -8,11 +8,11 @@ const OrderSchema = new Schema({
     email: { type: String, required: true },
     phone: { type: String, required: true },
     total: { type: Number },
-    // products: [{
-    //     product: { type: Schema.ObjectId, ref: 'Product', required:true},
-    //     qunantity: {type: Number, default:0}
-    // }],
-    orderItem: [{ ProductName: String, ProductCode: String, price: Number, qunantity: Number }],
+    products: [{
+        product: { type: Schema.ObjectId, ref: 'Product', required:true},
+        qunantity: {type: Number, default:0}
+    }],
+    // orderItem: [{ ProductName: String, ProductCode: String, imageUrl: String, price: Number, priceOld: Number, qunantity: Number }],
     orderStatus: [{ status: Number, statusName: String, createDate: Date, userName: String }],
     createDate: { type: Date },
     editDate: { type: Date },
@@ -45,4 +45,4 @@ OrderSchema.virtual('editDate_dd_mm_yyyy').get(function () {
     return moment(this.editDate).format('DD/MM/YYYY');
 });
 
-module.exports = mongoose.model('Menu', OrderSchema);
+module.exports = mongoose.model('order', OrderSchema);

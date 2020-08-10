@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <% include ../../partials/backend/partialLink %> 
+    <% include ../../partials/backend/partialCsript %>
+  </head>
+  <body> 
+<% include ../../partials/backend/aside %> 
+<div id="right-panel" class="right-panel">
+<% include ../../partials/backend/header %>
+
+<div class="breadcrumbs">
+    <div class="col-sm-4">
+        <div class="page-header float-left">
+            <div class="page-title">
+                <h1>Danh sách đơn hàng</h1>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-8">
+        <div class="page-header float-right">
+            <div class="page-title">
+                <ol class="breadcrumb text-right">
+                    <li><a href="index">Trang chủ</a></li>                  
+                    <li class="active"><a href="/admin/order/index">Danh sách các đơn hàng</a></li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="content mt-3">
+    <div class="animated fadeIn">
+            
+         <div class="card">
+                    <div class="card-header">
+                        <div class="col col-md-6">                       
+                         <form action="/admin/order/search" method="POST" class="form-horizontal">
+                            <div class="input-group">
+                                    <select class="form-control col-md-3 form-control-sm" id="status" name="status" style="width:200px;">
+                                        <option <%= status == '0' ? 'selected' : ''%> value="0">Tất cả</option>
+                                        <option <%= status == '1' ? 'selected' : ''%> value="1">Chờ xác nhận</option>
+                                        <option <%= status == '2' ? 'selected' : ''%> value="2">Đang giao</option>
+                                        <option <%= status == '3' ? 'selected' : ''%> value="3">Đã nhận</option>
+                                        <option <%= status == '4' ? 'selected' : ''%> value="4">Đã hủy</option>
+                                    </select>                                       
+                                    <input type="text" class="form-control col-md-5 form-control-sm" name="textsearch" id="textsearch" value="<%= searchVal %>" placeholder="Nhập từ khóa tìm kiếm...">
+                                    <span class="input-group-btn">
+                                    <button class="btn btn-info btn-sm" type="submit"><i class="fa fa-search fa-fw"></i> Tìm kiếm</button>
+                                    </span>
+                            </div>
+                        </form>  
+                        </div>
+                        <form action="/admin/order/index/<%= current %>" method="POST" class="form-horizontal">
+                        <div class="col-12 col-md-6">
+                                <div class="float-right">
+                                    <a href="/admin/news/add" class="btn btn-success btn-sm" style="color: #fff;">
+                                        <i class="fa fa-plus"></i> Thêm mới
+                                    </a>                                     
+                                <button type="button" class="btn btn-primary btn-sm" id="bntUpdateOrder">
+                                    <i class="fa fa-refresh"></i> Cập nhật thứ tự
+                                </button>  
+                                    <button type="button" class="btn btn-danger btn-sm" id="bntdeleteList" disabled>
+                                            <i class="fa fa-trash-o"></i> Xóa tin được chọn
+                                        </button>                                   
+                                </div>
+                        </div>
+                        
+                    </div>
+                    <div class="card-body">
+                     <% include ../../partials/backend/messages %>                       
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col"><input type="checkbox" id="checkAll"></th>
+                                    <th scope="col">Họ tên</th>
+                                    <th scope="col">Địa chỉ</th>                                  
+                                    <th scope="col">Số điện thoại</th>
+                                    <th scope="col">Email</th>
+                                    <th scope="col">Tổng tiền</th> 
+                                    <th scope="col">Ngày đặt</th>     
+                                    <th scope="col"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                           <% data.forEach(item => { %>
+                             <tr>
+                                    <td scope="row"><input type="checkbox" name="checkItem" class="checkItem" value="<%= item._id %>"></td>
+                                    <td ><%= item.fullName %><br><a href="#" class="showorder">Chi tiết đơn hàng</a> </td> 
+                                    <td> <%= item.address %> </td>                                    
+                                    <td><%= item.phone %></td>
+                                    <td><%= item.email %></td>
+                                    <td><%= item.editDateIso %></td>                                   
+                                    <td>
+                                        <div class="float-right">
+                                            
+                                        </div>
+                                    </td>
+                                </tr>
+                              
+                                    <tr class="showtr" style="display: none;">
+                                        <td rowspan="2">ảnh</td>
+                                        <td rowspan="3">tên sản phẩm<br><i>số lượng</i></td>
+                                        <td rowspan="2"><span style="text-decoration: line-through; color: #BDB6A8;">giá cũ</span><br> <span style="color: #FF6C00">giá mới</span></td>
+                                    </tr> 
+                                
+                           <% }) %>
+                                                          
+                            </tbody>
+                        </table>
+                      <% include ../../partials/backend/PageNavigation %>
+                    </div>                    
+            </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+</div>
+<script>
+jQuery(document).ready(function($) {
+
+    $(document).on("click", ".showorder", function() {
+        event.preventDefault();     
+       $(".showtr").toggle();
+    });
+
+    // $('#slcate').select2();
+
+    // $('input[name="txtorder"]').on("keypress keyup blur",function (event) {    
+    //     $(this).val($(this).val().replace(/[^\d].+/, ""));
+    //     if ((event.which < 48 || event.which > 57)) {
+    //         event.preventDefault();
+    //     }
+    // });
+
+    //  $('#bntUpdateOrder').click(function() {       
+    //     var list = '';
+    //     $(".table tbody input[name='txtorder']").each(function() {                   
+    //         list += $(this).val()+'-'+$(this).attr('id')+',';
+    //     });
+    //     //console.log(list);
+        
+    //     $.ajax({
+    //     type: "GET",
+    //     async: true,
+    //     url: "/api/news/updateMultilOrder/"+list,        
+    //     cache: true,
+    //     dataType: "json",
+    //     success: function (done) {                        
+    //         if(done.status){ 
+    //             bootbox.alert("Cập nhật thứ tự thành công!", function(){ 
+    //                 location.reload(true);
+    //             });               
+    //         }
+    //     }
+    //     });
+    // });
+
+    // $('#bntdeleteList').click(function() {
+    //     event.preventDefault(); 
+    //     bootbox.confirm("Bạn có chắc chắn XÓA các bản tin đã chọn không ?", function (result) {
+    //         if (result == true) {
+    //             var listId = '';
+    //             $(".table tbody input[name='checkItem']:checked").each(function() {                   
+    //                 listId += $(this).val()+',';
+    //             });
+    //             $.ajax({
+    //             type: "GET",
+    //             async: true,
+    //             url: "/api/news/deleteMultil/"+listId,        
+    //             cache: true,
+    //             dataType: "json",
+    //             success: function (done) {                        
+    //                 if(done.status){ 
+    //                     bootbox.alert(done.message, function(){ 
+    //                         location.reload(true);
+    //                     });               
+    //                 }else{
+    //                     bootbox.alert(done.message);
+    //                 }
+    //             }
+    //             });
+    //         }
+    //     });       
+
+    // });
+
+    // deleteById = function(id){
+    //     event.preventDefault();
+    //     bootbox.confirm("Bạn có chắc chắn XÓA không ?", function (result) {
+    //         if (result == true) {
+    //              $.ajax({
+    //                 type: "GET",
+    //                 async: true,
+    //                 url: "/api/news/deleteById/"+id,        
+    //                 cache: true,
+    //                 dataType: "json",
+    //                 success: function (done) {                        
+    //                     if(done.status){
+    //                          bootbox.alert(done.message, function(){ 
+    //                             location.reload(true);
+    //                         });                                              
+    //                     }else{                                                    
+    //                         bootbox.alert(done.message); 
+    //                     }
+    //                 }
+    //             });
+    //         }
+    //     });
+    // }
+
+});
+
+</script>
+</body>
+</html>

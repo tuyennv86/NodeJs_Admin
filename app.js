@@ -26,6 +26,7 @@ const newsRouter = require('./routes/admin/news');
 const advertisementRouter = require('./routes/admin/advertisement');
 const logoRouter = require('./routes/admin/logo');
 const routercheckRouter = require('./routes/admin/routercheck');
+const orderRouter = require('./routes/admin/order');
 
 const categoryApi = require('./api/categoryApi');
 const productApi = require('./api/productApi');
@@ -127,6 +128,7 @@ app.use('/admin/news', newsRouter);
 app.use('/admin/advertisement', advertisementRouter);
 app.use('/admin/logo', logoRouter);
 app.use('/admin/checkaccess', routercheckRouter);
+app.use('/admin/order',orderRouter);
 
 app.use('/api/category', categoryApi);
 app.use('/api/product', productApi);
