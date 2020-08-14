@@ -8,3 +8,5 @@
 .imgdelete1 { position: absolute; right: 10px; top: 10px; }
 .imgdelete1 .fa{ font-size: 25px; color:#cb2027; }
 .imgdelete1:hover .fa{ font-size: 30px; color: #ff0084; }
+.toggleLink{ color: #138496; font-weight: 600;}
+.toggleLink span{color: #b94a48; font-style: italic; font-weight: normal;}

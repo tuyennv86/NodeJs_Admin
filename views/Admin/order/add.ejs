@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <% include ../../partials/backend/partialLink %>     
+    <% include ../../partials/backend/partialCsript %> 
+  </head>
+  <body> 
+<% include ../../partials/backend/aside %> 
+<div id="right-panel" class="right-panel">
+<% include ../../partials/backend/header %>
+
+<div class="breadcrumbs">
+    <div class="col-sm-4">
+        <div class="page-header float-left">
+            <div class="page-title">
+                <h1>mua hàng</h1>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-8">
+        <div class="page-header float-right">
+            <div class="page-title">
+                <ol class="breadcrumb text-right">
+                    <li><a href="index">Trang chủ</a></li>                  
+                    <li class="active">mua hàng</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="content mt-3">
+    <div class="animated fadeIn">
+         <div class="card">
+                    <div class="card-header">
+                <strong>Thêm mới mua hàng</strong> 
+            </div>
+            <div class="card-body card-block">
+            <% include ../../partials/backend/messages %>                       
+                <form action="/admin/order/add" method="post" enctype="multipart/form-data" class="form-horizontal form-validate" id="ud">                    
+                  
+                    <div class="row form-group">
+                        <div class="col col-md-3"><label for="parent" class="form-control-label">Danh mục sản phẩm :</label></div>
+                        <div class="col-12 col-md-9 mserro">
+                        <select name="slproduct" id="slproduct" class="form-control" data-placeholder="danh mục sản phẩm..." multiple="multiple" data-rule-required="true">                        
+                        <% list.forEach( item =>{ %>
+                            <option value="<%= item._id %>"><%= item.productName %> </option>    
+                        <% }) %>
+                        <select>
+                        </div>
+                    </div>  
+                    <div class="row form-group">
+                        <div class="col col-md-3"><label class="form-control-label">Họ tên :</label></div>
+                        <div class="col-12 col-md-9 mserro"><input type="text" id="fullName" name="fullName" placeholder="Nhập họ tên" class="form-control" data-rule-required="true"></div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col col-md-3"><label class=" form-control-label">Địa chỉ:</label></div>
+                        <div class="col-12 col-md-9 mserro"><input type="text" id="address" name="address" placeholder="Nhập địa chỉ" class="form-control"  data-rule-required="true"><span id="keyspan" style = "color:red;"><span></div>
+                    </div>                  
+                    
+                    <div class="row form-group">
+                        <div class="col col-md-3"><label class=" form-control-label">Điện thoại:</label></div>
+                        <div class="col-12 col-md-9 mserro"><input type="text" id="phone" name="phone" placeholder="Nhập điện thoại" class="form-control"  data-rule-required="true"></div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col col-md-3"><label class=" form-control-label">Email:</label></div>
+                        <div class="col-12 col-md-9 mserro"><input type="text" id="email" name="email" placeholder="Nhập email" class="form-control"  data-rule-required="true"></div>
+                    </div>                   
+                    <div class="row form-group">
+                        <div class="col col-md-3"><label class="form-control-label">Tổng tiền :</label></div>
+                        <div class="col-12 col-md-9 mserro"><input type="text" id="total" name="total" placeholder="Nhập mã sản phẩm" class="form-control" data-rule-required="true"></div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col col-md-3"><label class=" form-control-label">Số lượng:</label></div>
+                        <div class="col-12 col-md-9 mserro"><input type="text" id="quantum" name="quantum" placeholder="Nhập số sản phẩm" class="form-control"  data-rule-required="true"  data-rule-number="true"></div>
+                    </div>
+                                      
+
+                    
+                    <div class="row form-group">
+                        <div class="col col-md-3">&nbsp;</div>
+                        <div class="col-12 col-md-9"><button type="submit" id="bntAdd" class="btn btn-primary btn-sm"><i class="fa fa-plus-square-o"></i> Thêm mới</button>
+                        <a href="/admin/order/Index" class="btn btn-danger btn-sm"><i class="fa fa-reply"></i> Quay lại</a> </div>
+                    </div> 
+                    
+                </form>
+            </div>            
+        </div>
+    </div>
+</div>
+
+</div>
+
+
+<script type="text/javascript">
+
+    jQuery(document).ready(function($) {   
+        
+        $('#slproduct').select2();
+
+        // $("#productName").bind("keyup", function (e) {
+        //     var productName = $(this).val();
+        //     $('#productKey').val(getSeoTitle(productName));
+        //     $('#metaTile').val(productName);
+        // });
+
+        // $("#productName").blur(function(){
+        //     var catetext = $(this).val();
+        //     $('#productKey').val(getSeoTitle(catetext));
+        //     $('#metaTile').val(catetext);
+        // });
+
+        // function checkExistProductKey(objId){
+        //     $("#"+objId).blur(function(){
+        //         $.ajax({
+        //             type: "GET",
+        //             async: true,        
+        //             url: "/api/product/checkExistProductKey/"+$("#productKey").val(),        
+        //             cache: false,
+        //             dataType: "json",
+        //             success: function (done) {                
+        //                 if(done.status){ 
+        //                     $("#keyspan").html(done.message);    
+        //                     $("#productKey").focus();
+        //                     $("#bntAdd").attr("disabled", true);
+        //                     return false;
+        //                 }else{
+        //                     $("#keyspan").html('');    
+        //                     $("#bntAdd").removeAttr("disabled");
+        //                 }
+        //             }
+        //         });
+        //     });
+        // }
+        // checkExistProductKey("productName");
+        // checkExistProductKey("productKey");
+
+   
+    });
+</script>
+
+
+</body>
+</html>

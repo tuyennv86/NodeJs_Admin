@@ -54,12 +54,9 @@
                         <form action="/admin/order/index/<%= current %>" method="POST" class="form-horizontal">
                         <div class="col-12 col-md-6">
                                 <div class="float-right">
-                                    <a href="/admin/news/add" class="btn btn-success btn-sm" style="color: #fff;">
+                                    <a href="/admin/order/add" class="btn btn-success btn-sm" style="color: #fff;">
                                         <i class="fa fa-plus"></i> Thêm mới
-                                    </a>                                     
-                                <button type="button" class="btn btn-primary btn-sm" id="bntUpdateOrder">
-                                    <i class="fa fa-refresh"></i> Cập nhật thứ tự
-                                </button>  
+                                    </a>                                      
                                     <button type="button" class="btn btn-danger btn-sm" id="bntdeleteList" disabled>
                                             <i class="fa fa-trash-o"></i> Xóa tin được chọn
                                         </button>                                   
@@ -78,32 +75,50 @@
                                     <th scope="col">Số điện thoại</th>
                                     <th scope="col">Email</th>
                                     <th scope="col">Tổng tiền</th> 
-                                    <th scope="col">Ngày đặt</th>     
+                                    <th scope="col">Ngày đặt</th>   
+                                    <th scope="col">Trạng thái</th>   
                                     <th scope="col"></th>
                                 </tr>
                             </thead>
                             <tbody>
                            <% data.forEach(item => { %>
-                             <tr>
+                             <tr class="toggle">
                                     <td scope="row"><input type="checkbox" name="checkItem" class="checkItem" value="<%= item._id %>"></td>
-                                    <td ><%= item.fullName %><br><a href="#" class="showorder">Chi tiết đơn hàng</a> </td> 
+                                    <td><%= item.fullName %><br></td> 
                                     <td> <%= item.address %> </td>                                    
                                     <td><%= item.phone %></td>
                                     <td><%= item.email %></td>
-                                    <td><%= item.editDateIso %></td>                                   
+                                    <td style="font-weight: 600; color: #C82333;"><%= item.totalFormat %></td>
+                                    <td><%= item.createDateIso %></td>  
                                     <td>
+                                        <% item.orderStatus.forEach(el => { %>
+                                            <span style="color: red;"> <%= el.statusName %></span><br>
+                                        <% }) %>
+                                    </td>                                 
+                                    <td>
+                                        <% if(item.status == 2){%>
                                         <div class="float-right">
-                                            
-                                        </div>
+                                            <select class="form-control form-control-sm" id="slStatus">                                                
+                                                <option value="<%= item._id %>-3">Đã nhận hàng</option>
+                                                <option value="<%= item._id %>-4">Hủy đơn hàng</option>
+                                            </select> <a class="btn btn-primary btn-sm" href="#" id="bntUpdate"><i class="fa fa-wrench"></i>&nbsp; Cập nhật</a> </div>
+                                            <%}else if(item.status == 1){ %>
+                                                <div class="float-right">
+                                            <select class="form-control form-control-sm" id="slStatus">  
+                                                <option value="<%= item._id %>-2">Đang giao hàng</option>                                              
+                                                <option value="<%= item._id %>-3">Đã nhận hàng</option>
+                                                <option value="<%= item._id %>-4">Hủy đơn hàng</option>
+                                            </select> <a class="btn btn-primary btn-sm" href="#" id="bntUpdate"><i class="fa fa-wrench"></i>&nbsp; Cập nhật</a></div>
+                                            <% } %>
                                     </td>
                                 </tr>
-                              
-                                    <tr class="showtr" style="display: none;">
-                                        <td rowspan="2">ảnh</td>
-                                        <td rowspan="3">tên sản phẩm<br><i>số lượng</i></td>
-                                        <td rowspan="2"><span style="text-decoration: line-through; color: #BDB6A8;">giá cũ</span><br> <span style="color: #FF6C00">giá mới</span></td>
-                                    </tr> 
-                                
+                              <% item.products.forEach(pro => { %>
+                                <tr style="display: none;" class="toggle-more">
+                                    <td colspan="2">  <img src="<%= pro.product.ImageUrlFull %>" class="align-self-center" alt="<%= item.productName %>" style="width:50px; height:50px;"> </td>
+                                    <td colspan="4"><a href="/admin/product/index?search=<%= pro.product.productName %>&cateid=1"><%= pro.product.productName %></a><br><i style="color: teal;">Số lượng : <%= pro.qunantity %></i></td>
+                                    <td colspan="3"><span style="text-decoration: line-through; color: #BDB6A8;"><%= pro.product.priceOldFormat %></span><br> <span style="color: #FF6C00"><%= pro.product.priceFormat %></span></td>
+                                </tr> 
+                                <% }) %>
                            <% }) %>
                                                           
                             </tbody>
@@ -119,96 +134,76 @@
 </div>
 <script>
 jQuery(document).ready(function($) {
+    
+    var showText='+ Chi tiết đơn hàng';
+    var hideText='- Ẩn chi tiết';
 
-    $(document).on("click", ".showorder", function() {
-        event.preventDefault();     
-       $(".showtr").toggle();
+    $('.toggle td:nth-child(2)').wrapInner('<a href="#" class="toggleLink" />');
+    $('.toggleLink').append( ' <span class="showtext">'+showText+'</span>' );   
+    $('.toggle-more').closest('tr').hide();
+    $('a.toggleLink').click(function() {
+        var showTextSpan = $(this).find('.showtext');
+        showTextSpan.html((showTextSpan.html() == hideText) ? showText : hideText);
+        $(this).closest('tr').nextUntil('tr:not(.toggle-more)').toggle();
+        return false; 
     });
 
-    // $('#slcate').select2();
+     $("#bntUpdate").click(function(){
+         var list = $(this).prev().val();
+        event.preventDefault(); 
+        bootbox.confirm("Bạn có cập nhật trạng thái không ?", function (result) {
+            if(result == true){
+                
+                $.ajax({
+                    type: "GET",
+                    async: true,
+                    url: "/admin/order/updateStatus/"+list,        
+                    cache: true,
+                    dataType: "json",
+                    success: function (done) {                        
+                        if(done.status){ 
+                            bootbox.alert(done.message, function(){ 
+                                location.reload(true);
+                            });               
+                        }else{
+                            bootbox.alert(done.message);
+                        }
+                    }
+                });
+                
+            }
+        })
+     });   
 
-    // $('input[name="txtorder"]').on("keypress keyup blur",function (event) {    
-    //     $(this).val($(this).val().replace(/[^\d].+/, ""));
-    //     if ((event.which < 48 || event.which > 57)) {
-    //         event.preventDefault();
-    //     }
-    // });
+    $('#bntdeleteList').click(function() {
+        event.preventDefault(); 
+        bootbox.confirm("Bạn có chắc chắn XÓA các bản tin đã chọn không ?", function (result) {
+            if (result == true) {
+                var listId = '';
+                $(".table tbody input[name='checkItem']:checked").each(function() {                   
+                    listId += $(this).val()+',';
+                });
+                $.ajax({
+                type: "GET",
+                async: true,
+                url: "/admin/order/deleteMultil/"+listId,        
+                cache: true,
+                dataType: "json",
+                success: function (done) {                        
+                    if(done.status){ 
+                        bootbox.alert(done.message, function(){ 
+                            location.reload(true);
+                        });               
+                    }else{
+                        bootbox.alert(done.message);
+                    }
+                }
+                });
+            }
+        });       
 
-    //  $('#bntUpdateOrder').click(function() {       
-    //     var list = '';
-    //     $(".table tbody input[name='txtorder']").each(function() {                   
-    //         list += $(this).val()+'-'+$(this).attr('id')+',';
-    //     });
-    //     //console.log(list);
-        
-    //     $.ajax({
-    //     type: "GET",
-    //     async: true,
-    //     url: "/api/news/updateMultilOrder/"+list,        
-    //     cache: true,
-    //     dataType: "json",
-    //     success: function (done) {                        
-    //         if(done.status){ 
-    //             bootbox.alert("Cập nhật thứ tự thành công!", function(){ 
-    //                 location.reload(true);
-    //             });               
-    //         }
-    //     }
-    //     });
-    // });
-
-    // $('#bntdeleteList').click(function() {
-    //     event.preventDefault(); 
-    //     bootbox.confirm("Bạn có chắc chắn XÓA các bản tin đã chọn không ?", function (result) {
-    //         if (result == true) {
-    //             var listId = '';
-    //             $(".table tbody input[name='checkItem']:checked").each(function() {                   
-    //                 listId += $(this).val()+',';
-    //             });
-    //             $.ajax({
-    //             type: "GET",
-    //             async: true,
-    //             url: "/api/news/deleteMultil/"+listId,        
-    //             cache: true,
-    //             dataType: "json",
-    //             success: function (done) {                        
-    //                 if(done.status){ 
-    //                     bootbox.alert(done.message, function(){ 
-    //                         location.reload(true);
-    //                     });               
-    //                 }else{
-    //                     bootbox.alert(done.message);
-    //                 }
-    //             }
-    //             });
-    //         }
-    //     });       
-
-    // });
-
-    // deleteById = function(id){
-    //     event.preventDefault();
-    //     bootbox.confirm("Bạn có chắc chắn XÓA không ?", function (result) {
-    //         if (result == true) {
-    //              $.ajax({
-    //                 type: "GET",
-    //                 async: true,
-    //                 url: "/api/news/deleteById/"+id,        
-    //                 cache: true,
-    //                 dataType: "json",
-    //                 success: function (done) {                        
-    //                     if(done.status){
-    //                          bootbox.alert(done.message, function(){ 
-    //                             location.reload(true);
-    //                         });                                              
-    //                     }else{                                                    
-    //                         bootbox.alert(done.message); 
-    //                     }
-    //                 }
-    //             });
-    //         }
-    //     });
-    // }
+    });
+    
 
 });
 
