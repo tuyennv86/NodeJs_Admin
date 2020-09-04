@@ -1,0 +1,33 @@
+{ 
+    "_id" : ObjectId("5dd3ae7c0794fc1ab0a9395c"), 
+    "ImageUrl" : "sau.jpg", 
+    "active" : true, 
+    "name" : "Nguyễn Văn Tuyển", 
+    "email" : "tuyennv@gmail.com", 
+    "password" : "$2a$10$aqMxtRQpmltKzUFXF35ZZeogTTG3bUdGKyun8cr7g01fWDizL0RU2", 
+    "date" : ISODate("2019-11-19T08:57:32.339+0000"), 
+    "admin" : true, 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5dd3b0bc0960311f34d88f8e"), 
+    "ImageUrl" : "1596446385978sau.jpg", 
+    "active" : true, 
+    "name" : "Nguyễn Bảo Minh Ngọc", 
+    "email" : "minhngoc@gmail.com", 
+    "password" : "$2a$10$SYuUPJ78fuEDN89avMOvDuH6jt1Eun12PmL2Rs7ZyAzf4eFb6pGkG", 
+    "date" : ISODate("2019-11-19T09:07:08.779+0000"), 
+    "admin" : true, 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5de61fc74a66b932f8e6d771"), 
+    "ImageUrl" : "1596446309266sau.jpg", 
+    "active" : true, 
+    "admin" : false, 
+    "name" : "1111111", 
+    "email" : "1@gmail.com", 
+    "password" : "$2a$10$t9Vbmx4JhlPKfvtaN0DIeecm7y5TV.2BLBaPOiMSCQmpP2IE0SWvu", 
+    "date" : ISODate("2019-12-03T08:41:43.716+0000"), 
+    "__v" : NumberInt(0)
+}

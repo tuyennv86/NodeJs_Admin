@@ -1,0 +1,104 @@
+{ 
+    "_id" : ObjectId("5f02da583fc2781bec8c5577"), 
+    "parent" : ObjectId("5f02da583fc2781bec8c5576"), 
+    "active" : true, 
+    "position" : [
+        "1", 
+        "3"
+    ], 
+    "Name" : "Máy tính xách tay", 
+    "categoryKey" : "may-tinh-xac-tay", 
+    "linkUrl" : "", 
+    "outLink" : false, 
+    "category" : ObjectId("5e9d5c4ed8de050308eac690"), 
+    "categoryType" : ObjectId("5def4bb29d6e7017c8173f03"), 
+    "order" : NumberInt(1), 
+    "createDate" : ISODate("2020-07-06T08:01:28.126+0000"), 
+    "editDate" : ISODate("2020-07-06T08:01:28.126+0000"), 
+    "createBy" : "Nguyễn Văn Tuyển", 
+    "editBy" : "Nguyễn Văn Tuyển", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5f02da813fc2781bec8c5579"), 
+    "parent" : ObjectId("5f02da813fc2781bec8c5578"), 
+    "active" : true, 
+    "position" : [
+        "1", 
+        "3"
+    ], 
+    "Name" : "Máy tính bảng", 
+    "categoryKey" : "may-tinh-bang", 
+    "linkUrl" : "", 
+    "outLink" : false, 
+    "category" : ObjectId("5e9d5e4f01b25503d0b40f10"), 
+    "categoryType" : ObjectId("5def4bb29d6e7017c8173f03"), 
+    "order" : NumberInt(1), 
+    "createDate" : ISODate("2020-07-06T08:02:09.166+0000"), 
+    "editDate" : ISODate("2020-07-06T08:02:09.166+0000"), 
+    "createBy" : "Nguyễn Văn Tuyển", 
+    "editBy" : "Nguyễn Văn Tuyển", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5f02daa53fc2781bec8c557a"), 
+    "parent" : ObjectId("5f02da583fc2781bec8c5577"), 
+    "active" : true, 
+    "position" : [
+        "1"
+    ], 
+    "Name" : "Máy tính xách tay dell", 
+    "categoryKey" : "may-tinh-dell", 
+    "linkUrl" : "", 
+    "outLink" : false, 
+    "category" : ObjectId("5e9d5eac01b25503d0b40f11"), 
+    "categoryType" : ObjectId("5def4bb29d6e7017c8173f03"), 
+    "order" : NumberInt(1), 
+    "createDate" : ISODate("2020-07-06T08:02:45.511+0000"), 
+    "editDate" : ISODate("2020-07-06T08:02:45.511+0000"), 
+    "createBy" : "Nguyễn Văn Tuyển", 
+    "editBy" : "Nguyễn Văn Tuyển", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5f02dac83fc2781bec8c557b"), 
+    "parent" : ObjectId("5f02da813fc2781bec8c5579"), 
+    "active" : true, 
+    "position" : [
+        "1", 
+        "2"
+    ], 
+    "Name" : "Tin về máy tính bảng", 
+    "categoryKey" : "tin-chuyen-nganh", 
+    "linkUrl" : "", 
+    "outLink" : false, 
+    "category" : ObjectId("5ef46534b692e61fe837af70"), 
+    "categoryType" : ObjectId("5dfc806d4f244c5318a551f8"), 
+    "order" : NumberInt(1), 
+    "createDate" : ISODate("2020-07-06T08:03:20.560+0000"), 
+    "editDate" : ISODate("2020-07-06T08:03:20.560+0000"), 
+    "createBy" : "Nguyễn Văn Tuyển", 
+    "editBy" : "Nguyễn Văn Tuyển", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5f02dafd3fc2781bec8c557d"), 
+    "parent" : ObjectId("5f02da813fc2781bec8c5579"), 
+    "active" : true, 
+    "position" : [
+        "1", 
+        "3"
+    ], 
+    "Name" : "Tìm kiếm ", 
+    "categoryKey" : "", 
+    "linkUrl" : "https://www.google.com/", 
+    "outLink" : true, 
+    "category" : ObjectId("5f02db3c3fc2781bec8c557f"), 
+    "categoryType" : ObjectId("5dfc806d4f244c5318a551f8"), 
+    "order" : NumberInt(1), 
+    "createDate" : ISODate("2020-07-06T08:05:16.404+0000"), 
+    "editDate" : ISODate("2020-07-06T08:05:16.404+0000"), 
+    "createBy" : "Nguyễn Văn Tuyển", 
+    "editBy" : "Nguyễn Văn Tuyển", 
+    "__v" : NumberInt(0)
+}

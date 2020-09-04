@@ -1,0 +1,82 @@
+{ 
+    "_id" : ObjectId("5f2bbd5afb32b93ea08f7213"), 
+    "Url" : [
+        "/admin/category/index", 
+        "/admin/category/typeindex/:typeid", 
+        "/admin/category/index/:page"
+    ], 
+    "userId" : [
+        ObjectId("5dd3ae7c0794fc1ab0a9395c"), 
+        ObjectId("5de61fc74a66b932f8e6d771")
+    ], 
+    "NameUrl" : "Xem danh mục", 
+    "__v" : NumberInt(1)
+}
+{ 
+    "_id" : ObjectId("5f2bbd89fb32b93ea08f7214"), 
+    "Url" : [
+        "/admin/category/edit/:id"
+    ], 
+    "userId" : [
+        ObjectId("5de61fc74a66b932f8e6d771")
+    ], 
+    "NameUrl" : "Sửa danh mục", 
+    "__v" : NumberInt(1)
+}
+{ 
+    "_id" : ObjectId("5f2bbda5fb32b93ea08f7215"), 
+    "Url" : [
+        "/admin/category/delete/:id"
+    ], 
+    "userId" : [
+        ObjectId("5dd3b0bc0960311f34d88f8e"), 
+        ObjectId("5de61fc74a66b932f8e6d771")
+    ], 
+    "NameUrl" : "Xóa danh mục", 
+    "__v" : NumberInt(1)
+}
+{ 
+    "_id" : ObjectId("5f2bbefafb32b93ea08f7217"), 
+    "Url" : [
+        "/admin/product/add"
+    ], 
+    "userId" : [
+
+    ], 
+    "NameUrl" : "Thêm sản phẩm", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5f2bbf07fb32b93ea08f7218"), 
+    "Url" : [
+        "/admin/product/edit/:id"
+    ], 
+    "userId" : [
+        ObjectId("5de61fc74a66b932f8e6d771")
+    ], 
+    "NameUrl" : "Sửa sản phẩm", 
+    "__v" : NumberInt(1)
+}
+{ 
+    "_id" : ObjectId("5f2bbf1afb32b93ea08f7219"), 
+    "Url" : [
+        "/admin/product/delete/:id"
+    ], 
+    "userId" : [
+
+    ], 
+    "NameUrl" : "Xóa sản phẩm", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5f2bc7a6042e6544e87f4eaa"), 
+    "Url" : [
+        "/admin/product/index", 
+        "/admin/product/index/:page"
+    ], 
+    "userId" : [
+
+    ], 
+    "NameUrl" : "Xem sản phẩm", 
+    "__v" : NumberInt(2)
+}

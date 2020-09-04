@@ -1,0 +1,46 @@
+{ 
+    "_id" : ObjectId("5f05950b8d1dc100a0a79683"), 
+    "viewCounts" : NumberInt(0), 
+    "imageUrl" : "DSCF0008.JPG", 
+    "active" : true, 
+    "type" : [
+        "2"
+    ], 
+    "preview" : "fd", 
+    "detail" : "", 
+    "Name" : "bản tin số 2", 
+    "newsKey" : "ban-tin-so-2", 
+    "category" : ObjectId("5ef46561b692e61fe837af71"), 
+    "metaTile" : "bản tin số 2", 
+    "metaKeyword" : "meta ky", 
+    "metaDescription" : "fd", 
+    "order" : NumberInt(4), 
+    "createDate" : ISODate("2020-07-08T09:42:35.060+0000"), 
+    "editDate" : ISODate("2020-07-08T09:42:35.060+0000"), 
+    "createBy" : "Nguyễn Văn Tuyển", 
+    "editBy" : "Nguyễn Văn Tuyển", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5f05959e8d1dc100a0a79684"), 
+    "viewCounts" : NumberInt(0), 
+    "imageUrl" : "", 
+    "active" : false, 
+    "type" : [
+
+    ], 
+    "preview" : "", 
+    "detail" : "", 
+    "Name" : "bản tin số 3", 
+    "newsKey" : "ban-tin-so-3", 
+    "category" : ObjectId("5ef46586b692e61fe837af73"), 
+    "metaTile" : "bản tin số 3", 
+    "metaKeyword" : "tin số 3", 
+    "metaDescription" : "đfd", 
+    "order" : NumberInt(1), 
+    "createDate" : ISODate("2020-07-08T09:45:02.657+0000"), 
+    "editDate" : ISODate("2020-07-08T09:45:02.657+0000"), 
+    "createBy" : "Nguyễn Văn Tuyển", 
+    "editBy" : "Nguyễn Văn Tuyển", 
+    "__v" : NumberInt(0)
+}

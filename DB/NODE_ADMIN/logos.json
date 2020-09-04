@@ -1,0 +1,60 @@
+{ 
+    "_id" : ObjectId("5f17b28dd5452f3ec0746b49"), 
+    "imageUrl" : "senvang.jpg", 
+    "linkUrl" : "https://www.google.com/", 
+    "active" : true, 
+    "Destination" : "1fds", 
+    "Name" : "logo 1", 
+    "order" : NumberInt(1), 
+    "type" : NumberInt(1), 
+    "createDate" : ISODate("2020-07-22T03:29:17.884+0000"), 
+    "editDate" : ISODate("2020-07-22T03:29:17.884+0000"), 
+    "createBy" : "Nguyễn Văn Tuyển", 
+    "editBy" : "Nguyễn Văn Tuyển", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5f17ea84fcae4323c47bfeae"), 
+    "imageUrl" : "1.png", 
+    "linkUrl" : "tinhte.vn/", 
+    "active" : true, 
+    "Destination" : "gfgd", 
+    "Name" : "banner 1", 
+    "order" : NumberInt(1), 
+    "type" : NumberInt(2), 
+    "createDate" : ISODate("2020-07-22T07:28:04.170+0000"), 
+    "editDate" : ISODate("2020-07-22T07:28:04.170+0000"), 
+    "createBy" : "Nguyễn Văn Tuyển", 
+    "editBy" : "Nguyễn Văn Tuyển", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5f17eb762f93bc04d8905086"), 
+    "imageUrl" : "c71c0240-08b0-4415-892f-2ee77f1821381.png", 
+    "linkUrl" : "dantri.vn", 
+    "active" : true, 
+    "Destination" : "fdfsd   ds ds sf", 
+    "Name" : "banner 333", 
+    "order" : NumberInt(1), 
+    "type" : NumberInt(1), 
+    "createDate" : ISODate("2020-07-22T07:32:06.421+0000"), 
+    "editDate" : ISODate("2020-07-22T07:36:14.552+0000"), 
+    "createBy" : "Nguyễn Văn Tuyển", 
+    "editBy" : "Nguyễn Văn Tuyển", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5f193dfacd721033d0273e0e"), 
+    "imageUrl" : "z1988142213293_94f8a5ec4eef145dfee4b1b9be06d812.jpg", 
+    "linkUrl" : "https://www.npmjs.com/package/redis", 
+    "active" : true, 
+    "Destination" : "", 
+    "Name" : "logo 3", 
+    "order" : NumberInt(1), 
+    "type" : NumberInt(2), 
+    "createDate" : ISODate("2020-07-23T07:36:26.067+0000"), 
+    "editDate" : ISODate("2020-07-23T07:36:26.067+0000"), 
+    "createBy" : "Nguyễn Văn Tuyển", 
+    "editBy" : "Nguyễn Văn Tuyển", 
+    "__v" : NumberInt(0)
+}

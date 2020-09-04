@@ -1,0 +1,51 @@
+{ 
+    "_id" : ObjectId("5f1518f082776f53d468a53f"), 
+    "category" : [
+        ObjectId("5e9d5c4ed8de050308eac690"), 
+        ObjectId("5e9fb7a04d2d78033895df7c"), 
+        ObjectId("5eeb2a73f4b1aa4c782faec4"), 
+        ObjectId("5ef46534b692e61fe837af70")
+    ], 
+    "imageUrl" : "sd.jpg", 
+    "linkUrl" : "https://www.google.com/", 
+    "active" : true, 
+    "type" : true, 
+    "viewType" : false, 
+    "position" : [
+        "1", 
+        "3"
+    ], 
+    "viewCounts" : NumberInt(0), 
+    "Destination" : "vgf  dgf gffg f", 
+    "Name" : "quảng cáo số 1", 
+    "order" : NumberInt(1), 
+    "createDate" : ISODate("2020-07-20T04:09:20.849+0000"), 
+    "editDate" : ISODate("2020-07-21T06:50:43.669+0000"), 
+    "createBy" : "Nguyễn Văn Tuyển", 
+    "editBy" : "Nguyễn Văn Tuyển", 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5f151b6834e1e25ab0d16baf"), 
+    "category" : [
+        ObjectId("5e9fb7a04d2d78033895df7c"), 
+        ObjectId("5ef46561b692e61fe837af71")
+    ], 
+    "imageUrl" : "https://alohastudio.vn/wp-content/uploads/2019/08/Kinh-nghi%E1%BB%87m-%C4%91i-ch%E1%BB%A5p-%E1%BA%A3nh-c%C6%B0%E1%BB%9Bi-9.jpg", 
+    "linkUrl" : "dantri.vn", 
+    "active" : true, 
+    "type" : true, 
+    "viewType" : true, 
+    "position" : [
+        "1"
+    ], 
+    "viewCounts" : NumberInt(0), 
+    "Destination" : "fdfsfd", 
+    "Name" : "quảng cáo số 3", 
+    "order" : NumberInt(1), 
+    "createDate" : ISODate("2020-07-20T04:19:52.226+0000"), 
+    "editDate" : ISODate("2020-07-21T04:31:33.337+0000"), 
+    "createBy" : "Nguyễn Văn Tuyển", 
+    "editBy" : "Nguyễn Văn Tuyển", 
+    "__v" : NumberInt(0)
+}

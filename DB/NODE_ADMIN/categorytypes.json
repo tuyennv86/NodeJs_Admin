@@ -1,0 +1,24 @@
+{ 
+    "_id" : ObjectId("5def4bb29d6e7017c8173f03"), 
+    "typeInt" : NumberInt(1), 
+    "typeName" : "Sản phẩm", 
+    "createBy" : "tuyennv@gmail.com", 
+    "date" : ISODate("2019-12-10T07:39:30.105+0000"), 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5def54cf2a4b9247a8d12c7f"), 
+    "typeInt" : NumberInt(2), 
+    "typeName" : "Giới thiệu", 
+    "createBy" : "tuyennv@gmail.com", 
+    "date" : ISODate("2019-12-10T08:18:23.148+0000"), 
+    "__v" : NumberInt(0)
+}
+{ 
+    "_id" : ObjectId("5dfc806d4f244c5318a551f8"), 
+    "typeInt" : NumberInt(3), 
+    "typeName" : "Tin tức", 
+    "createBy" : "tuyennv@gmail.com", 
+    "date" : ISODate("2019-12-20T08:03:57.388+0000"), 
+    "__v" : NumberInt(0)
+}

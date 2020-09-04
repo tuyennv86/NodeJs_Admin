@@ -1,0 +1,96 @@
+{ 
+    "_id" : ObjectId("5f3107719efc7245c8b2d1ef"), 
+    "fullName" : "Nguyễn Văn A", 
+    "address" : "Phú Xuyên - Hà Nội", 
+    "email" : "nva@gmail.com", 
+    "phone" : "0912345678", 
+    "total" : NumberInt(40500000), 
+    "products" : [
+        {
+            "qunantity" : NumberInt(3), 
+            "_id" : ObjectId("5f3107719efc7245c8b2d1f1"), 
+            "product" : ObjectId("5eba6885265d360690402bab")
+        }, 
+        {
+            "qunantity" : NumberInt(2), 
+            "_id" : ObjectId("5f3107719efc7245c8b2d1f0"), 
+            "product" : ObjectId("5ecc8d91e6eaeb25b4952cdb")
+        }
+    ], 
+    "orderStatus" : [
+        {
+            "_id" : ObjectId("5f3107719efc7245c8b2d1f2"), 
+            "status" : NumberInt(1), 
+            "statusName" : "Chờ xác nhận", 
+            "createDate" : ISODate("2020-08-10T08:38:09.547+0000"), 
+            "userName" : "Nguyễn Văn Tuyển"
+        }, 
+        {
+            "_id" : ObjectId("5f3505b70976e408b82f013c"), 
+            "status" : NumberInt(4), 
+            "statusName" : "Hủy đơn hàng", 
+            "createDate" : ISODate("2020-08-13T09:19:51.520+0000"), 
+            "userName" : "Nguyễn Văn Tuyển"
+        }
+    ], 
+    "status" : NumberInt(4), 
+    "createDate" : ISODate("2020-08-10T08:38:09.547+0000"), 
+    "editDate" : ISODate("2020-08-10T08:38:09.547+0000"), 
+    "createBy" : "Nguyễn Văn Tuyển", 
+    "editBy" : "Nguyễn Văn Tuyển", 
+    "__v" : NumberInt(2)
+}
+{ 
+    "_id" : ObjectId("5f3107fd72ad11441c8e1cc5"), 
+    "fullName" : "Nguyễn Văn B", 
+    "address" : "Hà Đông - Hà Nội", 
+    "email" : "nvb@gmail.com", 
+    "phone" : "0901234567", 
+    "total" : NumberInt(50700000), 
+    "products" : [
+        {
+            "qunantity" : NumberInt(1), 
+            "_id" : ObjectId("5f3107fd72ad11441c8e1cc8"), 
+            "product" : ObjectId("5eba6885265d360690402bab")
+        }, 
+        {
+            "qunantity" : NumberInt(4), 
+            "_id" : ObjectId("5f3107fd72ad11441c8e1cc7"), 
+            "product" : ObjectId("5ec3a03d0e8f6c1cfc93a250")
+        }, 
+        {
+            "qunantity" : NumberInt(4), 
+            "_id" : ObjectId("5f3107fd72ad11441c8e1cc6"), 
+            "product" : ObjectId("5ecc8d91e6eaeb25b4952cdb")
+        }
+    ], 
+    "orderStatus" : [
+        {
+            "_id" : ObjectId("5f3107fd72ad11441c8e1cc9"), 
+            "status" : NumberInt(1), 
+            "statusName" : "Chờ xác nhận", 
+            "createDate" : ISODate("2020-08-10T08:40:29.744+0000"), 
+            "userName" : "Nguyễn Văn Tuyển"
+        }, 
+        {
+            "_id" : ObjectId("5f34ff3351d0d341dcbbbb6c"), 
+            "status" : NumberInt(2), 
+            "statusName" : "Đang giao hàng", 
+            "createDate" : ISODate("2020-08-13T08:52:03.879+0000"), 
+            "userName" : "Nguyễn Văn Tuyển"
+        }, 
+        {
+            "_id" : ObjectId("5f350158b8ff9627c8364674"), 
+            "status" : NumberInt(3), 
+            "statusName" : "Đã nhận hàng", 
+            "createDate" : ISODate("2020-08-13T09:01:12.423+0000"), 
+            "userName" : "Nguyễn Văn Tuyển"
+        }
+    ], 
+    "status" : NumberInt(3), 
+    "createDate" : ISODate("2020-08-10T08:40:29.744+0000"), 
+    "editDate" : ISODate("2020-08-10T08:40:29.744+0000"), 
+    "createBy" : "Nguyễn Văn Tuyển", 
+    "editBy" : "Nguyễn Văn Tuyển", 
+    "__v" : NumberInt(2)
+}
